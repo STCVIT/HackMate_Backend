@@ -9,7 +9,7 @@ const teamSchema = mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         required:true
     },
-    code:{
+    team_code:{
         type:String,
         required:true,
     },
@@ -27,5 +27,8 @@ const teamSchema = mongoose.Schema({
     },
     link_3:{
         type:String
+    },
+    hack_id:{
+        type:mongoose.Schema.Types.ObjectId
     }
 })

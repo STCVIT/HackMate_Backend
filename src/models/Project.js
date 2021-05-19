@@ -1,22 +1,30 @@
 const mongoose = require('mongoose')
 
-const reviewSchema = new mongoose.Schema({
-    by:{
-        type:mongoose.Schema.Types.ObjectId,
-        required:true,
-        ref:''
+const projectSchema = new mongoose.Schema({
+    name:{
+        type: String,
+        required: true
     },
-    for:{
-        type:mongoose.Schema.Types.ObjectId,
-        required:true,
-        ref:''
+    description:{
+        type: String,
+        required: true
     },
-    review:{
-        type:String,
+    link_1:{
+        type: String,
+        required: true
+    },
+    link_2:{
+        type: String,
+    },
+    link_3:{
+        type: String,
+    },
+    owner_id:{
+        type:mongoose.Schema.Types.ObjectId,
         required:true
     }
 })
 
-const reviewModel = mongoose.model('Review',reviewSchema)
+const projectModel = mongoose.model('Project',projectSchema)
 
-module.exports = reviewModel
+module.exports = projectModel

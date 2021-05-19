@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 
+const mode_of_conduct_options = ['Online','Offline']
+
 const hackSchema = mongoose.model({
     name:{
         type:String,
@@ -13,6 +15,11 @@ const hackSchema = mongoose.model({
     },
     venue:{
         type:String,
+        required:true
+    },
+    mode_of_conduct:{
+        type:String,
+        enum:mode_of_conduct_options,
         required:true
     },
     start:{
@@ -30,5 +37,9 @@ const hackSchema = mongoose.model({
     organiser_id:{
         type:mongoose.Schema.Types.ObjectId,
         required:true
+    },
+    prize_pool:{
+        required:true,
+        type: Number 
     }
 })
