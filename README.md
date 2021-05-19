@@ -1,12 +1,10 @@
-# HACKPORTAL_BACKEND_NODE
-
 <p align="center">
     <a href="https://stcvit.in/" target="_blank"><img src="https://github.com/STCVIT/STC-README/blob/master/gitbanner.png" title="STC-VIT" alt="STC-VIT"></a>
 </p>
-<h1> Enter your project name here</h1>
+<h1> HACKPORTAL</h1>
 
 > <Subtitle>
-> Enter your project description here
+> Hackportal Backend NodeJs
 
 ---
 
