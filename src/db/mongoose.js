@@ -11,4 +11,6 @@ mongoose.connect(process.env.MONGO_DB, {
     useUnifiedTopology: true,
     useCreateIndex: true,
     useFindAndModify: true
+}).then(async()=>{
+    await Participant.init()
 })

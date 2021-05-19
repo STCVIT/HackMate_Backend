@@ -1,16 +1,10 @@
 const mongoose = require('mongoose')
-const privacyOptions=['all','none','team']
 
 const participantSchema = mongoose.Schema({
     email:{
         type: String,
         required: true,
         unique: true,
-    },
-    privacy:{
-        type:String,
-        enum:privacyOptions,
-        default:'none'
     },
     name:{
         type:String,
@@ -30,18 +24,23 @@ const participantSchema = mongoose.Schema({
     photo:{ 
         type:Buffer
     },
-    phone:{
-        type:String,
-        required:true
-    },
     college:{
         type:String
     },
-    address:{
+    uid:{
         type:String,
         required:true
     },
-    uid:{
+    username:{
+        type:String,
+        required:true,
+        unique:true
+    },
+    graduation_year:{
+        type:Number,
+        required:true
+    },
+    bio:{
         type:String,
         required:true
     }
@@ -58,20 +57,20 @@ participantSchema.methods.toJSON= function(){
     return participantObject 
 }
 
-participantSchema.methods.displayInfo = async function(){
-    const participant = this
-    const participantObject = participant.toObject()
+// participantSchema.methods.displayInfo = async function(){
+//     const participant = this
+//     const participantObject = participant.toObject()
    
-    delete participantObject.phone
-    delete participantObject.address
-    delete participantObject.__v
-    delete participantObject._id
-    delete participantObject.uid
-    delete participantObject.privacy
+//     delete participantObject.phone
+//     delete participantObject.address
+//     delete participantObject.__v
+//     delete participantObject._id
+//     delete participantObject.uid
+//     delete participantObject.privacy
     
-    return participantObject 
+//     return participantObject 
   
- }
+//  }
 
 const participantModel = mongoose.model('Participant',participantSchema)
 

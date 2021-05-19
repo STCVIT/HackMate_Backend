@@ -15,10 +15,6 @@ const organiserSchema = mongoose.Schema({
     college:{
         type:String
     },
-    address:{
-        type:String,
-        required:true
-    },
     uid:{
         type:String,
         required:true

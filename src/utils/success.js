@@ -8,7 +8,7 @@ class ResourceCreatedSuccess{
 class ResourceDeletedSuccess{
     constructor(){
         this.statusCode = 201
-        this.message = "Resource Created"
+        this.message = "Resource Deleted"
     }
 }
 

@@ -32,21 +32,43 @@ function signin(){
     //fetch 
     })
     
-   fetch("https://493ad5890d8f.ngrok.io/testIdToken",{
-      method:"POST",
-      headers: new Headers({
-          'Authorization': 'Bearer ' + idToken
-        })
-        .then(response => response.json())
-        .then(json => {
-            console.log(json);
-        })
+  //  fetch("https://493ad5890d8f.ngrok.io/testIdToken",{
+  //     method:"POST",
+  //     headers: new Headers({
+  //         'Authorization': 'Bearer ' + idToken
+  //       })
+  //       .then(response => response.json())
+  //       .then(json => {
+  //           console.log(json);
+  //       })
         
     
-  })
+  // })
     
   })
   .catch((error) => {
     console.log(error)
   });
+
+}
+
+function forgotPassword(){
+// var emailAddress = "deepgandhi151@gmail.com";
+// auth.sendPasswordResetEmail(emailAddress).then(function() {
+//   // Email sent.
+// }).catch(function(error) {
+//   // An error happened.
+// });
+
+//check reset password
+
+var user = firebase.auth().currentUser;
+var newPassword = getASecureRandomPassword();
+
+user.updatePassword(newPassword).then(function() {
+  // Update successful.
+}).catch(function(error) {
+  // An error happened.
+});
+
 }
