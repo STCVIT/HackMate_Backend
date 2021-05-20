@@ -2,9 +2,9 @@ const express = require('express')
 
 const {checkUser,setClaimOrganiser,checkClaimOrganiser,deleteUser} = require('../middleware/auth')
 
-const createProfile = require('../functions/organiser/createProfile')
-const updateProfile = require('../functions/organiser/updateProfile')
-const deleteProfile = require('../functions/organiser/deleteProfile')
+const createProfile = require('../functions/organiser/profile/createProfile')
+const updateProfile = require('../functions/organiser/profile/updateProfile')
+const deleteProfile = require('../functions/organiser/profile/deleteProfile')
 const {getOrganiser} = require('../middleware/getUser')
 
 const router = express.Router()
@@ -22,4 +22,6 @@ router.patch('/updateProfile',checkUser,checkClaimOrganiser,getOrganiser,updateP
 
 //DELETE-PROFILE
 router.delete('/deleteProfile',checkUser,checkClaimOrganiser,getOrganiser,deleteProfile,deleteUser)
+
+module.exports = router
 

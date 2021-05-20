@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const mode_of_conduct_options = ['Online','Offline']
 
-const hackSchema = mongoose.model({
+const hackSchema = mongoose.Schema({
     name:{
         type:String,
         required:true
@@ -23,11 +23,11 @@ const hackSchema = mongoose.model({
         required:true
     },
     start:{
-        type:Date,
+        type:String,
         required:true
     },
     end:{
-        type:Date,
+        type:String,
         required:true
     },
     max_team_size:{
@@ -36,10 +36,14 @@ const hackSchema = mongoose.model({
     },
     organiser_id:{
         type:mongoose.Schema.Types.ObjectId,
-        required:true
+        required:true,
+        ref:'Organiser'
     },
     prize_pool:{
         required:true,
         type: Number 
     }
 })
+
+const Hack = mongoose.model('Hack',hackSchema)
+module.exports = Hack

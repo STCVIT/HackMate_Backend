@@ -1,17 +1,10 @@
 const express = require('express')
 
-// const participantModel = require('../models/Participant')
-
-// const errorHandler = require('../middleware/errorHandler')
-// const successHandler = require('../middleware/successHandler')
 const {checkUser,setClaimParticipant,checkClaimParticipant,deleteUser} = require('../middleware/auth')
 
-const createProfile = require('../functions/participant/createProfile')
-const updateProfile = require('../functions/participant/updateProfile')
-const deleteProfile = require('../functions/participant/deleteProfile')
-
-// const { NotFoundError, BadRequestError } = require('../utils/error')
-// const { ResourceCreatedSuccess, ResourceDeletedSuccess } = require('../utils/success')
+const createProfile = require('../functions/participant/profile/createProfile')
+const updateProfile = require('../functions/participant/profile/updateProfile')
+const deleteProfile = require('../functions/participant/profile/deleteProfile')
 
 const router = express.Router()
 

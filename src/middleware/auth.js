@@ -91,16 +91,15 @@ const setClaimOrganiser = ((req,res,next) =>{
   .auth()
   .setCustomUserClaims(uid, { organiser : true })
   .then(()=>{
-  console.log(
-    'leaving')
-  next()
-  })
+  console.log('leaving')
+  res.status(201).send(req.organiser)  
+})
   .catch((e)=>{
   res.send('Claim not set')
   })
 })
 
-const checkClaimOrganiser = ((req,res)=>{
+const checkClaimOrganiser = ((req,res,next)=>{
   const idToken = req.idToken
   console.log(idToken)
 admin
@@ -108,7 +107,7 @@ admin
   .verifyIdToken(idToken)
   .then((claims) => {
     if (claims.organiser === true) {
-      return res.send('hehe chalo karlo kaam')
+      next()
     }
     else{
       return res.send('ni bhai ye scheme tere liye ni hai')
