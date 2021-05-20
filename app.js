@@ -6,21 +6,18 @@ const app = express()
 const port = process.env.PORT || 3000
 
 //const articleRouter = require('./src/routers/articleRouter')
-const participantRouter = require('./src/routers/participantProfile')
+const participantProfile = require('./src/routers/participantProfile')
+const organiserProfile = require('./src/routers/organiserProfile')
 
 const errorHandler = require('./src/middleware/errorHandler')
 const { NotFoundError } = require('./src/utils/error')
 
 app.use(express.json())
 
-//app.use(articleRouter)
-app.use(participantRouter)
+app.use('/participant',participantProfile)
+app.use('/organiser',organiserProfile)
 
-// app.post('/testIdToken',run,(req,res)=>{
-//     res.send({
-//         message:'your mail has been verified.'
-//     })
-// })
+
 
 app.all('*',(req,res,next)=>{
     throw new NotFoundError()

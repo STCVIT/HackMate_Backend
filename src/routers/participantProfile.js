@@ -22,7 +22,7 @@ const {getParticipant} = require('../middleware/getUser')
 router.post('/createProfile',checkUser,createProfile,setClaimParticipant)
 
 //LOGIN
-router.get('/loginParticipant',checkUser,checkClaimParticipant,getParticipant,(req,res)=>{
+router.get('/login',checkUser,checkClaimParticipant,getParticipant,(req,res)=>{
     res.status(200).send(req.participant)
 })
 
