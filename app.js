@@ -9,6 +9,7 @@ const port = process.env.PORT || 3000
 const participantProfile = require('./src/routers/participantProfile')
 const organiserProfile = require('./src/routers/organiserProfile')
 const organiserHack = require('./src/routers/organiserHack')
+const test = require('./src/routers/test')
 
 const errorHandler = require('./src/middleware/errorHandler')
 const { NotFoundError } = require('./src/utils/error')
@@ -18,7 +19,7 @@ app.use(express.json())
 app.use('/participant',participantProfile)
 app.use('/organiser',organiserProfile)
 app.use('/organiser',organiserHack)
-
+// app.use(test)
 
 
 app.all('*',(req,res,next)=>{

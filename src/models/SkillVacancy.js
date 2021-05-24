@@ -9,7 +9,7 @@ const skillVacancySchema = mongoose.Schema({
     },
     skill:{
         type:String,
-        enum: skillsList,
+        //enum: skillsList,
         required:true
     }
 }) 

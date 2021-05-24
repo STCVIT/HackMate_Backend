@@ -25,4 +25,4 @@ router.patch('/updateProfile',checkUser,checkClaimParticipant,getParticipant,upd
 //DELETE-PROFILE
 router.delete('/deleteProfile',checkUser,checkClaimParticipant,getParticipant,deleteProfile,deleteUser)
 
-module.exports=router
+module.exports = router

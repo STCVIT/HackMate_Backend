@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const Test = require('./Test')
 
 const teamSchema = mongoose.Schema({
     name: {
@@ -12,6 +13,7 @@ const teamSchema = mongoose.Schema({
     team_code: {
         type: String,
         required: true,
+        unique:true
     },
     project_name: {
         type: String
@@ -33,3 +35,6 @@ const teamSchema = mongoose.Schema({
         Ref: 'Hack'
     }
 })
+
+const Team = mongoose.model('Team',teamSchema)
+module.exports = Team

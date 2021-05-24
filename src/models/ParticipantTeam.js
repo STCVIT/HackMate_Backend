@@ -11,5 +11,7 @@ const participantTeamSchema = mongoose.Schema({
     }
 })
 
+participantTeamSchema.index({participant_id:1,team_id:1},{unique:true})
+
 const ParticipantTeam = mongoose.model('ParticipantTeam',participantTeamSchema)
 module.exports = ParticipantTeam 
