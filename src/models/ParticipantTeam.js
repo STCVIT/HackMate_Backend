@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const participantTeamSchema = mongoose.Schema({
+const participantTeamSchema = new mongoose.Schema({
     participant_id:{
         type: mongoose.Schema.Types.ObjectId,
         required:true

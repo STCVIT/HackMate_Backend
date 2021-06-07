@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const skillsList = []
 
-const skillSchema = mongoose.Schema({
+const skillSchema = new mongoose.Schema({
     participant_id:{
         type:mongoose.Schema.Types.ObjectId,
         required:true

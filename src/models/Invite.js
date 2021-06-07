@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const inviteSchema = mongoose.Schema({
+const inviteSchema =new mongoose.Schema({
     participant_id:{
         type:mongoose.Schema.Types.ObjectId,
         required:true

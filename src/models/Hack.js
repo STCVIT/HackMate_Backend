@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const mode_of_conduct_options = ['Online','Offline']
 
-const hackSchema = mongoose.Schema({
+const hackSchema = new mongoose.Schema({
     name:{
         type:String,
         required:true

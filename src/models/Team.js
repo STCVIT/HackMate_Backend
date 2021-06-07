@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Test = require('./Test')
 
-const teamSchema = mongoose.Schema({
+const teamSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true

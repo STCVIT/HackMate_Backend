@@ -1,35 +1,44 @@
 const mongoose = require('mongoose')
-const Test = require('../../src/models/Test')
+const { Test ,Test2} = require('../models/Test')
 const Participant=require('../models/Participant')
-
+const mongodb = require('mongodb')
+const object_id = mongodb.ObjectID
 const path = require('path')
 require("dotenv").config({ path: path.resolve(__dirname, "../../.env") });
 
-// const dbConn = async()=>{
 mongoose.connect(process.env.MONGO_DB, {
     useNewUrlParser: true, 
     useUnifiedTopology: true,
     useCreateIndex: true,
     useFindAndModify: true
 }).then(async()=>{
-    await Participant.init()
+    // await Participant.init()
+    await Test.init()
+    console.log("running run")
+    await run()
 })
-//     const session = await mongoose.startSession()
-//     await session.startTransaction()
 
-//     try {
-//         const one = new Test({_id:'alkd12345678',name:'Deep'},{session});
-//         const two = new Test({ _id:'lkc012345678',nae: 4},{session});
-//         await one.save()
-//         await two.save()
-//         console.log('hi')
-//         await session.commitTransaction()
-//         session.endSession()
-//     } catch (e) {
-//        await session.abortTransaction()
-//         session.endSession()
-//         console.log(e)
-//     }
+const run = async() =>{
+    const session = await mongoose.startSession()
+    await session.withTransaction(async()=>{
+        try {
+            const opts = { session };
+            await Test.create([{
+                //  _id: id1,
+                 name: 'Deep',
+            }], opts)
 
-// })
-///module.exports = connection
+            await Test2.create([
+                {
+                    randomNum:8
+               }
+            ],opts)
+                
+        }catch(e){
+            console.log(e)
+            throw new Error("error aagaya vroo")
+        }
+        
+        })
+    session.endSession()
+}

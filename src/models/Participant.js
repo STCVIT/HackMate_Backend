@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const participantSchema = mongoose.Schema({
+const participantSchema = new mongoose.Schema({
     email:{
         type: String,
         required: true,

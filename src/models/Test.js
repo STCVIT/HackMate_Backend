@@ -1,11 +1,21 @@
 const mongoose = require('mongoose')
 
-const test = mongoose.Schema({
+const test = new mongoose.Schema({
     name:{
         type:String,
         required:true
+    },
+    
+})
+
+const test2 = new mongoose.Schema({
+    randomNum: {
+        type: Number,
+        required: true
     }
 })
 
+
 const Test = mongoose.model('Test',test)
-module.exports = Test
+const Test2 = mongoose.model('Test2',test2)
+module.exports = {Test,Test2}

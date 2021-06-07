@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const skillsList = []
 
-const skillVacancySchema = mongoose.Schema({
+const skillVacancySchema = new mongoose.Schema({
     team_id:{
         type:mongoose.Schema.Types.ObjectId,
         required:true

@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const roles = ['Coordinator','Mentor','Volunteer']
 
-const memberSchema = mongoose.Schema({
+const memberSchema = new mongoose.Schema({
     name:{
         type:String,
         required:true
