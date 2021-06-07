@@ -2,7 +2,8 @@ const mongoose = require('mongoose')
 
 const test = mongoose.Schema({
     name:{
-        type:String
+        type:String,
+        required:true
     }
 })
 

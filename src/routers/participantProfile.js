@@ -10,7 +10,7 @@ const router = express.Router()
 
 const {getParticipant} = require('../middleware/getUser')
 
-
+ 
 //CREATE-PROFILE
 router.post('/createProfile',checkUser,createProfile,setClaimParticipant)
 
