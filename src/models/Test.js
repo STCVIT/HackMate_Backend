@@ -3,8 +3,12 @@ const mongoose = require('mongoose')
 const test = new mongoose.Schema({
     name:{
         type:String,
-        required:true
+        required:true,
     },
+    randomNum:{
+        type : Number,
+        required : true
+    }
     
 })
 

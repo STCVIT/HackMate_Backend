@@ -2,6 +2,7 @@ const express = require('express')
 require('dotenv').config()
 require('./src/db/mongoose')
 const app = express()
+const cors = require('cors')
 const port = process.env.PORT || 3000
 
 //const articleRouter = require('./src/routers/articleRouter')
@@ -14,6 +15,7 @@ const errorHandler = require('./src/middleware/errorHandler')
 const { NotFoundError } = require('./src/utils/error')
 
 app.use(express.json())
+app.use(cors())
 
 app.use('/participant',participantProfile)
 app.use('/organiser',organiserProfile)

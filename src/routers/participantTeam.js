@@ -26,11 +26,6 @@ router.get('/teamSkills/:id',checkUser,checkClaimParticipant,getParticipant,get_
 //ADD-SKILL-REQUIREMENTS
 router.post('/addSkills/:id',checkUser,checkClaimParticipant,getParticipant,checkAdmin,addSkills)
 
-// router.post()//invite
-// router.post()//request
-// router.post()//accept/reject invite => participant
-// router.post()//accept/reject request => leader
-
 //team add/update/delete projects
 //add from existing
 
