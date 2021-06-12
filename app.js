@@ -9,7 +9,8 @@ const port = process.env.PORT || 3000
 const participantProfile = require('./src/routers/participantProfile')
 const organiserProfile = require('./src/routers/organiserProfile')
 const organiserHack = require('./src/routers/organiserHack')
-const team = require('./src/routers/participantTeam')
+const participantTeam = require('./src/routers/participantTeam')
+const hack = require('./src/routers/hack')
 
 const errorHandler = require('./src/middleware/errorHandler')
 const { NotFoundError } = require('./src/utils/error')
@@ -20,8 +21,8 @@ app.use(cors())
 app.use('/participant',participantProfile)
 app.use('/organiser',organiserProfile)
 app.use('/organiser',organiserHack)
-app.use('/team',team)
-// app.use(test)
+app.use('/team',participantTeam)
+app.use('/getHacks',hack)
 
 
 app.all('*',(req,res,next)=>{
