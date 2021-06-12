@@ -1,6 +1,7 @@
 const express = require('express')
 
 const getAllHacks = require('../functions/participant/hack/getAllHacks')
+const gethackById = require('../functions/participant/hack/gethackById')
 const getOngoingHacks = require('../functions/participant/hack/getOngoinHacks')
 const getPopularHack = require('../functions/participant/hack/getPopularHack')
 const getUpcomingHacks = require('../functions/participant/hack/getUpcomingHacks')
@@ -19,5 +20,8 @@ router.get('/all',checkUser,checkClaimParticipant,getAllHacks)
 
 //GET UPCOMING HACKS
 router.get('/upcoming',checkUser,checkClaimParticipant,getUpcomingHacks)
+
+//GET HACK BY ID
+router.get('/:id',checkUser,checkClaimParticipant,gethackById)
 
 module.exports = router
