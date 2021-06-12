@@ -2,6 +2,10 @@ const Hack = require('../../../models/Hack')
 
 const getUpcomingHacks = (req,res) =>{
     try {
+        const page = Number(req.query.page)
+        const start = (page-1)*6
+        const limit = 6 
+        const end = start + limit
         const now = new Date(Date.now())
         const hacks = await Hack.find()
         const eligibleHacks = hacks.filter((hack)=>{
@@ -9,7 +13,8 @@ const getUpcomingHacks = (req,res) =>{
             return hack
         }
     })
-        res.status(200).send(eligibleHacks)
+        const newHacks = eligibleHacks.slice(start,end)
+        res.status(200).send(newHacks)
     } catch (e) {
         res.status(400).send(e)
     }

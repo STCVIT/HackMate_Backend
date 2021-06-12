@@ -2,6 +2,10 @@ const Team = require('../../../models/Team')
 const Hack = require('../../../models/Hack')
 
 const getPopularHack = async(req,res) =>{
+    const page = Number(req.query.page)
+        const start = (page-1)*6
+        const limit = 6 
+        const end = start + limit
     const now = new Date(Date.now())
     const hacks = await Hack.find()
     let popularHacks =[];
@@ -22,7 +26,8 @@ const getPopularHack = async(req,res) =>{
         i++
         if (i==eligibleHacks.length){
             popularHacks.sort(function(a,b){return b[1]-a[1]})
-           res.status(200).send(popularHacks)
+            const newPopularHacks = popularHacks.slice(start,end)
+           res.status(200).send(newPopularHacks)
         }
     })
 }

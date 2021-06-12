@@ -20,9 +20,4 @@ router.get('/all',checkUser,checkClaimParticipant,getAllHacks)
 //GET UPCOMING HACKS
 router.get('/upcoming',checkUser,checkClaimParticipant,getUpcomingHacks)
 
-
-
-
-
-
 module.exports = router
