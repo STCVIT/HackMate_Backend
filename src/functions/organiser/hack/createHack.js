@@ -2,6 +2,8 @@ const Hack = require('../../../models/Hack')
 
 async function createHack(req,res){
     try {
+        req.body.start = new Date(req.body.start)
+        req.body.end = new Date(req.body.end) 
         const hack = new Hack({
             ...req.body,
             organiser_id:req.organiser._id

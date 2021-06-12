@@ -43,8 +43,6 @@ admin
           req.email=user.email
           req.idToken = idToken
           next()
-          console.log('i am exiting check User')
-          console.log(user)
        }
   })
   .catch((error) => {
@@ -73,8 +71,6 @@ const checkClaimParticipant = ((req,res,next)=>{
   .auth()
   .verifyIdToken(idToken)
   .then((claims) => {
-    console.log('hi')
-    console.log(claims.participant)
     if (claims.participant === true) {
       next()
     }
@@ -91,7 +87,6 @@ const setClaimOrganiser = ((req,res,next) =>{
   .auth()
   .setCustomUserClaims(uid, { organiser : true })
   .then(()=>{
-  console.log('leaving')
   res.status(201).send(req.organiser)  
 })
   .catch((e)=>{
@@ -101,7 +96,6 @@ const setClaimOrganiser = ((req,res,next) =>{
 
 const checkClaimOrganiser = ((req,res,next)=>{
   const idToken = req.idToken
-  console.log(idToken)
 admin
   .auth()
   .verifyIdToken(idToken)
@@ -121,9 +115,7 @@ const deleteUser = (req,res)=>{
   .auth()
   .deleteUser(uid)
   .then(() => {
-    console.log('odne')
     res.send('kardiya delete bhai')
-    //successHandler(new ResourceDeletedSuccess,req,res)
   })
   .catch((error) => {
     errorHandler(new BadRequestError,req,res)

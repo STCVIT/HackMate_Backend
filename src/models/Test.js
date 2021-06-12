@@ -19,6 +19,10 @@ const test2 = new mongoose.Schema({
     }
 })
 
+// test.virtual('count').get(()=>{
+//     const abc = 8
+//     return abc
+// })
 
 const Test = mongoose.model('Test',test)
 const Test2 = mongoose.model('Test2',test2)

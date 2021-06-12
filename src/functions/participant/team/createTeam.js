@@ -21,7 +21,7 @@ const createTeam = async(req,res) =>{
                 team_code,
                 hack_id:req.params.hack_id
             }], opts)
-            console.log(one[0])
+            //console.log(one[0])
             const two = await ParticipantTeam.create([
                 {
                 team_id:one[0]._id,

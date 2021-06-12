@@ -23,11 +23,11 @@ const hackSchema = new mongoose.Schema({
         required:true
     },
     start:{
-        type:String,
+        type:Date,
         required:true
     },
     end:{
-        type:String,
+        type:Date,
         required:true
     },
     max_team_size:{

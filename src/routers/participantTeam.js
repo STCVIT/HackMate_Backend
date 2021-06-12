@@ -10,9 +10,10 @@ const addSkills = require('../functions/participant/team/addSkills')
 const get_team_by_name = require('../functions/participant/team/get_team_by_name')
 const join_team_by_code = require('../functions/participant/team/join_by_code')
 const get_team_by_skills = require('../functions/participant/team/get_team_by_skills')
+const checkParticipantHack = require('../middleware/checkParticipantHack')
 
 //CREATE-TEAM
-router.post('/createTeam/:id',checkUser,checkClaimParticipant,getParticipant,createTeam)
+router.post('/createTeam/:hack_id',checkUser,checkClaimParticipant,getParticipant,checkParticipantHack,createTeam)
 
 //GET-BY-TEAM-NAME
 router.get('/teamName/:id',checkUser,checkClaimParticipant,getParticipant,get_team_by_name)

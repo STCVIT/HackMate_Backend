@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const { Test ,Test2} = require('../models/Test')
 
-
+const getPopularHack = require('../routers/hack')
 const models = require('../models/Models')
 const path = require('path');
 const Team = require('../models/Team');
@@ -17,32 +17,34 @@ mongoose.connect(process.env.MONGO_DB, {
     await Promise.all(models.map((model) => model.init()));
 })
 
-const test = async() =>{
-    const session = await mongoose.startSession()
-    await session.withTransaction(async()=>{
-        try {
-            const opts = { session };
-            const one = await Test.create([{
-                 name: 'Deepdg',
-                 randomNum:9
-            }], opts)
-            console.log(one[0].randomNum)
-            const two = await Test2.create([
-                {
-                    randomNum:one[0].randomNum
-               }
-            ],opts)
-                
-        }catch(e){
-            console.log(e)
-            throw new Error("error aagaya vroo")
-        }
-        
-        })
-    session.endSession()
-}
+//getPopularHack()
 
-//test()
+// const test = async() =>{
+//     const session = await mongoose.startSession()
+//     await session.withTransaction(async()=>{
+//         try {
+//             const opts = { session };
+//             const one = await Test.create([{
+//                  name: 'Deepdg',
+//                  randomNum:9
+//             }], opts)
+//             console.log(one[0].randomNum)
+//             const two = await Test2.create([
+//                 {
+//                     randomNum:one[0].randomNum
+//                }
+//             ],opts)
+                
+//         }catch(e){
+//             console.log(e)
+//             throw new Error("error aagaya vroo")
+//         }
+        
+//         })
+//     session.endSession()
+// }
+
+// test()
 
 
 // const runOne = async(req,res) =>{
