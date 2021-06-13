@@ -24,27 +24,20 @@ function signin(){
     const password=document.getElementById('pn').value;
     auth.signInWithEmailAndPassword(email, password)
   .then(({user}) => {
-    // Signed in
-    //
     console.log('signed in!')
    user.getIdToken().then(function(idToken){
     console.log(idToken)
-    //fetch 
+   })
+    fetch("https://cd8ca327978d.ngrok.io/organiser/login",{
+      method:"POST",
+      headers: new Headers({
+          'Authorization': 'Bearer ' + idToken
+        })
+        .then(response => response.json())
+        .then(json => {
+            console.log(json);
+        })
     })
-    
-  //  fetch("https://493ad5890d8f.ngrok.io/testIdToken",{
-  //     method:"POST",
-  //     headers: new Headers({
-  //         'Authorization': 'Bearer ' + idToken
-  //       })
-  //       .then(response => response.json())
-  //       .then(json => {
-  //           console.log(json);
-  //       })
-        
-    
-  // })
-    
   })
   .catch((error) => {
     console.log(error)
@@ -72,3 +65,16 @@ user.updatePassword(newPassword).then(function() {
 });
 
 }
+
+// function abc(){
+//   fetch("https://cd8ca327978d.ngrok.io/")
+//       .then(response => response.json())
+//       .then(json => {
+//           console.log(json);
+//           console.log(json.status)
+//       })
+ 
+// .catch((error) => {
+//   console.log(error)
+// });
+// }

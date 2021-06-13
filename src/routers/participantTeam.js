@@ -11,6 +11,10 @@ const get_team_by_name = require('../functions/participant/team/get_team_by_name
 const join_team_by_code = require('../functions/participant/team/join_by_code')
 const get_team_by_skills = require('../functions/participant/team/get_team_by_skills')
 const checkParticipantHack = require('../middleware/checkParticipantHack')
+const Team = require('../models/Team')
+const ParticipantTeam = require('../models/ParticipantTeam')
+const myTeams = require('../functions/participant/team/getMyTeams')
+const myAdminTeams = require('../functions/participant/team/myAdminTeams')
 
 //CREATE-TEAM
 router.post('/createTeam/:hack_id',checkUser,checkClaimParticipant,getParticipant,checkParticipantHack,createTeam)
@@ -27,7 +31,15 @@ router.get('/teamSkills/:id',checkUser,checkClaimParticipant,getParticipant,get_
 //ADD-SKILL-REQUIREMENTS
 router.post('/addSkills/:id',checkUser,checkClaimParticipant,getParticipant,checkAdmin,addSkills)
 
+//GET-MY-TEAMS
+router.get('/myTeams',checkUser,checkClaimParticipant,getParticipant,myTeams)
+
+//GET-TEAMS-ADMIN(ME)
+router.get('/admin',checkUser,checkClaimParticipant,getParticipant,myAdminTeams)
+
 //team add/update/delete projects
 //add from existing
+//check team name
+//check user name
 
 module.exports = router

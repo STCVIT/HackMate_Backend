@@ -3,6 +3,9 @@ const Organiser = require('../models/Organiser')
 
 const getParticipant = (async (req,res,next)=>{
     const participant = await participantModel.findOne({uid:req.userId})
+    if(!participant){
+        return res.status(400).send('no profile found!')
+    }
     req.participant = participant
     next()
 })

@@ -1,6 +1,6 @@
 const Hack = require('../../../models/Hack')
 
-const getOngoingHacks = (req,res) => {
+const getOngoingHacks = async(req,res) => {
     try {
         const page = Number(req.query.page)
         const start = (page-1)*6

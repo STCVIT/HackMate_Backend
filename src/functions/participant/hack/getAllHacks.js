@@ -1,6 +1,6 @@
 const Hack = require('../../../models/Hack')
 
-const getAllHacks = (req,res) => {
+const getAllHacks = async(req,res) => {
     try {
         const page = Number(req.query.page)
         const start = (page-1)*6

@@ -31,6 +31,10 @@ app.all('*',(req,res,next)=>{
 
 app.use(errorHandler)
 
+// app.get('/',(req,res)=>{
+//     res.status(300).send('lol')
+// })
+
 app.listen(port,()=>{
     console.log('Server is up on Port:', port)
 })
