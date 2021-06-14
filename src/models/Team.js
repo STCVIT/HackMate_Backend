@@ -32,7 +32,8 @@ const teamSchema = new mongoose.Schema({
     },
     hack_id: {
         type: mongoose.Schema.Types.ObjectId,
-        Ref: 'Hack'
+        Ref: 'Hack',
+        default: null
     }
 })
 

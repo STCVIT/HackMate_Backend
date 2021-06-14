@@ -11,6 +11,8 @@ const organiserProfile = require('./src/routers/organiserProfile')
 const organiserHack = require('./src/routers/organiserHack')
 const participantTeam = require('./src/routers/participantTeam')
 const hack = require('./src/routers/hack')
+const skills = require('./src/routers/skills')
+const project = require('./src/routers/project')
 
 const errorHandler = require('./src/middleware/errorHandler')
 const { NotFoundError } = require('./src/utils/error')
@@ -23,6 +25,8 @@ app.use('/organiser',organiserProfile)
 app.use('/organiser',organiserHack)
 app.use('/team',participantTeam)
 app.use('/getHacks',hack)
+app.use('/skills',skills)
+app.use('/projects',project)
 
 
 app.all('*',(req,res,next)=>{
@@ -30,10 +34,6 @@ app.all('*',(req,res,next)=>{
 })
 
 app.use(errorHandler)
-
-// app.get('/',(req,res)=>{
-//     res.status(300).send('lol')
-// })
 
 app.listen(port,()=>{
     console.log('Server is up on Port:', port)

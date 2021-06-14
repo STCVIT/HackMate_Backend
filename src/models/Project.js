@@ -9,17 +9,16 @@ const projectSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    link_1:{
-        type: String,
-        required: true
-    },
-    link_2:{
+    code:{
         type: String,
     },
-    link_3:{
+    design:{
         type: String,
     },
-    owner_id:{
+    demonstration:{
+        type: String,
+    },
+    participant_id:{
         type:mongoose.Schema.Types.ObjectId,
         required:true
     }
