@@ -12,9 +12,12 @@ const {getParticipant} = require('../middleware/getUser')
 
 //check User name route 
 
+//SET-CLAIM-ON-SIGNUP
+router.post('/signup',checkUser,setClaimParticipant)
+
 
 //CREATE-PROFILE
-router.post('/createProfile',checkUser,createProfile,setClaimParticipant)
+router.post('/createProfile',checkUser,checkClaimParticipant,createProfile)
 
 //LOGIN
 router.get('/login',checkUser,checkClaimParticipant,getParticipant,(req,res)=>{

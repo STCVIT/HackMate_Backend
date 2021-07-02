@@ -9,8 +9,11 @@ const {getOrganiser} = require('../middleware/getUser')
 
 const router = express.Router()
 
+//SET-CLAIM-ON-SIGNUP
+router.post('signup',checkUser,setClaimOrganiser)
+
 //CREATE-PROFILE
-router.post('/createProfile',checkUser,createProfile,setClaimOrganiser)
+router.post('/createProfile',checkUser,checkClaimOrganiser,createProfile)
 
 //LOGIN
 router.get('/login',checkUser,checkClaimOrganiser,getOrganiser,(req,res)=>{

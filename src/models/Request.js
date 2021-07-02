@@ -11,5 +11,7 @@ const requestSchema = new mongoose.Schema({
     }
 })
 
+requestSchema.index({participant_id:1,team_id:1},{unique:true})
+
 const Request = mongoose.model('Request',requestSchema)
 module.exports = Request

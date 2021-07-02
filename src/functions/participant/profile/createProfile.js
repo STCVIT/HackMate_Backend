@@ -2,7 +2,7 @@ const participantModel = require('../../../models/Participant')
 const errorHandler = require('../../../middleware/errorHandler')
 const {BadRequestError} = require('../../../utils/error')
 
-async function createProfile(req,res,next){
+async function createProfile(req,res){
     try{
         console.log(req.userId)
         const participant = new participantModel({
@@ -12,8 +12,7 @@ async function createProfile(req,res,next){
         })
         console.log(participant)
         await participant.save()
-        req.participant = participant
-        next()
+        res.status(201).send(participant) 
     }
     catch(e){
         errorHandler(new BadRequestError,req,res)

@@ -26,4 +26,6 @@ router.patch('/updateHack/:id',checkUser,checkClaimOrganiser,updateHack)
 //DELETE-HACK
 router.delete('/deleteHack/:id',checkUser,checkClaimOrganiser,deleteHack)
 
+//teams interested
+
 module.exports = router

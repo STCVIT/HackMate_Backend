@@ -58,7 +58,7 @@ const setClaimParticipant = ((req,res) =>{
   .auth()
   .setCustomUserClaims(uid, { participant : true })
   .then(()=>{
-  res.status(201).send(req.participant)
+  res.status(201).send('hi')
 })
   .catch((e)=>{
     errorHandler(new BadRequestError,req,res)
@@ -80,14 +80,14 @@ const checkClaimParticipant = ((req,res,next)=>{
   })
 })
 
-const setClaimOrganiser = ((req,res,next) =>{
+const setClaimOrganiser = ((req,res) =>{
   console.log('entered claim fn')
   const uid = req.userId
   admin
   .auth()
   .setCustomUserClaims(uid, { organiser : true })
   .then(()=>{
-  res.status(201).send(req.organiser)  
+  res.status(201).send('hi')  
 })
   .catch((e)=>{
   res.send('Claim not set')

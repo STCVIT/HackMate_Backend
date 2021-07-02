@@ -10,6 +10,7 @@ const inviteSchema =new mongoose.Schema({
         required:true
     }
 })
+inviteSchema.index({participant_id:1,team_id:1},{unique:true})
 
 const Invite = mongoose.model('Invite',inviteSchema)
 module.exports = Invite

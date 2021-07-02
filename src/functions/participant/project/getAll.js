@@ -9,7 +9,8 @@ const getAll = async(req,res)=>{
         let myTeams = []
         let i = 0
         teams.forEach(async(team)=>{
-            const temp = await Team.find({_id:team.team_id})//,name:{$size:1}})
+            const temp = await Team.find({_id:team.team_id})//,project_name:{$size:1}})
+            //if
             myTeams.push(temp)
             i++
             if(i==teams.length){

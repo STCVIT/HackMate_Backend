@@ -36,15 +36,22 @@ const checkdate =()=>{
 //TO-DO-LIST
 
 //profile picture azure(3)
+
 //skills=>test
-//projects_team
-//projects_personal
-//transaction control in skills/skill vacancy
+//projects_team=>add/update dekho
+
+//projects_personal=>test
+//transaction control in skill vacancy
+
 //reviews
+
 //get participant (ML?) by username/domain
+
 //send request+invite
 //accept,reject req,invite
+
 //get interested teams (hack)
+
 //notifications??
 
 

@@ -2,7 +2,7 @@ const Organiser = require('../../../models/Organiser')
 const errorHandler = require('../../../middleware/errorHandler')
 const {BadRequestError} = require('../../../utils/error')
 
-async function createProfile(req,res,next){
+async function createProfile(req,res){
     try{
         console.log(req.userId)
         const organiser = new Organiser({
@@ -12,8 +12,7 @@ async function createProfile(req,res,next){
         })
         console.log(organiser)
         await organiser.save()
-        req.organiser = organiser
-        next()
+        res.status(201).send(organiser) 
     }
     catch(e){
         errorHandler(new BadRequestError,req,res)
