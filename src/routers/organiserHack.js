@@ -8,6 +8,7 @@ const getHacks = require('../functions/organiser/hack/getHacks')
 const getHack = require('../functions/organiser/hack/getHack') 
 const updateHack = require('../functions/organiser/hack/updateHack')
 const deleteHack = require('../functions/organiser/hack/deleteHack')
+const getInterestedTeams = require('../functions/organiser/hack/getInterestedTeams')
 
 const router = express.Router()
 
@@ -26,6 +27,8 @@ router.patch('/updateHack/:id',checkUser,checkClaimOrganiser,updateHack)
 //DELETE-HACK
 router.delete('/deleteHack/:id',checkUser,checkClaimOrganiser,deleteHack)
 
-//teams interested
+//check and paginate this
+//GET-INTERESTED-TEAMS
+router.get('/getTeams/:hack_id',checkUser,checkClaimOrganiser,getInterestedTeams)
 
 module.exports = router

@@ -9,12 +9,14 @@ const deleteProfile = require('../functions/participant/profile/deleteProfile')
 const router = express.Router()
 
 const {getParticipant} = require('../middleware/getUser')
-
-//check User name route 
+const checkUserName = require('../functions/participant/profile/checkUserName')
 
 //SET-CLAIM-ON-SIGNUP
 router.post('/signup',checkUser,setClaimParticipant)
 
+//check
+//CHECK-USERNAME
+router.post('/checkUserName',checkUser,checkClaimParticipant,checkUserName)
 
 //CREATE-PROFILE
 router.post('/createProfile',checkUser,checkClaimParticipant,createProfile)
