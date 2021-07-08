@@ -11,38 +11,38 @@ const get_team_by_name = require('../functions/participant/team/get_team_by_name
 const join_team_by_code = require('../functions/participant/team/join_by_code')
 const get_team_by_skills = require('../functions/participant/team/get_team_by_skills')
 const checkParticipantHack = require('../middleware/checkParticipantHack')
-const Team = require('../models/Team')
-const ParticipantTeam = require('../models/ParticipantTeam')
 const myTeams = require('../functions/participant/team/getMyTeams')
 const myAdminTeams = require('../functions/participant/team/myAdminTeams')
 const checkTeamName = require('../functions/participant/team/checkTeamName')
+
+//create/join/req/invite=>(check hack)
 
 //check
 //CHECK-TEAM-NAME
 router.post('/checkName',checkUser,checkClaimParticipant,checkTeamName)
 
 //CREATE-TEAM
-router.post('/createTeam/:hack_id',checkUser,checkClaimParticipant,getParticipant,checkParticipantHack,createTeam)
+router.post('/createTeam/:hack_id',checkUser,checkClaimParticipant,getParticipant,createTeam)
 
 //GET-BY-TEAM-NAME
-router.get('/teamName/:id',checkUser,checkClaimParticipant,getParticipant,get_team_by_name)
+router.get('/teamName/:hack_id',checkUser,checkClaimParticipant,getParticipant,get_team_by_name)
 
 //JOIN-BY-TEAM-CODE
-router.post('/code/:id',checkUser,checkClaimParticipant,getParticipant,join_team_by_code)
+router.post('/code/:hack_id',checkUser,checkClaimParticipant,getParticipant,join_team_by_code)
 
 //GET-BY-TEAM-SKILLS
-router.get('/teamSkills/:id',checkUser,checkClaimParticipant,getParticipant,get_team_by_skills)
+router.get('/teamSkills/:hack_id',checkUser,checkClaimParticipant,getParticipant,get_team_by_skills)
 
 //ADD-SKILL-REQUIREMENTS
-router.post('/addSkills/:id',checkUser,checkClaimParticipant,getParticipant,checkAdmin,addSkills)
+router.post('/addSkills/:team_id',checkUser,checkClaimParticipant,getParticipant,checkAdmin,addSkills)
 
 //GET-MY-TEAMS
 router.get('/myTeams',checkUser,checkClaimParticipant,getParticipant,myTeams)
 
 //GET-TEAMS-ADMIN(ME)
-router.get('/admin',checkUser,checkClaimParticipant,getParticipant,myAdminTeams)
+router.get('/admin/:hack_id',checkUser,checkClaimParticipant,getParticipant,myAdminTeams)
 
 //add from existing
-//check user name
+//check max size before adding
 
 module.exports = router

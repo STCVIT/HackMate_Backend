@@ -22,8 +22,17 @@ class BadRequestError extends Error{
     }
 }
 
+class TeamFullError extends Error{
+    constructor(){
+        super()
+        this.statusCode = 400
+        this.message = 'Team is Full'
+    }
+}
+
 module.exports = {
     NotFoundError,
     AuthenticationError,
-    BadRequestError
+    BadRequestError,
+    TeamFullError
 }

@@ -3,7 +3,7 @@ const ParticipantTeam = require('../../../models/ParticipantTeam')
 
 const myTeams = async(req,res) =>{
     try {
-        const teams = await ParticipantTeam.find({participant_id:req})
+        const teams = await ParticipantTeam.find({participant_id:req.participant._id})
         let myTeams = []
         let i = 0
         teams.forEach(async(team)=>{

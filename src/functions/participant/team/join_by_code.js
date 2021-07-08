@@ -1,11 +1,22 @@
 const Team = require('../../../models/Team')
 const participantTeam = require('../../../models/ParticipantTeam')
+const Hack = require('../../../models/Hack')
+const { TeamFullError } = require('../../../utils/error')
+const errorHandler = require('../../../middleware/errorHandler')
+
 
 const join_team_by_code = async(req,res)=>{
     try {
-        const team = await Team.findOne({hack_id:req.params.id,team_code:req.body.code})
+        const team = await Team.findOne({hack_id:req.params.hack_id,team_code:req.body.code})
         if(!team){
             return res.status(404).send('No team found!')
+        }
+        if(req.params.id!=null){
+            const hack = await Hack.findById(req.params.id)
+            const participants = await participantTeam.find({team_id:team._id})
+            if(hack.max_team_size===participants.length){
+                throw new TeamFullError
+            }
         }
         const joinTeam = new participantTeam({
             participant_id:req.participant._id,
@@ -15,11 +26,9 @@ const join_team_by_code = async(req,res)=>{
         res.status(201).send(joinTeam)
         
     } catch (e) {
-        res.send(e)
+        errorHandler(e,req,res)
     }
     
 }
-
-//add try catch ehere and prev file
 
 module.exports = join_team_by_code
