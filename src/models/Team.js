@@ -37,5 +37,7 @@ const teamSchema = new mongoose.Schema({
     }
 })
 
+//teamSchema.index({name:1,hack_id:1},{unique:true})
+
 const Team = mongoose.model('Team',teamSchema)
 module.exports = Team

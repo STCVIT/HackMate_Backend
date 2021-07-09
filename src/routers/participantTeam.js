@@ -14,6 +14,7 @@ const checkParticipantHack = require('../middleware/checkParticipantHack')
 const myTeams = require('../functions/participant/team/getMyTeams')
 const myAdminTeams = require('../functions/participant/team/myAdminTeams')
 const checkTeamName = require('../functions/participant/team/checkTeamName')
+const createNullHackTeam = require('../functions/participant/team/createNullHackTeam')
 
 //create/join/req/invite=>(check hack)
 
@@ -23,6 +24,9 @@ router.post('/checkName',checkUser,checkClaimParticipant,checkTeamName)
 
 //CREATE-TEAM
 router.post('/createTeam/:hack_id',checkUser,checkClaimParticipant,getParticipant,createTeam)
+
+//CREATE TEAM WITH NO HACK
+router.post('/createNull',checkUser,checkClaimParticipant,getParticipant,createNullHackTeam)
 
 //GET-BY-TEAM-NAME
 router.get('/teamName/:hack_id',checkUser,checkClaimParticipant,getParticipant,get_team_by_name)
