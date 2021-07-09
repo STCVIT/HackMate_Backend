@@ -19,8 +19,8 @@ const join_team_by_code = async(req,res)=>{
             }
         }
         const joinTeam = new participantTeam({
-            participant_id:req.participant._id,
-            team_id:team._id
+            team_id:team._id,
+            participant_id:req.participant._id
         })
         await joinTeam.save()
         res.status(201).send(joinTeam)

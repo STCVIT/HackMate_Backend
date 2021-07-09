@@ -14,13 +14,6 @@ const Hack = require('../models/Hack')
 const { TeamFullError } = require('../utils/error')
 const errorHandler = require('../middleware/errorHandler')
 
-router.post('/invite/:team_id/:participant_id',checkUser,checkClaimParticipant,checkAdmin,createInvite)
-
-router.get('/myInvites',checkUser,checkClaimParticipant,getParticipant,myInvites)
-
-router.post('/inviteStatus/:status/:inv_id',checkUser,checkClaimParticipant,getParticipant,inviteStatus)
-
-module.exports = router
 
 const inviteStatus = async(req,res) =>{
     try {
@@ -49,3 +42,13 @@ const inviteStatus = async(req,res) =>{
         errorHandler(e,req,res)
     }    
 }
+
+
+router.post('/invite/:team_id/:participant_id',checkUser,checkClaimParticipant,checkAdmin,createInvite)
+
+router.get('/myInvites',checkUser,checkClaimParticipant,getParticipant,myInvites)
+
+router.post('/inviteStatus/:status/:inv_id',checkUser,checkClaimParticipant,getParticipant,inviteStatus)
+
+module.exports = router
+

@@ -2,6 +2,8 @@ const Request = require('../../../models/Request')
 const errorHandler = require('../../../middleware/errorHandler')
 const {NotFoundError} = require('../../../utils/error')
 
+
+//wrong
 const myRequests = async(req,res)=>{
     try {
         const requests = await Request.find({participant_id:req.participant._id})

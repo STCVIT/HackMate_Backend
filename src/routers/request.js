@@ -1,4 +1,4 @@
-
+const express = require('express')
 const createRequest = require('../functions/participant/requests/createRequest')
 const myRequests = require('../functions/participant/requests/myRequests')
 const { checkUser, checkClaimParticipant } = require('../middleware/auth')
@@ -14,18 +14,6 @@ const { TeamFullError } = require('../utils/error')
 const errorHandler = require('../middleware/errorHandler')
 
 //check for participant in team/hack middleware addition 
-
-//CREATE-REQUEST
-router.post('/request',checkUser,checkClaimParticipant,getParticipant,createRequest)
-
-//GET-MY-REQUESTS
-router.get('/myRequests',checkUser,checkClaimParticipant,getParticipant,myRequests)
-
-//ACCEPT-REJECT-REQUEST
-router.post('/requestStatus/:status/:req_id',checkUser,checkClaimParticipant,getParticipant,checkAdmin,reqStatus)
-
-module.exports = router
-
 
 //check
 const reqStatus = async(req,res) =>{
@@ -55,3 +43,20 @@ const reqStatus = async(req,res) =>{
         errorHandler(e,req,res)
     }    
 }
+
+
+
+//CREATE-REQUEST
+router.post('/request',checkUser,checkClaimParticipant,getParticipant,createRequest)
+
+//GET-MY-REQUESTS
+router.get('/myRequests',checkUser,checkClaimParticipant,getParticipant,myRequests)
+
+//ACCEPT-REJECT-REQUEST
+router.post('/requestStatus/:status/:req_id',checkUser,checkClaimParticipant,getParticipant,checkAdmin,reqStatus)
+
+
+
+module.exports = router
+
+

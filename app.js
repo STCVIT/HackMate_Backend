@@ -14,6 +14,7 @@ const skills = require('./src/routers/skills')
 const project = require('./src/routers/project')
 const request = require('./src/routers/request')
 const invite = require('./src/routers/invite')
+const review = require('./src/routers/review')
 
 const errorHandler = require('./src/middleware/errorHandler')
 const { NotFoundError } = require('./src/utils/error')
@@ -30,6 +31,7 @@ app.use('/skills',skills)
 app.use('/projects',project)
 app.use('/invites',invite)
 app.use('/requests',request)
+app.use('/review',review)
 
 
 app.all('*',(req,res,next)=>{

@@ -1,21 +1,21 @@
 const mongoose = require('mongoose')
 
 const reviewSchema = new mongoose.Schema({
-    by:{
+    by_id:{
         type:mongoose.Schema.Types.ObjectId,
         required:true,
-        ref:''
     },
-    for:{
+    for_id:{
         type:mongoose.Schema.Types.ObjectId,
         required:true,
-        ref:''
     },
     review:{
         type:String,
         required:true
     }
 })
+
+reviewSchema.index({by_id:1,for_id:1},{unique:true})
 
 const reviewModel = mongoose.model('Review',reviewSchema)
 
