@@ -8,7 +8,7 @@ async function updateProject(req,res){
        return res.status(400).send('Invalid Updates!')
     }
     try {
-        const project = await projectModel.findOne({_id:req.params._id})
+        const project = await projectModel.findOne({_id:req.params.project_id})
         updates.forEach((update)=>project[update]=req.body[update])
         await project.save()
         res.send(project)

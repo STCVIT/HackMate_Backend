@@ -40,9 +40,8 @@ router.post('/addSkills/:team_id',checkUser,checkClaimParticipant,getParticipant
 router.get('/myTeams',checkUser,checkClaimParticipant,getParticipant,myTeams)
 
 //GET-TEAMS-ADMIN(ME)
-router.get('/admin/:hack_id',checkUser,checkClaimParticipant,getParticipant,myAdminTeams)
+router.get('/admin',checkUser,checkClaimParticipant,getParticipant,myAdminTeams)
 
-//add from existing
-//check max size before adding
+//leave team and delete team and update(add projects)
 
 module.exports = router
