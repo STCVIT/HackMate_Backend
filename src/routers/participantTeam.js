@@ -39,6 +39,7 @@ router.post('/addSkills/:team_id',checkUser,checkClaimParticipant,getParticipant
 //GET-MY-TEAMS
 router.get('/myTeams',checkUser,checkClaimParticipant,getParticipant,myTeams)
 
+//object id is non nullable
 //GET-TEAMS-ADMIN(ME)
 router.get('/admin',checkUser,checkClaimParticipant,getParticipant,myAdminTeams)
 
