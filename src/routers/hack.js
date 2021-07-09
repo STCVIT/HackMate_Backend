@@ -1,7 +1,7 @@
 const express = require('express')
 
 const getAllHacks = require('../functions/participant/hack/getAllHacks')
-const gethackById = require('../functions/participant/hack/gethackById')
+const gethackById = require('../functions/participant/hack/getHackById')
 const getOngoingHacks = require('../functions/participant/hack/getOngoinHacks')
 const getPopularHack = require('../functions/participant/hack/getPopularHack')
 const getUpcomingHacks = require('../functions/participant/hack/getUpcomingHacks')
