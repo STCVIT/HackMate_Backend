@@ -2,6 +2,7 @@ const errorHandler = require('../../../middleware/errorHandler')
 const {BadRequestError} = require('../../../utils/error')
 const mongoose = require('mongoose')
 require('../../../db/mongoose')
+const teamCode = require('../../../middleware/teamCode')
 
 const Team = require('../../../models/Team')
 const ParticipantTeam = require('../../../models/ParticipantTeam')
@@ -13,7 +14,6 @@ const createTeam = async(req,res) =>{
             const opts = { session };
 
             //create-team
-            const teamCode = require('../../../middleware/teamCode')
             const team_code = teamCode()
             const one = await Team.create([{
                 name: req.body.name,
@@ -25,7 +25,8 @@ const createTeam = async(req,res) =>{
             const two = await ParticipantTeam.create([
                 {
                 team_id:one[0]._id,
-                participant_id:req.participant._id    
+                participant_id:req.participant._id,
+                hack_id:req.params.hack_id   
                }
             ],opts)
                 res.send({one,two})

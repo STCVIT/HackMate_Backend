@@ -54,5 +54,8 @@ const checkdate =()=>{
 
 //notifications??
 
+var date = new Date("27 July 2019 13:30:00 GMT+05:30");
+console.log(date.getTime())
+
 
 module.exports = router

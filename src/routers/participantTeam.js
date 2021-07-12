@@ -15,6 +15,7 @@ const myTeams = require('../functions/participant/team/getMyTeams')
 const myAdminTeams = require('../functions/participant/team/myAdminTeams')
 const checkTeamName = require('../functions/participant/team/checkTeamName')
 const createNullHackTeam = require('../functions/participant/team/createNullHackTeam')
+const leaveTeam = require('../functions/participant/team/leaveTeam')
 
 //create/join/req/invite=>(check hack)
 
@@ -43,9 +44,11 @@ router.post('/addSkills/:team_id',checkUser,checkClaimParticipant,getParticipant
 //GET-MY-TEAMS
 router.get('/myTeams',checkUser,checkClaimParticipant,getParticipant,myTeams)
 
-//object id is non nullable
 //GET-TEAMS-ADMIN(ME)
 router.get('/admin',checkUser,checkClaimParticipant,getParticipant,myAdminTeams)
+
+//LEAVE-TEAM
+router.delete('/:team_id',checkUser,checkClaimParticipant,getParticipant,leaveTeam)
 
 //leave team and delete team and update(add projects)
 

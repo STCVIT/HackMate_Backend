@@ -13,7 +13,8 @@ const organiserSchema = new mongoose.Schema({
         required:true
     },
     college:{
-        type:String
+        type:String,
+        required:true
     },
     uid:{
         type:String,

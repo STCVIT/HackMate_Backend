@@ -22,10 +22,11 @@ const participantSchema = new mongoose.Schema({
         type:String
     },
     photo:{ 
-        type:Buffer
+        type:String
     },
     college:{
-        type:String
+        type:String,
+        required:true
     },
     uid:{
         type:String,

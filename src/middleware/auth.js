@@ -52,16 +52,23 @@ admin
 
 
 const setClaimParticipant = ((req,res) =>{
-  const uid = req.userId
-  console.log(uid)
-  admin
+  const idToken=req.header('Authorization').replace('Bearer ', '')
+let Uid ='';
+admin
   .auth()
-  .setCustomUserClaims(uid, { participant : true })
-  .then(()=>{
-  res.status(201).send('hi')
-})
+  .verifyIdToken(idToken)
+  .then((user)=>{
+    Uid = user.uid
+  }).then(()=>{
+    admin
+    .auth()
+    .setCustomUserClaims(Uid, { participant : true })
+    .then(()=>{
+      res.status(201).send('hi')
+    })
+  })
   .catch((e)=>{
-    errorHandler(new BadRequestError,req,res)
+   res.status(400).send('no')
   })
 })
 
@@ -81,16 +88,24 @@ const checkClaimParticipant = ((req,res,next)=>{
 })
 
 const setClaimOrganiser = ((req,res) =>{
-  console.log('entered claim fn')
-  const uid = req.userId
-  admin
+  const idToken=req.header('Authorization').replace('Bearer ', '')
+let Uid ='';
+admin
   .auth()
-  .setCustomUserClaims(uid, { organiser : true })
-  .then(()=>{
-  res.status(201).send('hi')  
-})
+  .verifyIdToken(idToken)
+  .then((user)=>{
+    Uid = user.uid
+    console.log(Uid)
+  }).then(()=>{
+    admin
+    .auth()
+    .setCustomUserClaims(Uid, { organiser : true })
+    .then(()=>{
+      res.status(201).send('hi')
+    })
+  })
   .catch((e)=>{
-  res.send('Claim not set')
+   res.status(400).send('no')
   })
 })
 

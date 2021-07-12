@@ -8,8 +8,15 @@ auth.createUserWithEmailAndPassword(email, password)
     console.log('signed up!')
     user.getIdToken().then(function(idToken){
       console.log(idToken)
-      //fetch header id token 
+      fetch('https://c960aaf31793.ngrok.io/participant/signup',{
+        method:'POST',
+        headers: new Headers({
+          'Authorization': 'Bearer '+ idToken
+        })
+      }).then((res)=>{
+        console.log(res.status)
       })
+       })
     user.sendEmailVerification().then(function() {
       console.log('Email has been sent!')
       })

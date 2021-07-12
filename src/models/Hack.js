@@ -8,10 +8,11 @@ const hackSchema = new mongoose.Schema({
         required:true
     },
     poster:{ 
-        type:Buffer
+        type:String
     },
     website:{
-        type:String
+        type:String,
+        required:true
     },
     venue:{
         type:String,
@@ -42,6 +43,10 @@ const hackSchema = new mongoose.Schema({
     prize_pool:{
         required:true,
         type: Number 
+    },
+    description:{
+        required:true,
+        type:String
     }
 })
 

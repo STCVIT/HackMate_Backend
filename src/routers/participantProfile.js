@@ -12,11 +12,11 @@ const {getParticipant} = require('../middleware/getUser')
 const checkUserName = require('../functions/participant/profile/checkUserName')
 
 //SET-CLAIM-ON-SIGNUP
-router.post('/signup',checkUser,setClaimParticipant)
+router.post('/signup',setClaimParticipant)
 
 //check
 //CHECK-USERNAME
-router.post('/checkUserName',checkUser,checkClaimParticipant,checkUserName)
+router.post('/checkUserName/:username',checkUser,checkClaimParticipant,checkUserName)
 
 //CREATE-PROFILE
 router.post('/createProfile',checkUser,checkClaimParticipant,createProfile)
