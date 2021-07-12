@@ -7,7 +7,7 @@ const getParticipant = (async (req,res,next)=>{
     if(!participant){
         return res.status(404).send('no profile found!')
     }
-    req.participant = participant[0]
+    req.participant = participant
     next()
 })
 

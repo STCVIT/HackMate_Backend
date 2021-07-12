@@ -32,11 +32,17 @@ const teamSchema = new mongoose.Schema({
     },
     hack_id: {
         type: mongoose.Schema.Types.ObjectId,
-        Ref: 'Hack',
+        ref: 'Hack',
         default: null
-    }
+    },
+    //members = [
+        //     {uid:'userid'},
+        //     {uid:'userid'},
+ // ]
+                    
 })
 
+//index({members.uid:1,hack_id:1},{u:t})
 //teamSchema.index({name:1,hack_id:1},{unique:true})
 
 const Team = mongoose.model('Team',teamSchema)

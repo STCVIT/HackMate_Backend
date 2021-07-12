@@ -4,7 +4,7 @@ const Hack = require('../../../models/Hack')
 const { TeamFullError } = require('../../../utils/error')
 const errorHandler = require('../../../middleware/errorHandler')
 
-
+//check same hack
 const join_team_by_code = async(req,res)=>{
     try {
         const team = await Team.findOne({hack_id:req.params.hack_id,team_code:req.body.code})

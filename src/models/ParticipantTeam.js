@@ -7,12 +7,13 @@ const participantTeamSchema = new mongoose.Schema({
     },
     team_id:{
         type: mongoose.Schema.Types.ObjectId,
-        required:true
-    },
-    hack_id:{
-        type: mongoose.Schema.Types.ObjectId,
-        required:true
-    }
+        required:true,
+        ref:'Team'
+    }//,
+    // hack_id:{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     required:true
+    // }
 })
 
 //participantTeamSchema.index({participant_id:1,hack_id:1},{unique:true})

@@ -31,31 +31,29 @@ const checkdate =()=>{
 
     }
 }
-//checkdate()
 
-//TO-DO-LIST
+const Team = require('../models/Team')
+const ParticipantTeam = require('../models/ParticipantTeam')
 
-//profile picture azure(3)
+const test = async() =>{
+    const teams = await ParticipantTeam.aggregate([
+        {$lookup: {
+            from: 'teams', 
+            localField: 'team_id', 
+            foreignField: '_id', 
+            as: 'team'}
+        },
+         {$unwind: {path: '$team'}},
+        {$match: {'team.hack_id': '60c442520b9218673c7ee8e9'}}
+    ])  
+    console.log(teams) 
+}
+//test()
 
-//skills=>test
-//projects_team=>add/update dekho
 
-//projects_personal=>test
-//transaction control in skill vacancy
 
-//reviews
-
-//get participant (ML?) by username/domain
-
-//send request+invite
-//accept,reject req,invite
-
-//get interested teams (hack)
-
-//notifications??
-
-var date = new Date("27 July 2019 13:30:00 GMT+05:30");
-console.log(date.getTime())
+// var date = new Date("27 July 2019 13:30:00 GMT+05:30");
+// console.log(date.getTime())
 
 
 module.exports = router
