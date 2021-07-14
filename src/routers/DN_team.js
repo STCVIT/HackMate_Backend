@@ -5,20 +5,17 @@ const { getParticipant } = require('../middleware/getUser')
 const router = express.Router()
 
 const createTeam = require('../functions/participant/DN_team/createTeam')
-const checkAdmin = require('../middleware/checkTeamAdmin')
-const addSkills = require('../functions/participant/team/addSkills')
-const get_team_by_name = require('../functions/participant/team/get_team_by_name')
+const checkAdmin = require('../middleware/checkDN_TeamAdmin')
+const addSkills = require('../functions/participant/DN_Team/addSkills')
+const get_team_by_name = require('../functions/participant/DN_Team/get_team_by_name')
 const join_team_by_code = require('../functions/participant/DN_Team/join_by_code')
-const get_team_by_skills = require('../functions/participant/team/get_team_by_skills')
-const myTeams = require('../functions/participant/team/getMyTeams')
-const myAdminTeams = require('../functions/participant/team/myAdminTeams')
-const checkTeamName = require('../functions/participant/team/checkTeamName')
-const createNullHackTeam = require('../functions/participant/team/createNullHackTeam')
-const leaveTeam = require('../functions/participant/team/leaveTeam')
+const get_team_by_skills = require('../functions/participant/DN_Team/get_team_by_skills')
+const myTeams = require('../functions/participant/DN_Team/getMyTeams')
+const myAdminTeams = require('../functions/participant/DN_Team/myAdminTeams')
+const checkTeamName = require('../functions/participant/DN_Team/checkTeamName')
+const createNullHackTeam = require('../functions/participant/DN_Team/createNullHackTeam')
+const leaveTeam = require('../functions/participant/DN_Team/leaveTeam')
 
-//create/join/req/invite=>(check hack)
-
-//check
 //CHECK-TEAM-NAME
 router.post('/checkName',checkUser,checkClaimParticipant,checkTeamName)
 
@@ -44,7 +41,7 @@ router.post('/addSkills/:team_id',checkUser,checkClaimParticipant,getParticipant
 router.get('/myTeams',checkUser,checkClaimParticipant,getParticipant,myTeams)
 
 //GET-TEAMS-ADMIN(ME)
-router.get('/admin',checkUser,checkClaimParticipant,getParticipant,myAdminTeams)
+router.get('/admin/:hack_id',checkUser,checkClaimParticipant,getParticipant,myAdminTeams)
 
 //LEAVE-TEAM
 router.delete('/:team_id',checkUser,checkClaimParticipant,getParticipant,leaveTeam)

@@ -1,9 +1,9 @@
 const SkillVacancy = require('../../../models/SkillVacancy')
-const Team = require('../../../models/Team')
+const DN_Team = require('../../../models/Dn-Team')
 
 const get_team_by_skills = async(req,res)=>{
     try {
-        const hackTeams = await Team.find({hack_id:req.params.hack_id})
+        const hackTeams = await DN_Team.find({hack_id:req.params.hack_id})
         let validteams = []
         let i = 0
         hackTeams.forEach(async(team)=>{

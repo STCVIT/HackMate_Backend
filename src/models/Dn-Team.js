@@ -50,7 +50,18 @@ teamSchema.index({name:1,hack_id:1},{unique:true})
 
 teamSchema.methods.check = async function(){
     let team = this
-    let check = team.members.filter((member)=> {return String(member.uid) != String(team.members[team.members.length-1].uid)})
+    let count = 0 
+    let check = team.members.filter((member)=>{
+       if( String(member.uid) != String(team.members[team.members.length-1].uid)){
+           return member.uid
+       }else{
+           if (count == 0){
+               count++
+               return member.uid
+           }
+       }
+    })
+    console.log(check)
     if(check.length<team.members.length){
         const err = new DuplicateTeamEntryError
        return err

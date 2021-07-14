@@ -6,7 +6,7 @@ const getAllHacks = async(req,res) => {
         const start = (page-1)*6
         const limit = 6 
         const end = start + limit
-        const hacks = await Hack.find() 
+        const hacks = await Hack.find().sort({_id:-1}) 
         const newHacks = hacks.slice(start,end)
         res.status(200).send(newHacks)
     } catch (e) {

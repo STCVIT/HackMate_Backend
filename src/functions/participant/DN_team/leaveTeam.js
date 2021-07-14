@@ -1,17 +1,19 @@
-const ParticipantTeam = require('../../../models/ParticipantTeam')
-const Team = require('../../../models/Team')
+const DN_Team = require('../../../models/Dn-Team')
 
 const leaveTeam = async(req,res)=>{
     try {
-        const participantTeam = await ParticipantTeam.findOne({team_id:req.params.team_id,participant_id:req.participant._id})
-    if(!participantTeam){
+        const team = await DN_Team.findOne({team_id:req.params.team_id,'members.uid':req.participant._id})
+    if(!team){
         return res.send("You're not in given team")
     }
-    const team = await Team.findOne({admin_id:req.participant._id,_id:req.params.team_id})
-    if(team){
+    if(team.admin_id==req.participant._id){
         return res.send("admin cant leave team, try deleting it instead")
     }
-    await participantTeam.remove()
+    
+    team.members.filter((member)=>{
+        return member.uid != req.participant._id
+    })
+    await team.save()
     res.send('Left Successfully')
     } catch (e) {
         res.send(e)

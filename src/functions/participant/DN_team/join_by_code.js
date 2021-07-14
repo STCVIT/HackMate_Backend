@@ -3,7 +3,13 @@ const errorHandler = require('../../../middleware/errorHandler')
 
 const join_team_by_code = async(req,res)=>{
     try {
-        const team = await DN_Team.findOne({hack_id:req.params.hack_id,team_code:req.body.code})
+        if(req.params.hack_id=='null'){
+            var team = await DN_Team.findOne({hack_id:null,team_code:req.body.code})
+        }
+        else{
+            var team = await DN_Team.findOne({hack_id:req.params.hack_id,team_code:req.body.code})
+        }
+        
         if(!team){
             return res.status(404).send('No team found!')
         }

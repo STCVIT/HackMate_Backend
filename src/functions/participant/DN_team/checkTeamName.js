@@ -1,10 +1,10 @@
 const errorHandler = require('../../../middleware/errorHandler')
-const Team = require('../../../models/Team')
+const DN_Team = require('../../../models/Dn-Team')
 const { BadRequestError } = require('../../../utils/error')
 
 const checkTeamName = async(req,res)=>{
     try {
-        const team = await Team.find({name:req.params.team_name})
+        const team = await DN_Team.find({name:req.params.team_name})
     if(!team){
         res.status(200).send('ok')
     }

@@ -1,21 +1,14 @@
-const Team = require('../../../models/Team')
-const ParticipantTeam = require('../../../models/ParticipantTeam')
+const DN_Team = require('../../../models/Dn-Team')
 
 const myTeams = async(req,res) =>{
     try {
-        const teams = await ParticipantTeam.find({participant_id:req.participant._id})
-        let myTeams = []
-        let i = 0
-        teams.forEach(async(team)=>{
-            const myTeam = await Team.findOne({_id:team.team_id})
-            myTeams.push(myTeam)
-            i++
-            if(i==teams.length){
-                res.status(200).send(myTeams)
-            }
-        })
+        const teams = await DN_Team.find({pmembers:req.participant._id})
+        if(!teams || teams.length==0){
+            return res.status(404).send('No Teams Found')
+        }
+        res.status(200).send(teams)
     } catch (e) {
-        res.status(200).send(e)
+        res.status(400).send(e)
     }
 }
 
