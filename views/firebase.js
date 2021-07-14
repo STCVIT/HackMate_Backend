@@ -86,10 +86,11 @@ user.updatePassword(newPassword).then(function() {
 const url = 'https://hackportalbackend.herokuapp.com'
 
 const postHack = () =>{
-  fetch(`${url}/organiser/createHack`,{
+  fetch(`https://hackportalbackend.herokuapp.com/organiser/createHack`,{
     method:"POST",
     headers:new Headers({
-      'Authorization':'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjhmNDMyMDRhMTc5MTVlOGJlN2NjZDdjYjI2NGRmNmVhMzgzYzQ5YWIiLCJ0eXAiOiJKV1QifQ.eyJvcmdhbmlzZXIiOnRydWUsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9oYWNrcG9ydGFsLTQ1MGQwIiwiYXVkIjoiaGFja3BvcnRhbC00NTBkMCIsImF1dGhfdGltZSI6MTYyNjE4MjA5MiwidXNlcl9pZCI6ImltaUxLblZsNVNOcmRqdTZxeFZHSVEzM1lvMDMiLCJzdWIiOiJpbWlMS25WbDVTTnJkanU2cXhWR0lRMzNZbzAzIiwiaWF0IjoxNjI2MTgyMDkyLCJleHAiOjE2MjYxODU2OTIsImVtYWlsIjoiZGVlcHNhbWlyLmdhbmRoaTIwMjBAdml0c3R1ZGVudC5hYy5pbiIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImRlZXBzYW1pci5nYW5kaGkyMDIwQHZpdHN0dWRlbnQuYWMuaW4iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.KJ642Blh1YJ5DgW6ZgPRIZxHZ4oBrnLLOt6_cuQCuD-_AUWVmpsAar34qz83BBdCayUwnUufAm92DYlCS5cKqpZSZwVQ2WLSV0xsXpBdWfIwjvF1AuXTVPyCKnWQAOJVJEicmUbcF4opmO0Us_VhTuu6B1eFpNT6e-Cgde__2avWrboFmtoA7spscBM3UZBfZWkiFXhLfDa1grSrx8SsvRJ0hcVJNRbM1XEAc5Kj8t1mGjF50GB4CWhbN4c87H9d6u14d_xdqxkH2AaQmlJt1Kmg9CcFAfBcfihrEYuxfh-hGilslGPqopXElfFA4u6qTIyPHQb_5Qm0mtc-jLrJ_w'
+      'Content-Type': 'application/json',
+      'Authorization':'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjhmNDMyMDRhMTc5MTVlOGJlN2NjZDdjYjI2NGRmNmVhMzgzYzQ5YWIiLCJ0eXAiOiJKV1QifQ.eyJvcmdhbmlzZXIiOnRydWUsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9oYWNrcG9ydGFsLTQ1MGQwIiwiYXVkIjoiaGFja3BvcnRhbC00NTBkMCIsImF1dGhfdGltZSI6MTYyNjE4NjYyNCwidXNlcl9pZCI6ImltaUxLblZsNVNOcmRqdTZxeFZHSVEzM1lvMDMiLCJzdWIiOiJpbWlMS25WbDVTTnJkanU2cXhWR0lRMzNZbzAzIiwiaWF0IjoxNjI2MTg2NjI0LCJleHAiOjE2MjYxOTAyMjQsImVtYWlsIjoiZGVlcHNhbWlyLmdhbmRoaTIwMjBAdml0c3R1ZGVudC5hYy5pbiIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImRlZXBzYW1pci5nYW5kaGkyMDIwQHZpdHN0dWRlbnQuYWMuaW4iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.ii3ihugAoLVT-AELk1jG0RCBFCKmMrwweHW-AXVRDjx2TqHF88utykUN5NOUqL6NP1iE5UpH6CW8iEdg1UJymL0KuOOpaQE1R-KqTudUDXXG1YYj-Y1YPADuxTKrYYopn_Ay1qnRG7z4d6rL88eVGIsY70wWHW3FHP7CAc_1QIQi1td-hPkznqAhRkAWhME0OpaCqo74ehs9e7S5YcO5zjZgm7O9_Gna5110_nPiY0akmoMbmHUlgLoN6Kn1XVcKhXUjKiS2rzwFa1s764HdF4copfVFPXzEz76n7j_0omc6HFSjpaIDweZ_wrFesNO1iu3XyKNUve8iskM7O9fRew'
     }),
     body:{
       "name": "testing 101",
@@ -102,8 +103,8 @@ const postHack = () =>{
     "prize_pool":100000,
     "website":"google.com"
     }
-  }).then((res)=>res.json())
-  .then((data)=>console.log(data))
+  }).then((res)=>res.status)
+ 
   .catch((e)=>console.error(e))
 }
 

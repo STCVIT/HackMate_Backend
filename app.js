@@ -15,9 +15,11 @@ const project = require('./src/routers/project')
 const request = require('./src/routers/request')
 const invite = require('./src/routers/invite')
 const review = require('./src/routers/review')
+const Dn_Team = require('./src/routers/DN_team')
 
 const errorHandler = require('./src/middleware/errorHandler')
 const { NotFoundError } = require('./src/utils/error')
+
 
 app.use(express.json())
 app.use(cors())
@@ -32,6 +34,7 @@ app.use('/projects',project)
 app.use('/invites',invite)
 app.use('/requests',request)
 app.use('/review',review)
+app.use('/DN_Team',Dn_Team)
 
 
 app.all('*',(req,res,next)=>{

@@ -35,6 +35,10 @@ const hackSchema = new mongoose.Schema({
         type:Number,
         required:true
     },
+    min_team_size:{
+        type:Number,
+        required:true
+    },
     organiser_id:{
         type:mongoose.Schema.Types.ObjectId,
         required:true,

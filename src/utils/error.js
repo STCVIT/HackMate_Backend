@@ -25,8 +25,15 @@ class BadRequestError extends Error{
 class TeamFullError extends Error{
     constructor(){
         super()
-        this.statusCode = 400
+        this.statusCode = 403
         this.message = 'Team is Full'
+    }
+}
+class DuplicateTeamEntryError extends Error{
+    constructor(){
+        super()
+        this.statusCode = 403
+        this.message = 'Duplicate Entry in Team is not allowed'
     }
 }
 
@@ -34,5 +41,6 @@ module.exports = {
     NotFoundError,
     AuthenticationError,
     BadRequestError,
-    TeamFullError
+    TeamFullError,
+    DuplicateTeamEntryError
 }
