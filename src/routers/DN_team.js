@@ -52,10 +52,10 @@ router.get('/admin/:hack_id',checkUser,checkClaimParticipant,getParticipant,myAd
 router.delete('/:team_id',checkUser,checkClaimParticipant,getParticipant,leaveTeam)
 
 //DELETE-TEAM
-router.post('/addSkills/:team_id',checkUser,checkClaimParticipant,getParticipant,checkAdmin,)
+// router.post('/addSkills/:team_id',checkUser,checkClaimParticipant,getParticipant,checkAdmin,)
 
-//REMOVE-MEMBER-FROM-TEAM
-router.post('/addSkills/:team_id',checkUser,checkClaimParticipant,getParticipant,checkAdmin,)
+// //REMOVE-MEMBER-FROM-TEAM
+// router.post('/addSkills/:team_id',checkUser,checkClaimParticipant,getParticipant,checkAdmin,)
 
 //UPDATE-TEAM(add from existing + projects)
 
