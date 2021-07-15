@@ -1,14 +1,14 @@
 const Request = require('../../../models/Request')
 const errorHandler = require('../../../middleware/errorHandler')
 const {NotFoundError} = require('../../../utils/error')
-const Team = require('../../../models/Team')
+const DN_Team = require('../../../models/Dn-Team')
 
 //wrong
 const myRequests = async(req,res)=>{
     try {
         let requests = []
         let i=0
-        const teams = await Team.find({admin_id:req.participant._id})
+        const teams = await DN_Team.find({admin_id:req.participant._id})
         teams.forEach(async(team)=>{
             const request = await Request.find({team_id:team._id})
             if(!request || request.length==0){

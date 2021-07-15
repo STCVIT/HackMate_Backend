@@ -9,6 +9,8 @@ const { getParticipant } = require('../middleware/getUser')
 
 const router = express.Router()
 
+//update validation
+
 //CREATE PROJECT
 router.post('/create',checkUser,checkClaimParticipant,getParticipant,createProject)
 

@@ -30,6 +30,7 @@ const myAdminTeams = async(req,res)=>{
                 eligibleTeams.push(team)
             }
         })
+        //check null
         res.status(200).send(eligibleTeams)
     } catch (e) {
         res.status(400).send(e)

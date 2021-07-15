@@ -1,5 +1,6 @@
 const DN_Team = require('../../../models/Dn-Team')
 const errorHandler = require('../../../middleware/errorHandler')
+const { NotFoundError, BadRequestError } = require('../../../utils/error')
 
 const join_team_by_code = async(req,res)=>{
     try {
@@ -11,7 +12,8 @@ const join_team_by_code = async(req,res)=>{
         }
         
         if(!team){
-            return res.status(404).send('No team found!')
+            errorHandler(new NotFoundError,req,res)
+            return
         }
         team.members.push({uid:req.participant._id})
         let x = await team.check()
@@ -24,7 +26,7 @@ const join_team_by_code = async(req,res)=>{
         }
        
     } catch (e) {
-        res.send(e)
+        errorHandler(new BadRequestError,req,res)
     }
     
 }

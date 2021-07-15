@@ -1,14 +1,17 @@
+const errorHandler = require('../../../middleware/errorHandler')
 const DN_Team = require('../../../models/Dn-Team')
+const { NotFoundError, BadRequestError } = require('../../../utils/error')
 
 const myTeams = async(req,res) =>{
     try {
-        const teams = await DN_Team.find({pmembers:req.participant._id})
+        const teams = await DN_Team.find({'members.uid':req.participant._id})
         if(!teams || teams.length==0){
-            return res.status(404).send('No Teams Found')
+            errorHandler(new NotFoundError,req,res)
+            return
         }
         res.status(200).send(teams)
     } catch (e) {
-        res.status(400).send(e)
+        errorHandler(new BadRequestError,req,res)
     }
 }
 

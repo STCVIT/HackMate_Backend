@@ -15,6 +15,7 @@ const myAdminTeams = require('../functions/participant/DN_Team/myAdminTeams')
 const checkTeamName = require('../functions/participant/DN_Team/checkTeamName')
 const createNullHackTeam = require('../functions/participant/DN_Team/createNullHackTeam')
 const leaveTeam = require('../functions/participant/DN_Team/leaveTeam')
+const getSkills = require('../functions/participant/DN_team/getSKills')
 
 //CHECK-TEAM-NAME
 router.post('/checkName',checkUser,checkClaimParticipant,checkTeamName)
@@ -37,15 +38,26 @@ router.get('/teamSkills/:hack_id',checkUser,checkClaimParticipant,getParticipant
 //ADD-SKILL-REQUIREMENTS
 router.post('/addSkills/:team_id',checkUser,checkClaimParticipant,getParticipant,checkAdmin,addSkills)
 
+//GET-SKILLS-REQUIRED
+//check if participant is in the given team??
+router.get('getSkills/:team_id',checkUser,checkClaimParticipant,getSkills)
+
 //GET-MY-TEAMS
 router.get('/myTeams',checkUser,checkClaimParticipant,getParticipant,myTeams)
 
-//GET-TEAMS-ADMIN(ME)
+//GET-TEAMS-ADMIN(ME)(add from existing)
 router.get('/admin/:hack_id',checkUser,checkClaimParticipant,getParticipant,myAdminTeams)
 
 //LEAVE-TEAM
 router.delete('/:team_id',checkUser,checkClaimParticipant,getParticipant,leaveTeam)
 
-//leave team and delete team and update(add projects)
+//DELETE-TEAM
+
+
+//REMOVE-MEMBER-FROM-TEAM
+
+
+//UPDATE-TEAM(add from existing + projects)
+
 
 module.exports = router

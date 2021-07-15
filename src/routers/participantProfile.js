@@ -26,6 +26,9 @@ router.get('/login',checkUser,checkClaimParticipant,getParticipant,(req,res)=>{
     res.status(200).send(req.participant)
 })
 
+//add hooks in delete
+//add validation in patch
+
 //UPDATE-PROFILE
 router.patch('/updateProfile',checkUser,checkClaimParticipant,getParticipant,updateProfile)
 

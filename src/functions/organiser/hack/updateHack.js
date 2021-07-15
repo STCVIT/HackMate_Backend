@@ -2,7 +2,7 @@ const Hack = require('../../../models/Hack')
 
 async function updateHack(req,res){
     const updates = Object.keys(req.body)
-    const allowedUpdates=['name','website','venue','poster','prize_pool','start','end','Max-team-size','mode_of_conduct']
+    const allowedUpdates=['name','website','venue','poster','prize_pool','start','end','max-team-size','min-team-size','mode_of_conduct']
     const isValidOperation=updates.every((update)=>allowedUpdates.includes(update))
     if (!isValidOperation){
        return res.status(400).send('Invalid Updates!')

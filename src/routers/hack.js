@@ -9,6 +9,8 @@ const { checkUser, checkClaimParticipant } = require('../middleware/auth')
 
 const router = express.Router()
 
+//map array of array to single array of objects and remove number of teams after sorting
+
 //GET HACK BY POPULARITY
 router.get('/popularity',checkUser,checkClaimParticipant,getPopularHack)
 

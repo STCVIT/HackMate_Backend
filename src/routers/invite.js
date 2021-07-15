@@ -16,5 +16,7 @@ router.get('/myInvites',checkUser,checkClaimParticipant,getParticipant,myInvites
 //ACCEPT-REJECT-INVITE
 router.post('/inviteStatus/:status/:inv_id',checkUser,checkClaimParticipant,getParticipant,inviteStatus)
 
+//DELETE-INVITE
+
 module.exports = router
 

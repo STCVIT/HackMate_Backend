@@ -1,5 +1,8 @@
 const projectModel = require('../../../models/Project')
 
+//error handling for not found
+//validation before updates
+
 async function updateProject(req,res){
     const updates = Object.keys(req.body)
     const allowedUpdates=['name','description','code','design','demonstration']

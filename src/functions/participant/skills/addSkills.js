@@ -1,5 +1,6 @@
 const Skill = require('../../../models/Skill')
-
+//transaction control
+//check if incoming skills = []
 const addSkills = async(req,res) => {
     await Skill.deleteMany({participant_id:req.participant._id})
     const skills = req.body.skills

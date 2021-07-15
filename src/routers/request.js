@@ -16,6 +16,7 @@ router.get('/myRequests',checkUser,checkClaimParticipant,getParticipant,myReques
 //ACCEPT-REJECT-REQUEST
 router.post('/requestStatus/:status/:req_id',checkUser,checkClaimParticipant,getParticipant,checkAdmin,reqStatus)
 
+//DELETE-REQUEST
 
 
 module.exports = router

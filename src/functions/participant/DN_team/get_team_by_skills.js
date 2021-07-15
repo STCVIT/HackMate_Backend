@@ -1,9 +1,15 @@
 const SkillVacancy = require('../../../models/SkillVacancy')
 const DN_Team = require('../../../models/Dn-Team')
+const errorHandler = require('../../../middleware/errorHandler')
+const { NotFoundError, BadRequestError } = require('../../../utils/error')
 
 const get_team_by_skills = async(req,res)=>{
     try {
         const hackTeams = await DN_Team.find({hack_id:req.params.hack_id})
+        if(!hackTeams||hackTeams.length==0){
+            errorHandler(new NotFoundError,req,res)
+            return
+        }
         let validteams = []
         let i = 0
         hackTeams.forEach(async(team)=>{
@@ -13,12 +19,16 @@ const get_team_by_skills = async(req,res)=>{
             }
             i++
             if(i==hackTeams.length){
+                if(validTeams.length==0 || !validTeams ){
+                    errorHandler(new NotFoundError,req,res)
+                    return
+                }
                 res.status(200).send(validteams)
             }
 
         })
     } catch (e) {
-        res.send(e)
+        errorHandler(new BadRequestError,req,res)
     }
 }
 
