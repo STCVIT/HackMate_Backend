@@ -15,7 +15,7 @@ const myAdminTeams = require('../functions/participant/DN_team/myAdminTeams')
 const checkTeamName = require('../functions/participant/DN_team/checkTeamName')
 const createNullHackTeam = require('../functions/participant/DN_team/createNullHackTeam')
 const leaveTeam = require('../functions/participant/DN_team/leaveTeam')
-const getSkills = require('../functions/participant/DN_team/getSKills')
+const getSkills = require('../functions/participant/DN_team/getSkills')
 
 //CHECK-TEAM-NAME
 router.post('/checkName',checkUser,checkClaimParticipant,checkTeamName)
