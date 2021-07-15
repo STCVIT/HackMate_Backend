@@ -2,7 +2,6 @@ require('../../../db/mongoose')
 const teamCode = require('../../../middleware/teamCode')
 
 const DN_Team = require('../../../models/Dn-Team')
-const ParticipantTeam = require('../../../models/ParticipantTeam')
 
 const createTeam = async(req,res) =>{
     try { 

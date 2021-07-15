@@ -49,11 +49,14 @@ organiserSchema.virtual('hacks',{
 //     return organiserObject 
 // }
 
-organiserSchema.post('remove',async function(next){
+organiserSchema.post('remove',async function(){
     const organiser = this
-    const hacks = await Hack.find({organiser_id:organiser._id})
-    await Promise.all(hacks.map((hack) => hack.remove()));
-    next()
+    try {
+        const hacks = await Hack.find({organiser_id:organiser._id})
+        await Promise.all(hacks.map((hack) => hack.remove()));
+    } catch (e) {
+        return e
+    }    
 })
 
 const Organiser = mongoose.model('Organiser',organiserSchema)

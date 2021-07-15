@@ -47,7 +47,7 @@ const hackSchema = new mongoose.Schema({
     },
     prize_pool:{
         required:true,
-        type: Number 
+        type: String
     },
     description:{
         required:true,
@@ -55,13 +55,17 @@ const hackSchema = new mongoose.Schema({
     }
 })
 
-hackSchema.post('remove',async function(next){
+hackSchema.post('remove',async function(){
     const hack = this
-    const teams = await DN_Team.find({hack_id:hack._id})
-    teams.forEach((team)=>{
+    try {
+        const teams = await DN_Team.find({hack_id:hack._id})
+        teams.forEach(async(team)=>{
         team.hack_id = undefined
+        await team.save()
     })
-    next()
+    } catch (e) {
+        console.log(e)
+    }    
 })
 
 const Hack = mongoose.model('Hack',hackSchema)

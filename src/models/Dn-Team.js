@@ -51,29 +51,34 @@ teamSchema.index({name:1,hack_id:1},{unique:true})
 teamSchema.methods.check = async function(){
     let team = this
     let count = 0 
-    let check = team.members.filter((member)=>{
-       if( String(member.uid) != String(team.members[team.members.length-1].uid)){
-           return member.uid
-       }else{
-           if (count == 0){
-               count++
-               return member.uid
-           }
-       }
-    })
-    console.log(check)
-    if(check.length<team.members.length){
-        const err = new DuplicateTeamEntryError
-       return err
-    }
-    if(team.hack_id != null){
-        const hack = await Hack.findById(team.hack_id)
-        if(team.members.length>hack.max_team_size){
-            const err = new TeamFullError
+    try {
+        let check = team.members.filter((member)=>{
+            if( String(member.uid) != String(team.members[team.members.length-1].uid)){
+                return member.uid
+            }else{
+                if (count == 0){
+                    count++
+                    return member.uid
+                }
+            }
+         })
+         console.log(check)
+         if(check.length<team.members.length){
+             const err = new DuplicateTeamEntryError
             return err
-        }
+         }
+         if(team.hack_id != null){
+             const hack = await Hack.find({_id:team.hack_id})
+             if(team.members.length>hack.max_team_size){
+                 const err = new TeamFullError
+                 return err
+             }
+         }
+         return 0
+    } catch (e) {
+        return e
     }
-    return 0
+    
     
 }
 
