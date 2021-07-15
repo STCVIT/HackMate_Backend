@@ -77,9 +77,7 @@ teamSchema.methods.check = async function(){
          return 0
     } catch (e) {
         return e
-    }
-    
-    
+    }    
 }
 
 // teamSchema.pre('save',async function(req,res,next){
