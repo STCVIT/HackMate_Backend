@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const DN_Team = require('./Dn-Team')
+const Hack = require('./Hack')
 
 const organiserSchema = new mongoose.Schema({
     name:{
@@ -36,16 +38,23 @@ organiserSchema.virtual('hacks',{
     foreignField:'organiser_id'
 })
 
-organiserSchema.methods.toJSON= function(){
+// organiserSchema.methods.toJSON= function(){
+//     const organiser = this
+//     const organiserObject = organiser.toObject()
+
+//     delete organiserObject.__v
+//     delete organiserObject._id
+//     delete organiserObject.uid
+
+//     return organiserObject 
+// }
+
+organiserSchema.post('remove',async function(next){
     const organiser = this
-    const organiserObject = organiser.toObject()
-
-    delete organiserObject.__v
-    delete organiserObject._id
-    delete organiserObject.uid
-
-    return organiserObject 
-}
+    const hacks = await Hack.find({organiser_id:organiser._id})
+    await Promise.all(hacks.map((hack) => hack.remove()));
+    next()
+})
 
 const Organiser = mongoose.model('Organiser',organiserSchema)
 module.exports = Organiser

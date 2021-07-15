@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const DN_Team = require('./Dn-Team')
 
 const mode_of_conduct_options = ['Online','Offline']
 
@@ -52,6 +53,15 @@ const hackSchema = new mongoose.Schema({
         required:true,
         type:String
     }
+})
+
+hackSchema.post('remove',async function(next){
+    const hack = this
+    const teams = await DN_Team.find({hack_id:hack._id})
+    teams.forEach((team)=>{
+        team.hack_id = undefined
+    })
+    next()
 })
 
 const Hack = mongoose.model('Hack',hackSchema)

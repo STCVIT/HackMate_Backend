@@ -24,7 +24,6 @@ router.get('/login',checkUser,checkClaimOrganiser,getOrganiser,(req,res)=>{
 router.patch('/updateProfile',checkUser,checkClaimOrganiser,getOrganiser,updateProfile)
 
 //add hooks in delete
-//add validation in patch
 
 //DELETE-PROFILE
 router.delete('/deleteProfile',checkUser,checkClaimOrganiser,getOrganiser,deleteProfile,deleteUser)
