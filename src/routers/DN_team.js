@@ -6,7 +6,7 @@ const router = express.Router()
 
 const createTeam = require('../functions/participant/DN_team/createTeam')
 const checkAdmin = require('../middleware/checkDN_TeamAdmin')
-const addSkills = require('../functions/participant/DN_Team/addSkills')
+const addSkills = require('../functions/participant/DN_team/addSkills')
 const get_team_by_name = require('../functions/participant/DN_Team/get_team_by_name')
 const join_team_by_code = require('../functions/participant/DN_Team/join_by_code')
 const get_team_by_skills = require('../functions/participant/DN_Team/get_team_by_skills')
