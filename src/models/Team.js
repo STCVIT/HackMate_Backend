@@ -45,15 +45,15 @@ const teamSchema = new mongoose.Schema({
 //index({members.uid:1,hack_id:1},{u:t})
 //teamSchema.index({name:1,hack_id:1},{unique:true})
 
-teamSchema.post('remove',async function(next){
-    const team = this 
-    const skillVacancies = await SkillVacancy.find({team_id:team._id})
-    await Promise.all(skillVacancies.map((sv)=>sv.remove()))
-    const invites = await Invite.find({team_id:team._id})
-    await Promise.all(invites.map((invite)=>invite.remove()))
-    const requests = await Request.find({team_id:team._id})
-    await Promise.all(requests.map((request)=>request.remove()))
-})
+// teamSchema.post('remove',async function(next){
+//     const team = this 
+//     const skillVacancies = await SkillVacancy.find({team_id:team._id})
+//     await Promise.all(skillVacancies.map((sv)=>sv.remove()))
+//     const invites = await Invite.find({team_id:team._id})
+//     await Promise.all(invites.map((invite)=>invite.remove()))
+//     const requests = await Request.find({team_id:team._id})
+//     await Promise.all(requests.map((request)=>request.remove()))
+// })
 
 const Team = mongoose.model('Team',teamSchema)
 module.exports = Team

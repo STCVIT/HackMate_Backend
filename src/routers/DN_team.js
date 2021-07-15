@@ -16,6 +16,12 @@ const checkTeamName = require('../functions/participant/DN_team/checkTeamName')
 const createNullHackTeam = require('../functions/participant/DN_team/createNullHackTeam')
 const leaveTeam = require('../functions/participant/DN_team/leaveTeam')
 const getSkills = require('../functions/participant/DN_team/getSkills')
+const DN_Team = require('../models/Dn-Team')
+const errorHandler = require('../middleware/errorHandler')
+const { NotFoundError, BadRequestError } = require('../utils/error')
+const removeMemberFromTeam = require('../functions/participant/DN_team/removeMemberFromTeam')
+const deleteTeam = require('../functions/participant/DN_team/deleteTeam')
+const updateTeam = require('../functions/participant/DN_team/updateTeam')
 
 //CHECK-TEAM-NAME
 router.post('/checkName',checkUser,checkClaimParticipant,checkTeamName)
@@ -39,7 +45,6 @@ router.get('/teamSkills/:hack_id',checkUser,checkClaimParticipant,getParticipant
 router.post('/addSkills/:team_id',checkUser,checkClaimParticipant,getParticipant,checkAdmin,addSkills)
 
 //GET-SKILLS-REQUIRED
-//check if participant is in the given team??
 router.get('getSkills/:team_id',checkUser,checkClaimParticipant,getSkills)
 
 //GET-MY-TEAMS
@@ -52,12 +57,12 @@ router.get('/admin/:hack_id',checkUser,checkClaimParticipant,getParticipant,myAd
 router.delete('/:team_id',checkUser,checkClaimParticipant,getParticipant,leaveTeam)
 
 //DELETE-TEAM
-// router.post('/addSkills/:team_id',checkUser,checkClaimParticipant,getParticipant,checkAdmin,)
+router.post('/deleteTeam/:team_id',checkUser,checkClaimParticipant,getParticipant,checkAdmin,deleteTeam)
 
-// //REMOVE-MEMBER-FROM-TEAM
-// router.post('/addSkills/:team_id',checkUser,checkClaimParticipant,getParticipant,checkAdmin,)
+//REMOVE-MEMBER-FROM-TEAM
+router.post('/removeMember/:team_id/:member_id',checkUser,checkClaimParticipant,getParticipant,checkAdmin,removeMemberFromTeam)
 
 //UPDATE-TEAM(add from existing + projects)
-
+router.patch('/update/:team_id',checkUser,checkClaimParticipant,getParticipant,checkAdmin,updateTeam)
 
 module.exports = router

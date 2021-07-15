@@ -1,5 +1,7 @@
 const SkillVacancy = require('../../../models/SkillVacancy')
 
+//trycatch
+
 const addSkills = async(req,res) =>{
     await SkillVacancy.deleteMany({team_id:req.params.team_id})
     const skills = req.body.skills

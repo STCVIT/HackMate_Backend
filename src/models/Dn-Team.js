@@ -80,6 +80,16 @@ teamSchema.methods.check = async function(){
     }    
 }
 
+teamSchema.post('remove',async function(next){
+    const team = this 
+    const skillVacancies = await SkillVacancy.find({team_id:team._id})
+    await Promise.all(skillVacancies.map((sv)=>sv.remove()))
+    const invites = await Invite.find({team_id:team._id})
+    await Promise.all(invites.map((invite)=>invite.remove()))
+    const requests = await Request.find({team_id:team._id})
+    await Promise.all(requests.map((request)=>request.remove()))
+})
+
 // teamSchema.pre('save',async function(req,res,next){
 //     let team = this
 //     let check = team.members.filter((member)=> {return String(member) != String(team.members[team.members.length-1])})
