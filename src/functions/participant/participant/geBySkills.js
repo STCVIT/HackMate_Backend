@@ -30,16 +30,34 @@ const getParticipantBySkills = async(req,res) => {
             if(!answer || answer.length==0){
                 errorHandler(new NotFoundError,req,res)
                 return
-            }    
-            return res.status(200).send(answer)
+            }
+            const page = Number(req.query.page)
+            const start = (page-1)*12
+            const limit = 12
+            const end = start + limit
+            const final = answer.slice(start,end)
+            if(!final || final.length==0){
+                errorHandler(new NotFoundError,req,res)
+                return
+            }
+            return res.status(200).send(final)
         }
     }else{
           const SP =   await Participant.find({_id:{$in:skillParticipants}})
           if(!SP || SP.length==0){
             errorHandler(new NotFoundError,req,res)
             return
-          }    
-          return res.status(200).send(SP)
+          }
+          const page = Number(req.query.page)
+            const start = (page-1)*12
+            const limit = 12
+            const end = start + limit
+            const final = SP.slice(start,end)
+            if(!final || final.length==0){
+                errorHandler(new NotFoundError,req,res)
+                return
+            }
+            return res.status(200).send(final)    
     }
 } catch (e) {
         res.status(400).send(e)

@@ -1,4 +1,4 @@
-const Team = require('../../../models/Team')
+const DN_Team = require('../../../models/Dn-Team')
 const Hack = require('../../../models/Hack')
 
 const getPopularHack = async(req,res) =>{
@@ -16,8 +16,11 @@ const getPopularHack = async(req,res) =>{
         }
     })
     let i = 0
+    if(eligibleHacks.length==0){
+        return res.status(404).send('Not Found')
+    }
     eligibleHacks.forEach(async(hack)=>{
-        const teams = await Team.find({hack_id:hack._id})
+        const teams = await DN_Team.find({hack_id:hack._id})
         let countArr = [
             hack,
             teams.length
@@ -27,7 +30,13 @@ const getPopularHack = async(req,res) =>{
         if (i==eligibleHacks.length){
             popularHacks.sort(function(a,b){return b[1]-a[1]})
             const newPopularHacks = popularHacks.slice(start,end)
-           res.status(200).send(newPopularHacks)
+            if(newPopularHacks.length==0){
+                return res.status(404).send('Not Found')
+            }
+            console.log(newPopularHacks)
+            newPopularHacks.forEach(hack=> console.log(hack[0]))
+            const final = newPopularHacks.map((hack)=>hack[0])
+           res.status(200).send(final)
         }
     })
 }

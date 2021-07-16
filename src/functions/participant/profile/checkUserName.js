@@ -9,7 +9,7 @@ const checkUserName = async(req,res)=>{
             res.status(200).send('ok')
         }
         else{
-            res.status(400).send('no')
+            res.status(403).send('no')
         }
     } catch (e) {
         errorHandler(new BadRequestError,req,res)

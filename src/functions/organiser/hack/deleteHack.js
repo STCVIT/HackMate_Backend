@@ -2,7 +2,7 @@ const Hack = require('../../../models/Hack')
 
 async function deleteHack(req,res){
     try {
-        const hack = await Hack.findOne({_id:req.params.id})
+        const hack = await Hack.findOne({_id:req.params.id,organiser_id:req.organiser._id})
         if(!hack){
             return res.status(400).send('Hack not found')
         }

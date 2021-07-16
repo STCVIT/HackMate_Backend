@@ -13,6 +13,6 @@ async function updateProfile(req,res){
     } catch (error) {
         res.status(400).send(error)
     }
-    }
+}
     
-    module.exports = updateProfile
+module.exports = updateProfile

@@ -8,7 +8,7 @@ const organiserSchema = new mongoose.Schema({
         required:true
     },
     logo:{ 
-        type:Buffer
+        type:String
     },
     phone:{
         type:String,

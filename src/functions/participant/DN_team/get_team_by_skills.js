@@ -23,7 +23,16 @@ const get_team_by_skills = async(req,res)=>{
                     errorHandler(new NotFoundError,req,res)
                     return
                 }
-                res.status(200).send(validteams)
+                const page = Number(req.query.page)
+                const start = (page-1)*8
+                const limit = 8 
+                const end = start + limit
+                const length = validteams.length
+                const final = validteams.slice(start,end)
+                if(!final || final.length==0){
+                    return res.send('not found')
+                }
+                res.status(200).send(final)
             }
 
         })

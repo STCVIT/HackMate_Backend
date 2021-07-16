@@ -27,10 +27,6 @@ router.patch('/updateHack/:id',checkUser,checkClaimOrganiser,updateHack)
 //DELETE-HACK
 router.delete('/deleteHack/:id',checkUser,checkClaimOrganiser,deleteHack)
 
-//add hooks in delete
-//add validation in patch
-
-//check and paginate this
 //GET-INTERESTED-TEAMS
 router.get('/getTeams/:hack_id',checkUser,checkClaimOrganiser,getInterestedTeams)
 

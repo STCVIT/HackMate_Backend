@@ -2,7 +2,8 @@ const Skill = require('../../../models/Skill')
 //transaction control
 //check if incoming skills = []
 const addSkills = async(req,res) => {
-    await Skill.deleteMany({participant_id:req.participant._id})
+    try {
+        await Skill.deleteMany({participant_id:req.participant._id})
     const skills = req.body.skills
     let skillRecords = []
     let i = 0
@@ -12,12 +13,12 @@ const addSkills = async(req,res) => {
             participant_id:req.participant._id
         })
         await newSkill.save()
-        i++
         skillRecords.push(newSkill)
-        if (i==skills.length){
-            res.status(201).send(skillRecords)
-        }
     })
+    res.status(201).send(skillRecords)
+    } catch (e) {
+        res.status(400).send(e)   
+    }
 }
 
 module.exports = addSkills

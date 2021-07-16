@@ -9,7 +9,16 @@ const myTeams = async(req,res) =>{
             errorHandler(new NotFoundError,req,res)
             return
         }
-        res.status(200).send(teams)
+        const page = Number(req.query.page)
+        const start = (page-1)*8
+        const limit = 8 
+        const end = start + limit
+        const length = teams.length
+        const final = teams.slice(start,end)
+        if(!final || final.length==0){
+            return res.send('Not found')
+        }
+        res.status(200).send({final,length})
     } catch (e) {
         errorHandler(new BadRequestError,req,res)
     }

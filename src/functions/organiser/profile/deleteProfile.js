@@ -5,7 +5,7 @@ async function deleteProfile(req,res,next){
         next()
         }
         catch(e) {
-         res.status(500).send(e)
+         res.status(400).send(e)
      }
 }
 
