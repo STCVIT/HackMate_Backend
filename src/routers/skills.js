@@ -8,7 +8,7 @@ const { checkUser, checkClaimParticipant } = require('../middleware/auth')
 const {getParticipant} = require('../middleware/getUser')
 
 //ADD-SKILLS 
-router.post('/mySKills',checkUser,checkClaimParticipant,getParticipant,addSkills)
+router.post('/mySkills',checkUser,checkClaimParticipant,getParticipant,addSkills)
 
 //GET-SKILLS
 router.get('/mySkills',checkUser,checkClaimParticipant,getParticipant,getSkills)

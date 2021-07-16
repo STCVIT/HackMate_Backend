@@ -1,4 +1,5 @@
 const errorHandler = require('../../../middleware/errorHandler')
+const Hack = require('../../../models/Hack')
 const Team = require('../../../models/Team')
 const { NotFoundError } = require('../../../utils/error')
 
@@ -8,6 +9,10 @@ const getInterestedTeams = async(req,res)=>{
         const start = (page-1)*12
         const limit = 12
         const end = start + limit
+        const hack = await Hack.find({_id:req.params.hack_id,organsier_id:req.organiser._id})
+        if(!hack){
+            return res.status(404).send('NotFound')
+        }
         const teams = await Team.find({hack_id:req.params.hack_id})
         if(teams.length===0 || !teams){
             throw new NotFoundError

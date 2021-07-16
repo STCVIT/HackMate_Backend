@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const skillsList = []
+const skillsList = ['frontend','backend','ml','ui/ux','appdev']
 
 const skillVacancySchema = new mongoose.Schema({
     team_id:{
