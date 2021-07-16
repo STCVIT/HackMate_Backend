@@ -14,7 +14,6 @@ const checkUserName = require('../functions/participant/profile/checkUserName')
 //SET-CLAIM-ON-SIGNUP
 router.post('/signup',setClaimParticipant)
 
-//check
 //CHECK-USERNAME
 router.post('/checkUserName/:username',checkUser,checkClaimParticipant,checkUserName)
 
@@ -25,9 +24,6 @@ router.post('/createProfile',checkUser,checkClaimParticipant,createProfile)
 router.get('/login',checkUser,checkClaimParticipant,getParticipant,(req,res)=>{
     res.status(200).send(req.participant)
 })
-
-//add hooks in delete
-//add validation in patch
 
 //UPDATE-PROFILE
 router.patch('/updateProfile',checkUser,checkClaimParticipant,getParticipant,updateProfile)

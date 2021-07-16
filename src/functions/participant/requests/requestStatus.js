@@ -1,7 +1,6 @@
 const Request = require('../../../models/Request')
-const Team = require('../../../models/Team')
+const DN_Team = require('../../../models/Dn-Team')
 const Hack = require('../../../models/Hack')
-const ParticipantTeam = require('../../../models/ParticipantTeam')
 const errorHandler = require('../../../middleware/errorHandler')
 const {TeamFullError} = require('../../../utils/error')
 
@@ -14,17 +13,20 @@ const reqStatus = async(req,res) =>{
         try {
             const opts = { session };
             const request = await Request.find({_id:req.params.req_id})
-            const team = await Team.find({_id:request.team_id})
-            const hack = await Hack.find({_id:team.hack_id})
-            const participants = await ParticipantTeam.find({team_id:team._id})
-            if(req.params.status=='accepted'){
-                if(hack.max_team_size===participants.length){
-                    throw new TeamFullError
+            const team = await DN_Team.findOne({_id:request.team_id,admin_id:req.participant._id})
+            if(!team){
+                return res.status(401).send('not authorized')
+            }
+            if(req.params.status=='accepted'){ 
+                if(team.hack_id != null){
+                    const hack = await Hack.find({_id:team.hack_id})
+                    if(hack.max_team_size===team.members.length){
+                        errorHandler(new TeamFullError,req,res)
+                        return
+                    }
                 }
-                const joinTeam = await ParticipantTeam.create([{
-                    team_id : request.team_id,
-                    participant_id : request.participant_id
-                }],opts)
+                team.members.push({uid:request.participant_id})
+                await team.save(opts)
                 await request.remove(opts)
                 res.status(201).send('added to team')
             }
@@ -34,7 +36,7 @@ const reqStatus = async(req,res) =>{
             }
     
         } catch (e) {
-            errorHandler(e,req,res)
+            res.status(400).send(e)
         }  
     })
       

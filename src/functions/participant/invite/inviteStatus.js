@@ -1,7 +1,6 @@
 const Invite = require('../../../models/Invite')
-const Team = require('../../../models/Team')
+const DN_Team = require('../../../models/Dn-Team')
 const Hack = require('../../../models/Hack')
-const ParticipantTeam = require('../../../models/ParticipantTeam')
 const errorHandler = require('../../../middleware/errorHandler')
 const {TeamFullError} = require('../../../utils/error')
 
@@ -17,17 +16,17 @@ const inviteStatus = async(req,res) =>{
         if(req.participant._id != invite.participant_id){
             return res.status(400).send('Invite not for you')
         }
-        const team = await Team.find({_id:invite.team_id})
-        const hack = await Hack.find({_id:team.hack_id})
-        const participants = await ParticipantTeam.find({team_id:team._id})
+        const team = await DN_Team.find({_id:invite.team_id})
         if(req.params.status=='accepted'){
-            if(hack.max_team_size===participants.length){
-                throw new TeamFullError
+            if(team.hack_id != null){
+                const hack = await Hack.find({_id:team.hack_id})
+                if(hack.max_team_size===team.members.length){
+                    errorHandler(new TeamFullError,req,res)
+                    return
+                }
             }
-            const joinTeam = await ParticipantTeam.create([{
-                team_id : invite.team_id,
-                participant_id : invite.participant_id
-            }],opts)
+            team.members.push({uid:req.participant._id})
+            await team.save(opts)
             await invite.remove(opts)
             res.status(201).send('added to team')
         }
@@ -37,7 +36,7 @@ const inviteStatus = async(req,res) =>{
         }
 
     } catch (e) {
-        errorHandler(e,req,res)
+        res.status(400).send(e)
     }   
 }) 
 }
