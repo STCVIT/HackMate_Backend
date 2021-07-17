@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-
 const models = require('../models/Models')
 const path = require('path');
 require("dotenv").config({ path: path.resolve(__dirname, "../../.env") });

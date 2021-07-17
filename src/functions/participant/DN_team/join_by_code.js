@@ -1,6 +1,7 @@
 const DN_Team = require('../../../models/Dn-Team')
 const errorHandler = require('../../../middleware/errorHandler')
 const { NotFoundError, BadRequestError } = require('../../../utils/error')
+const teamCheck = require('../../../middleware/teamCheck')
 
 const join_team_by_code = async(req,res)=>{
     try {
@@ -16,17 +17,23 @@ const join_team_by_code = async(req,res)=>{
             return
         }
         team.members.push({uid:req.participant._id})
-        let x = await team.check()
-        if (x==0){
-            await team.save()
-            res.status(201).send(team)    
-        }
-        else{
-            errorHandler(x,req,res)
-        }
+        console.log(team)
+        await team.save()
+        // let check = await teamCheck(team)
+        // console.log(check)
+        // if (check==true){
+        //     await team.save()
+        //     res.status(201).send(team)    
+        // }
+        // else{
+        //     errorHandler(check,req,res)
+        // }
+        res.status(201).send(team)
        
     } catch (e) {
-        errorHandler(new BadRequestError,req,res)
+        console.log(e)
+        res.send(e)
+        // errorHandler(e,req,res)
     }
     
 }

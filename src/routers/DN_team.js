@@ -42,7 +42,7 @@ router.get('/teamSkills/:hack_id',checkUser,checkClaimParticipant,getParticipant
 router.post('/addSkills/:team_id',checkUser,checkClaimParticipant,getParticipant,checkAdmin,addSkills)
 
 //GET-SKILLS-REQUIRED
-router.get('getSkills/:team_id',checkUser,checkClaimParticipant,getSkills)
+router.get('/getSkills/:team_id',checkUser,checkClaimParticipant,getParticipant,getSkills)
 
 //GET-MY-TEAMS
 router.get('/myTeams',checkUser,checkClaimParticipant,getParticipant,myTeams)

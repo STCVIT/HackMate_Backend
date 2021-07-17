@@ -2,6 +2,7 @@ const SkillVacancy = require('../../../models/SkillVacancy')
 const DN_Team = require('../../../models/Dn-Team')
 const errorHandler = require('../../../middleware/errorHandler')
 const { NotFoundError, BadRequestError } = require('../../../utils/error')
+const paginate = require('../../../middleware/paginate')
 
 //participant+skills
 
@@ -19,18 +20,16 @@ const get_team_by_skills = async(req,res)=>{
             if(checkTeam){
                 validteams.push(team)
             }
+            console.log(validteams)
             i++
             if(i==hackTeams.length){
-                if(validTeams.length == 0 || !validTeams ){
+                if(validteams.length == 0 || !validteams ){
                     errorHandler(new NotFoundError,req,res)
                     return
                 }
                 const page = Number(req.query.page)
-                const start = (page-1)*8
-                const limit = 8 
-                const end = start + limit
                 const length = validteams.length
-                const final = validteams.slice(start,end)
+                const final = paginate(validteams,8,page)
                 if(!final || final.length==0){
                     return res.send('not found')
                 }

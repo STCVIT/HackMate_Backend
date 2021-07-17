@@ -39,10 +39,12 @@ app.use('/DN_Team',Dn_Team)
 app.use('/participant/get',participant)
 
 app.all('*',(req,res,next)=>{
-    throw new NotFoundError()
+    throw new NotFoundError
 })
 
 app.use(errorHandler)
+
+
 
 app.listen(port,()=>{
     console.log('Server is up on Port:', port)

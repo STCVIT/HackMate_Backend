@@ -11,7 +11,7 @@ const createRequest = require('../functions/participant/requests/createRequest')
 const myRequests = require('../functions/participant/requests/myRequests')
 
 //CREATE-REQUEST
-router.post('/request',checkUser,checkClaimParticipant,getParticipant,createRequest)
+router.post('/request/:team_id',checkUser,checkClaimParticipant,getParticipant,createRequest)
 
 //GET-MY-REQUESTS
 router.get('/myRequests',checkUser,checkClaimParticipant,getParticipant,myRequests)

@@ -11,7 +11,7 @@ const inviteStatus = require('../functions/participant/invite/inviteStatus')
 const deleteInvite = require('../functions/participant/invite/deleteInvite')
 
 //CREATE-INVITE
-router.post('/invite/:team_id/:participant_id',checkUser,checkClaimParticipant,checkAdmin,createInvite)
+router.post('/invite/:team_id/:participant_id',checkUser,checkClaimParticipant,getParticipant,checkAdmin,createInvite)
 
 //GET-MY-INVITES
 router.get('/myInvites',checkUser,checkClaimParticipant,getParticipant,myInvites)

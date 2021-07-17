@@ -8,7 +8,7 @@
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
     "firebase-admin": "^9.8.0",
-    "mongoose": "^5.12.9"
+    "mongoose": "^5.13.3"
   },
   "devDependencies": {},
   "scripts": {
