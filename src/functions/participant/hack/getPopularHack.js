@@ -1,25 +1,19 @@
+const paginate = require('../../../middleware/paginate')
 const DN_Team = require('../../../models/Dn-Team')
 const Hack = require('../../../models/Hack')
 
 const getPopularHack = async(req,res) =>{
     const page = Number(req.query.page)
-        const start = (page-1)*6
-        const limit = 6 
-        const end = start + limit
     const now = new Date(Date.now())
-    const hacks = await Hack.find()
+    const hacks = await Hack.find({start:{$gt:now}})
+    console.log(hacks)
+    let length = hacks.length
     let popularHacks =[];
-    const eligibleHacks = hacks.filter((hack)=>{
-        if (hack.start>now){
-            console.log(hack.start)
-            return hack
-        }
-    })
     let i = 0
-    if(eligibleHacks.length==0){
+    if(length==0){
         return res.status(404).send('Not Found')
     }
-    eligibleHacks.forEach(async(hack)=>{
+        hacks.forEach(async(hack)=>{
         const teams = await DN_Team.find({hack_id:hack._id})
         let countArr = [
             hack,
@@ -27,16 +21,12 @@ const getPopularHack = async(req,res) =>{
         ]
         popularHacks.push(countArr) 
         i++
-        if (i==eligibleHacks.length){
+        if (i==length){
             popularHacks.sort(function(a,b){return b[1]-a[1]})
-            const newPopularHacks = popularHacks.slice(start,end)
-            if(newPopularHacks.length==0){
-                return res.status(404).send('Not Found')
-            }
+            const newPopularHacks = paginate(popularHacks,6,page)
             console.log(newPopularHacks)
-            newPopularHacks.forEach(hack=> console.log(hack[0]))
             const final = newPopularHacks.map((hack)=>hack[0])
-           res.status(200).send(final)
+           res.status(200).send({final,length})
         }
     })
 }

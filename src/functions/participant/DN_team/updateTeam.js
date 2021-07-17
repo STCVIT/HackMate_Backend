@@ -1,3 +1,5 @@
+//team.check()
+
 const updateTeam = async(req,res)=>{
     const team = req.team
         const updates = Object.keys(req.body)

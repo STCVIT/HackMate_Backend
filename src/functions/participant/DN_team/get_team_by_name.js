@@ -2,6 +2,8 @@ const errorHandler = require('../../../middleware/errorHandler')
 const DN_Team = require('../../../models/Dn-Team')
 const { NotFoundError, BadRequestError } = require('../../../utils/error')
 
+//participant+skills
+
 const get_team_by_name = async(req,res)=>{
     try {
         if(req.params.hack_id != 'null'){
