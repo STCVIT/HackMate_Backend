@@ -9,6 +9,9 @@ const getUpcomingHacks = async(req,res) =>{
         console.log(hacks,'hi')
         let length = hacks.length
         const newHacks = paginate(hacks,6,page)
+        if(newHacks.length==0){
+            return res.status(404).send('not found')
+        }
         res.status(200).send({newHacks,length})
     } catch (e) {
         res.status(400).send(e)

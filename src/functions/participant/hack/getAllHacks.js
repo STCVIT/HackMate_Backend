@@ -7,6 +7,9 @@ const getAllHacks = async(req,res) => {
         const hacks = await Hack.find().sort({_id:-1}) 
         let length = hacks.length
         let final = paginate(hacks,6,page)
+        if(!final || final.length==0){
+            return res.status(404).send('not found')
+        }
         res.status(200).send({final,length})
     } catch (e) {
         res.status(400).send(e)

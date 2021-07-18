@@ -8,6 +8,9 @@ const getOngoingHacks = async(req,res) => {
         const hacks = await Hack.find({start:{$lte:now},end:{$gt:now}})
        const newHacks = paginate(hacks,6,page)
        let length = hacks.length
+       if(newHacks.length==0){
+           return res.status(404).send('not found')
+       }
         res.status(200).send({newHacks,length})
     } catch (e) {
         res.status(400).send(e)

@@ -2,7 +2,7 @@ const Hack = require('../../../models/Hack')
 
 async function getHack(req,res){
     try {
-        const hack = await Hack.findOne({_id:req.params.id,organiser_id:req.organiser._id})
+        const hack = await Hack.findOne({_id:req.params.hack_id,organiser_id:req.organiser._id})
         if(!hack){
             return res.status(404).send('Not found')
         }

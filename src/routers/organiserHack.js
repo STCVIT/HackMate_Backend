@@ -16,7 +16,7 @@ const router = express.Router()
 router.post('/createHack',checkUser,checkClaimOrganiser,getOrganiser,createHack)
 
 //GET-HACK
-router.get('/hack/:id',checkUser,checkClaimOrganiser,getHack)
+router.get('/hack/:hack_id',checkUser,checkClaimOrganiser,getOrganiser,getHack)
 
 //GET-HACKS
 router.get('/hacks',checkUser,checkClaimOrganiser,getOrganiser,getHacks)
@@ -25,9 +25,9 @@ router.get('/hacks',checkUser,checkClaimOrganiser,getOrganiser,getHacks)
 router.patch('/updateHack/:id',checkUser,checkClaimOrganiser,updateHack)
 
 //DELETE-HACK
-router.delete('/deleteHack/:id',checkUser,checkClaimOrganiser,deleteHack)
+router.delete('/deleteHack/:id',checkUser,checkClaimOrganiser,getOrganiser,deleteHack)
 
 //GET-INTERESTED-TEAMS
-router.get('/getTeams/:hack_id',checkUser,checkClaimOrganiser,getInterestedTeams)
+router.get('/getTeams/:hack_id',checkUser,checkClaimOrganiser,getOrganiser,getInterestedTeams)
 
 module.exports = router

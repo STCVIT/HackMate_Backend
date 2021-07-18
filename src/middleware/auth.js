@@ -29,14 +29,18 @@ admin.initializeApp({
 });
 
 const checkUser=((req,res,next)=>{
+  if(!req.header('Authorization')||(req.header('Authorization')==undefined)){
+    return res.status(401).send('oof')
+  }
 const idToken=req.header('Authorization').replace('Bearer ', '')
+
 admin
   .auth()
   .verifyIdToken(idToken)
   .then((user) => {
     const uid = user.uid;
         if (!user.email_verified){
-          return res.send('Please Verify Your Email Address!')
+          return res.status(400).send('Please Verify Your Email Address!')
         }
         else{
           req.userId=uid
@@ -46,7 +50,7 @@ admin
        }
   })
   .catch((error) => {
-    res.status(404).send(error)
+    res.status(401).send(error)
   });
 })
 
