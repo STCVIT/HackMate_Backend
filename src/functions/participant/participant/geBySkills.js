@@ -3,11 +3,14 @@ const DN_Team = require('../../../models/Dn-Team')
 const Participant = require('../../../models/Participant')
 const errorHandler = require('../../../middleware/errorHandler')
 const Skill = require('../../../models/Skill')
+const paginate = require('../../../middleware/paginate')
 
 const getParticipantBySkills = async(req,res) => {
     try {
         let length = 0
-        const skills = await Skill.find({skill:req.params.skill})
+        const page = Number(req.query.page)
+        const skill = [...req.query.skill]
+        const skills = await Skill.find({skill:{$in:skill}})
         let skillParticipants = skills.map((skill)=>{return skill.participant_id})
             const hackTeams = await DN_Team.find({hack_id:req.params.hack_id})
 
@@ -18,11 +21,8 @@ const getParticipantBySkills = async(req,res) => {
                     return
                 }
             length = participants.length           
-            const page = Number(req.query.page)
-            const start = (page-1)*12
-            const limit = 12
-            const end = start + limit
-            const final = participants.slice(start,end)
+            
+            const final = paginate(participants,12,page)
             if(!final || final.length==0){
                 errorHandler(new NotFoundError,req,res)
                 return
@@ -43,11 +43,7 @@ const getParticipantBySkills = async(req,res) => {
                 errorHandler(new NotFoundError,req,res)
                 return
             }
-            const page = Number(req.query.page)
-            const start = (page-1)*12
-            const limit = 12
-            const end = start + limit
-            const final = answer.slice(start,end)
+            const final = paginate(answer,12,page)
             if(!final || final.length==0){
                 errorHandler(new NotFoundError,req,res)
                 return

@@ -51,13 +51,13 @@ router.get('/myTeams',checkUser,checkClaimParticipant,getParticipant,myTeams)
 router.get('/admin/:hack_id',checkUser,checkClaimParticipant,getParticipant,myAdminTeams)
 
 //LEAVE-TEAM
-router.delete('/:team_id',checkUser,checkClaimParticipant,getParticipant,leaveTeam)
+router.patch('/:team_id',checkUser,checkClaimParticipant,getParticipant,leaveTeam)
 
 //DELETE-TEAM
-router.post('/deleteTeam/:team_id',checkUser,checkClaimParticipant,getParticipant,checkAdmin,deleteTeam)
+router.delete('/deleteTeam/:team_id',checkUser,checkClaimParticipant,getParticipant,checkAdmin,deleteTeam)
 
 //REMOVE-MEMBER-FROM-TEAM
-router.post('/removeMember/:team_id/:member_id',checkUser,checkClaimParticipant,getParticipant,checkAdmin,removeMemberFromTeam)
+router.patch('/removeMember/:team_id/:member_id',checkUser,checkClaimParticipant,getParticipant,checkAdmin,removeMemberFromTeam)
 
 //UPDATE-TEAM(add from existing + projects)
 router.patch('/update/:team_id',checkUser,checkClaimParticipant,getParticipant,checkAdmin,updateTeam)

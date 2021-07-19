@@ -9,7 +9,6 @@ if (!isValidOperation){
 try {
      updates.forEach((update)=>req.participant[update]=req.body[update])
      await req.participant.save()
-
       res.send(req.participant)
 } catch (error) {
     res.status(400).send(error)

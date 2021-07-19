@@ -22,7 +22,7 @@ router.get('/hack/:hack_id',checkUser,checkClaimOrganiser,getOrganiser,getHack)
 router.get('/hacks',checkUser,checkClaimOrganiser,getOrganiser,getHacks)
 
 //UPDATE-HACK
-router.patch('/updateHack/:id',checkUser,checkClaimOrganiser,updateHack)
+router.patch('/updateHack/:hack_id',checkUser,checkClaimOrganiser,updateHack)
 
 //DELETE-HACK
 router.delete('/deleteHack/:id',checkUser,checkClaimOrganiser,getOrganiser,deleteHack)

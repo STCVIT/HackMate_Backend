@@ -6,7 +6,6 @@ const getPopularHack = async(req,res) =>{
     const page = Number(req.query.page)
     const now = new Date(Date.now())
     const hacks = await Hack.find({start:{$gt:now}})
-    console.log(hacks)
     let length = hacks.length
     let popularHacks =[];
     let i = 0
@@ -27,7 +26,6 @@ const getPopularHack = async(req,res) =>{
             if(newPopularHacks.length==0){
                 return res.status(404).send('not found')
             }
-            console.log(newPopularHacks)
             const final = newPopularHacks.map((hack)=>hack[0])
            res.status(200).send({final,length})
         }

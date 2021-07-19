@@ -107,4 +107,13 @@ const postHack = () =>{
  
   .catch((e)=>console.error(e))
 }
+const link = 'localhost:3000/'
+const token =''
 
+const get = () => {
+fetch(link,{
+  headers:new Headers({
+    'Authorization':'Bearer ' + token
+  })
+})
+}

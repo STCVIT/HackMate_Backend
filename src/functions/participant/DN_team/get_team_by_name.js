@@ -7,10 +7,16 @@ const Participant = require('../../../models/Participant')
 
 const get_team_by_name = async(req,res)=>{
     try {
+        if(req.query.name==undefined){
+            return res.status(400).send('please enter a name')
+        }
+        console.log(req.query.name,req.params.hack_id)
+        console.log(req.params.hack_id==null)
         let final = []
         let i = 0
         if(req.params.hack_id != 'null'){
-            const teams = await DN_Team.find({hack_id:req.params.hack_id,name:req.body.name}).collation({locale:'en', strength:2})
+            console.log('bruh')
+            const teams = await DN_Team.find({hack_id:req.params.hack_id,name:req.query.name}).collation({locale:'en', strength:2})
             if(!teams || teams.length==0){
                 errorHandler(new NotFoundError,req,res)
                 return
@@ -34,7 +40,8 @@ const get_team_by_name = async(req,res)=>{
             
         }
         else{
-            const teams = await DN_Team.find({hack_id:null,name:req.body.name}).collation({locale:'en', strength:2})
+            console.log('hi')
+            const teams = await DN_Team.find({hack_id:null,name:req.query.name}).collation({locale:'en', strength:2})
             if(!teams || teams.length==0){
                 errorHandler(new NotFoundError,req,res)
                 return

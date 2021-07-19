@@ -4,13 +4,11 @@ const {BadRequestError} = require('../../../utils/error')
 
 async function createProfile(req,res){
     try{
-        console.log(req.userId)
         const participant = new participantModel({
             ...req.body,
             uid:req.userId,
             email:req.email
         })
-        console.log(participant)
         await participant.save()
         res.status(201).send(participant) 
     }

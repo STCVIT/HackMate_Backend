@@ -14,13 +14,13 @@ const router = express.Router()
 router.get('/all/:hack_id',checkUser,checkClaimParticipant,getParticipant,getAllParticipants)
 
 //GET-BY-SKILLS
-router.get('/skill/:skill/:hack_id',checkUser,checkClaimParticipant,getParticipantBySkills)
+router.get('/skill/:hack_id',checkUser,checkClaimParticipant,getParticipant,getParticipantBySkills)
 
 //GET-ALL-FOR-NULL-HACK
 router.get('/allNull',checkUser,checkClaimParticipant,getParticipant,getAllNull)
 
 //GET-ALL-SKILLED-FOR-NULL-HACK
-router.get('/skillNull/:skill',checkUser,checkClaimParticipant,getParticipant,getAllSkills)
+router.get('/skillNull',checkUser,checkClaimParticipant,getParticipant,getAllSkills)
 
 //GET-BY-ID
 router.get('/:participant_id',checkUser,checkClaimParticipant,getParticipant,getById)

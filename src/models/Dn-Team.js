@@ -47,46 +47,8 @@ const teamSchema = new mongoose.Schema({
 })
 teamSchema.index({team_code:1,hack_id:1},{unique:true})
 teamSchema.index({'members.uid':1,hack_id:1},{unique:true , partialFilterExpression: { hack_id : { $exists: true} } })
-teamSchema.index({name:1,hack_id:1},{unique:true})
+teamSchema.index({name:1,hack_id:1},{unique:true , partialFilterExpression : { hack_id : { $exists : true }}})
 
-// teamSchema.methods.check = async function(){
-//     console.log("Hack model: ",Hack)
-//     console.log(Invite)
-//     let team = this
-//     let count = 0 
-//     try {
-//         let check = team.members.filter((member)=>{
-//             if( String(member.uid) != String(team.members[team.members.length-1].uid)){
-//                 return member.uid
-//             }else{
-//                 if (count == 0){
-//                     count++
-//                     return member.uid
-//                 }
-//             }
-//          })
-        
-//          if(check.length<team.members.length){
-//              const err = new DuplicateTeamEntryError
-//             return err
-//          }
-//          if(team.hack_id){
-//              console.log(team.hack_id)
-//              const invites = await Invite.find()
-//              console.log('invites; ',invites)
-//              Hack.f
-//              const hack = await Hack.findById(team.hack_id)
-//              console.log(hack)
-//              if(team.members.length>hack.max_team_size){
-//                  const err = new TeamFullError
-//                  return err
-//              }
-//          }
-//          return true
-//     } catch (e) {
-//         return e
-//     }    
-// }
 
 teamSchema.post('remove',async function(next){
     const team = this 
@@ -120,7 +82,6 @@ teamSchema.pre('save',async function(next){
          if(team.hack_id){
             const Hack = require('./Hack')
              const hack = await Hack.findById(team.hack_id)
-             console.log(hack)
              if(team.members.length>hack.max_team_size){
                  const err = new TeamFullError
                  next(err)
@@ -129,7 +90,7 @@ teamSchema.pre('save',async function(next){
          next()
         
     } catch (e) {
-        next(e)
+        next(new BadRequestError)
     }
     
 })

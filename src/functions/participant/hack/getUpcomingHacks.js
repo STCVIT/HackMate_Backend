@@ -6,7 +6,7 @@ const getUpcomingHacks = async(req,res) =>{
         const page = Number(req.query.page)
         const now = new Date(Date.now())
         const hacks = await Hack.find({start:{$gt:now}})
-        console.log(hacks,'hi')
+        
         let length = hacks.length
         const newHacks = paginate(hacks,6,page)
         if(newHacks.length==0){

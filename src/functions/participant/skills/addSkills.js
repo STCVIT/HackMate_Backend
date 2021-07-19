@@ -5,12 +5,14 @@ const addSkills = async(req,res) => {
     let check = 0
     const skills = req.body.skills
     if(skills.length==0){
-        return res.send('Please enter some skills')
+        return res.status(404).send('Please enter some skills')
     }
     const allowed_skills = ['frontend','backend','ml','ui/ux','appdev']
-    const isAllowed = skills.every((skill)=>{allowed_skills.includes(skill)})
+    //console.log()
+    const isAllowed = skills.every((skill)=>allowed_skills.includes(skill))
+    console.log(isAllowed)
     if(!isAllowed){
-        return res.send('Invalid skills')
+        return res.status(403).send('Invalid skills')
     }
     await Skill.deleteMany({participant_id:req.participant._id})
     let skillRecords = []
@@ -24,6 +26,7 @@ const addSkills = async(req,res) => {
         skillRecords.push(newSkill)
         i++
         if(i==skills.length){
+            console.log('hi',skillRecords)
             res.status(201).send(skillRecords)
         }
     })

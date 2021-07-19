@@ -10,10 +10,12 @@ const createTeam = async(req,res) =>{
                 name: req.body.name,
                 admin_id:req.participant._id,
                 team_code,
-                hack_id:req.params.hack_id,
+                //hack_id:req.params.hack_id,
                 members:{uid:req.participant._id}
             })
-            await team.check()
+            if(req.params.hack_id != 'null'){
+                team.hack_id = req.params.hack_id
+            }
             await team.save()
             res.status(201).send(team)
         }catch(e){

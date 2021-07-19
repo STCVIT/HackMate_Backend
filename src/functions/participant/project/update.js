@@ -1,7 +1,6 @@
 const projectModel = require('../../../models/Project')
-
-//error handling for not found
-//validation before updates
+const errorHandler = require('../../../middleware/errorHandler')
+const {NotFoundError} = require('../../../utils/error')
 
 async function updateProject(req,res){
     const updates = Object.keys(req.body)
@@ -12,6 +11,9 @@ async function updateProject(req,res){
     }
     try {
         const project = await projectModel.findOne({_id:req.params.project_id,participant_id:req.participant._id})
+        if(!project){
+           return errorHandler(new NotFoundError,req,res)
+        }
         updates.forEach((update)=>project[update]=req.body[update])
         await project.save()
         res.send(project)

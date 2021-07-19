@@ -11,6 +11,7 @@ const getAll = async(req,res)=>{
             errorHandler(new NotFoundError,req,res)
             return
         }
+        console.log(individualProjects,teams)
         res.status(200).send({individualProjects,teams})
         
     } catch (e) {

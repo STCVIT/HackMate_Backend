@@ -6,7 +6,8 @@ const {NotFoundError,BadRequestError} = require('../../../utils/error')
 const getAllSkills = async(req,res)=>{
     try {
         let length = 0
-        const skills = await Skill.find({skill:req.params.skill})
+        let skill = [...req.query.skill]
+        const skills = await Skill.find({skill:{$in:skill}})
         let skillParticipants = skills.map((skill)=>{return skill.participant_id})
     
                 const participants = await Participant.find({_id:{$in:skillParticipants,$ne:req.participant._id}})
