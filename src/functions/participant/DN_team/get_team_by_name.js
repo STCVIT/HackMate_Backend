@@ -3,6 +3,7 @@ const DN_Team = require('../../../models/Dn-Team')
 const { NotFoundError, BadRequestError } = require('../../../utils/error')
 const SkillVacancy = require('../../../models/SkillVacancy')
 const Participant = require('../../../models/Participant')
+const Skill = require('../../../models/Skill')
 //participant+skills
 
 const get_team_by_name = async(req,res)=>{
@@ -25,11 +26,21 @@ const get_team_by_name = async(req,res)=>{
                 const skills = await SkillVacancy.find({team_id:team._id})
                 const members = team.members.map((member)=>member.uid)
                 const participants = await Participant.find({_id:{$in:members}})
-                const temp = [
+                // let final_participant = []
+                // let temp_participant = {}
+                // participants.forEach(async(participant)=>{
+                //     const pt_skills = await Skill.find({participant_id:participant._id})
+                //     temp_participant = {
+                //         participant,
+                //         skills:pt_skills
+                //     }
+                //     final_participant.push(temp_participant)
+                // })
+                const temp = {
                     team,
                     participants,
                     skills
-                ]
+                }
                 console.log(temp)
                 final.push(temp)
                 i++

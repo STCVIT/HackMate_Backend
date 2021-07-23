@@ -17,9 +17,10 @@ const createTeam = async(req,res) =>{
                 team.hack_id = req.params.hack_id
             }
             await team.save()
+            console.log('hi')
             res.status(201).send(team)
         }catch(e){
-            res.send('lmao')
+            res.status(400).send('lmao')
             console.log(e)
         }
 }

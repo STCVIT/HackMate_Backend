@@ -16,7 +16,7 @@ test('get all null empty',async()=>{
                 .set('Authorization',`Bearer ${auth}`)
                 .send()
 
-    expect(res.status).toBe(404)
+    expect(res.status).toBe(200)
 })
 
 test('get all hack',async()=>{

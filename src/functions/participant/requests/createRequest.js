@@ -3,7 +3,8 @@ const Request = require('../../../models/Request')
 
 const createRequest = async(req,res)=>{
     try {
-        const check = await DN_Team.findOne({team_id:req.params.team_id,'members.uid':req.participant._id})
+        const check = await DN_Team.findOne({_id:req.params.team_id,'members.uid':req.participant._id})
+        console.log(check)
         if(check){
             return res.status(400).send('Already in team')
         }

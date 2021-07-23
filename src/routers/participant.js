@@ -10,17 +10,39 @@ const { getParticipant } = require('../middleware/getUser')
 
 const router = express.Router()
 
+//ask for teammates
+
+// //GET-ALL-PARTICIPANTS
+// router.get('/all/:hack_id',checkUser,checkClaimParticipant,getParticipant,getAllParticipants)
+
+// //GET-BY-SKILLS
+// router.get('/skill/:hack_id',checkUser,checkClaimParticipant,getParticipant,getParticipantBySkills)
+
 //GET-ALL-PARTICIPANTS
-router.get('/all/:hack_id',checkUser,checkClaimParticipant,getParticipant,getAllParticipants)
+router.get('/all/:hack_id',checkUser,checkClaimParticipant,getParticipant,(req,res)=>{
+    if(req.params.hack_id != 'null'){
+       getAllParticipants(req,res)
+    }
+    else{
+        getAllNull(req,res)
+    }
+})
 
 //GET-BY-SKILLS
-router.get('/skill/:hack_id',checkUser,checkClaimParticipant,getParticipant,getParticipantBySkills)
+router.get('/skill/:hack_id',checkUser,checkClaimParticipant,getParticipant,(req,res)=>{
+    if(req.params.hack_id != 'null'){
+        getParticipantBySkills(req,res)
+    }
+    else{
+        getAllSkills(req,res)
+    }
+})
 
-//GET-ALL-FOR-NULL-HACK
-router.get('/allNull',checkUser,checkClaimParticipant,getParticipant,getAllNull)
+// //GET-ALL-FOR-NULL-HACK
+// router.get('/allNull',checkUser,checkClaimParticipant,getParticipant,getAllNull)
 
-//GET-ALL-SKILLED-FOR-NULL-HACK
-router.get('/skillNull',checkUser,checkClaimParticipant,getParticipant,getAllSkills)
+// //GET-ALL-SKILLED-FOR-NULL-HACK
+// router.get('/skillNull',checkUser,checkClaimParticipant,getParticipant,getAllSkills)
 
 //GET-BY-ID
 router.get('/:participant_id',checkUser,checkClaimParticipant,getParticipant,getById)

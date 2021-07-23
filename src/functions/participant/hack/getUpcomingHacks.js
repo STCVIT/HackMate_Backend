@@ -8,11 +8,11 @@ const getUpcomingHacks = async(req,res) =>{
         const hacks = await Hack.find({start:{$gt:now}})
         
         let length = hacks.length
-        const newHacks = paginate(hacks,6,page)
-        if(newHacks.length==0){
+        const final = paginate(hacks,6,page)
+        if(final.length==0){
             return res.status(404).send('not found')
         }
-        res.status(200).send({newHacks,length})
+        res.status(200).send({final,length})
     } catch (e) {
         res.status(400).send(e)
     }

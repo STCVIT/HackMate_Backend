@@ -9,7 +9,7 @@ const getParticipantBySkills = async(req,res) => {
     try {
         let length = 0
         const page = Number(req.query.page)
-        const skill = [...req.query.skill]
+        const skill = req.query.skill
         const skills = await Skill.find({skill:{$in:skill}})
         let skillParticipants = skills.map((skill)=>{return skill.participant_id})
             const hackTeams = await DN_Team.find({hack_id:req.params.hack_id})

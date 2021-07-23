@@ -19,6 +19,7 @@ const getSkills = require('../functions/participant/DN_team/getSkills')
 const removeMemberFromTeam = require('../functions/participant/DN_team/removeMemberFromTeam')
 const deleteTeam = require('../functions/participant/DN_team/deleteTeam')
 const updateTeam = require('../functions/participant/DN_team/updateTeam')
+const getAllTeams = require('../functions/participant/DN_team/getAllTeams')
 
 //CHECK-TEAM-NAME
 router.post('/checkName',checkUser,checkClaimParticipant,checkTeamName)
@@ -29,11 +30,14 @@ router.post('/createTeam/:hack_id',checkUser,checkClaimParticipant,getParticipan
 //CREATE TEAM WITH NO HACK
 router.post('/createNull',checkUser,checkClaimParticipant,getParticipant,createNullHackTeam)
 
-//GET-BY-TEAM-NAME
-router.get('/teamName/:hack_id',checkUser,checkClaimParticipant,getParticipant,get_team_by_name)
-
 //JOIN-BY-TEAM-CODE
 router.post('/code/:hack_id',checkUser,checkClaimParticipant,getParticipant,join_team_by_code)
+
+//GET-ALL-TEAMS-FOR-HACK
+router.get('/all/:hack_id',checkUser,checkClaimParticipant,getParticipant,getAllTeams)
+
+//GET-BY-TEAM-NAME
+router.get('/teamName/:hack_id',checkUser,checkClaimParticipant,getParticipant,get_team_by_name)
 
 //GET-BY-TEAM-SKILLS
 router.get('/teamSkills/:hack_id',checkUser,checkClaimParticipant,getParticipant,get_team_by_skills)

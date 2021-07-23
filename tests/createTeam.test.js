@@ -20,7 +20,7 @@ test('create hack team',async()=>{
     .post('/DN_Team/createTeam/null')
     .set('Authorization','Bearer '+auth)
     .send({
-        name:'hehetew'
+        name:'hehe-null'
     })
     expect(res.status).toBe(201)
 })
