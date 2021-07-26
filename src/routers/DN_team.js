@@ -20,6 +20,7 @@ const removeMemberFromTeam = require('../functions/participant/DN_team/removeMem
 const deleteTeam = require('../functions/participant/DN_team/deleteTeam')
 const updateTeam = require('../functions/participant/DN_team/updateTeam')
 const getAllTeams = require('../functions/participant/DN_team/getAllTeams')
+const getById = require('../functions/participant/DN_team/getById')
 
 //CHECK-TEAM-NAME
 router.post('/checkName',checkUser,checkClaimParticipant,checkTeamName)
@@ -41,6 +42,9 @@ router.get('/teamName/:hack_id',checkUser,checkClaimParticipant,getParticipant,g
 
 //GET-BY-TEAM-SKILLS
 router.get('/teamSkills/:hack_id',checkUser,checkClaimParticipant,getParticipant,get_team_by_skills)
+
+//GET-BY-ID
+router.get('/:team_id',checkUser,checkClaimParticipant,getById)
 
 //ADD-SKILL-REQUIREMENTS
 router.post('/addSkills/:team_id',checkUser,checkClaimParticipant,getParticipant,checkAdmin,addSkills)

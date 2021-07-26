@@ -8,3 +8,6 @@
 //     }
 //     final_participant.push(temp_participant)
 // })
+
+//add skills in my teams/admin teams
+//request+invite populate team name and leader/participant

@@ -2,6 +2,9 @@ const errorHandler = require('../../../middleware/errorHandler')
 const DN_Team = require('../../../models/Dn-Team')
 const Hack = require('../../../models/Hack')
 const { NotFoundError, BadRequestError } = require('../../../utils/error')
+const paginate = require('../../../middleware/paginate')
+const Participant = require('../../../models/Participant')
+const Skill = require('../../../models/Skill')
 
 const myTeams = async(req,res) =>{
     try {
@@ -11,25 +14,30 @@ const myTeams = async(req,res) =>{
             return
         }
         const page = Number(req.query.page)
-        const start = (page-1)*8
-        const limit = 8 
-        const end = start + limit
         const length = teams.length
-        const temp = teams.slice(start,end)
+        const temp = paginate(teams,8,page)
         if(!temp || temp.length==0){
             return res.send('Not found')
         }
         let final = []
         temp.forEach(async(team)=>{
             let hackName = ''
+            let team_participants = []
             if(team.hack_id){
                 let hack = await Hack.findOne({_id:team.hack_id})
+                let members = temp.members.map((member)=>member.uid)
+                const participants = await Participant.find({_id:{$in:members}})
+                participants.forEach(async(participant) => {
+                    const skills =await Skill.find({participant_id:participant._id})
+                    
+                });
+                let temp_team = {
+                    team,
+                    hackName
+                }
                 hackName = hack.name
             }
-            let temp_team = {
-                team,
-                hackName
-            }
+            
             final.push(temp_team)
         })
         res.status(200).send({final,length})
