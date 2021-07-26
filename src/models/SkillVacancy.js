@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const skillsList = ['frontend','backend','ml','ui/ux','appdev']
+const skillsList = ['frontend','backend','ml','ui/ux','appdev','management','blockchain','cybersecurity']
 
 const skillVacancySchema = new mongoose.Schema({
     team_id:{
@@ -9,7 +9,7 @@ const skillVacancySchema = new mongoose.Schema({
     },
     skill:{
         type:String,
-        //enum: skillsList,
+        enum: skillsList,
         required:true
     }
 }) 

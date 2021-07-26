@@ -2,13 +2,11 @@ const Skill = require('../../../models/Skill')
 
 const addSkills = async(req,res) => {
     try {
-    let check = 0
     const skills = req.body.skills
     if(skills.length==0){
         return res.status(404).send('Please enter some skills')
     }
-    const allowed_skills = ['frontend','backend','ml','ui/ux','appdev']
-    //console.log()
+    const allowed_skills = ['frontend','backend','ml','ui/ux','appdev','management','blockchain','cybersecurity']
     const isAllowed = skills.every((skill)=>allowed_skills.includes(skill))
     console.log(isAllowed)
     if(!isAllowed){

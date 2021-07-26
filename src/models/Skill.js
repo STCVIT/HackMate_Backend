@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const skillsList = ['frontend','backend','ml','ui/ux','appdev']
+const skillsList = ['frontend','backend','ml','ui/ux','appdev','management','blockchain','cybersecurity']
 
 const skillSchema = new mongoose.Schema({
     participant_id:{
