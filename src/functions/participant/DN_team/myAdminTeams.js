@@ -2,6 +2,8 @@ const DN_Team = require('../../../models/Dn-Team')
 const Hack = require('../../../models/Hack')
 const {NotFoundError}  = require('../../../utils/error')
 const errorHandler = require('../../../middleware/errorHandler')
+const Skill = require('../../../models/Skill')
+const participantModel = require('../../../models/Participant')
 const myAdminTeams = async(req,res)=>{
     try {
     const check = await DN_Team.findOne({'members.uid':req.participant._id,hack_id:req.params.hack_id})
@@ -37,7 +39,18 @@ const myAdminTeams = async(req,res)=>{
         if(!eligibleTeams){
             errorHandler(new NotFoundError,req,res)
         }
-        res.status(200).send(eligibleTeams)
+        let final = []
+        for await (team of eligibleTeams){
+            let pt_skill = []
+            let members = team.members.map((member)=>member.uid)
+            let participants = await participantModel.find({_id:{$in:members}})
+            for await (participant of participants){
+                let skills = await Skill.find({participant_id:participant._id})
+                pt_skill.push({participant,skills})
+            }
+            final.push({team,pt_skill})
+        }
+        res.status(200).send(final)
     } catch (e) {
         res.status(400).send(e)
     }

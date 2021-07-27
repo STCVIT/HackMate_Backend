@@ -24,11 +24,9 @@ const router = express.Router()
 router.get('/all/:hack_id',checkUser,checkClaimParticipant,getParticipant,(req,res)=>{
     try {
         if(req.params.hack_id != 'null'){
-            console.log('hi')
            getAllParticipants(req,res)
         }
         else{
-            console.log('hiull')
             getAllNull(req,res)
         }  
     } catch (e) {
@@ -39,12 +37,17 @@ router.get('/all/:hack_id',checkUser,checkClaimParticipant,getParticipant,(req,r
 
 //GET-BY-SKILLS
 router.get('/skill/:hack_id',checkUser,checkClaimParticipant,getParticipant,(req,res)=>{
-    if(req.params.hack_id != 'null'){
-        getParticipantBySkills(req,res)
+    try {
+        if(req.params.hack_id != 'null'){
+            getParticipantBySkills(req,res)
+        }
+        else{
+            getAllSkills(req,res)
+        }
+    } catch (e) {
+        errorHandler(new BadRequestError,req,res)
     }
-    else{
-        getAllSkills(req,res)
-    }
+    
 })
 
 // //GET-ALL-FOR-NULL-HACK
