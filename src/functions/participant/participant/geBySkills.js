@@ -7,6 +7,8 @@ const paginate = require('../../../middleware/paginate')
 
 const getParticipantBySkills = async(req,res) => {
     try {
+        let temp_pt = []
+        let participants = []
         let length = 0
         const page = Number(req.query.page)
         const skill = req.query.skill
@@ -15,19 +17,12 @@ const getParticipantBySkills = async(req,res) => {
             const hackTeams = await DN_Team.find({hack_id:req.params.hack_id})
 
             if(!hackTeams || hackTeams.length==0){
-                const participants = await Participant.find({_id:{$in:skillParticipants,$ne:req.participant._id}})
+                 participants = await Participant.find({_id:{$in:skillParticipants,$ne:req.participant._id}})
                 if(!participants || participants.length==0){
-                    errorHandler(new NotFoundError,req,res)
-                    return
-                }
+                    return errorHandler(new NotFoundError,req,res)
+                 }
             length = participants.length           
-            
-            const final = paginate(participants,12,page)
-            if(!final || final.length==0){
-                errorHandler(new NotFoundError,req,res)
-                return
-            }
-            return res.status(200).send({final,length})
+            temp_pt = paginate(participants,12,page)
             }
 
             else{
@@ -40,18 +35,22 @@ const getParticipantBySkills = async(req,res) => {
             let eligibleParticipants = skillParticipants.filter(sp=>!hack.has(sp))
             const answer = await Participant.find({_id:{$in:eligibleParticipants,$ne:req.participant._id}})
             if(!answer || answer.length==0){
-                errorHandler(new NotFoundError,req,res)
-                return
+                return errorHandler(new NotFoundError,req,res)
+                
             }
-            const final = paginate(answer,12,page)
-            if(!final || final.length==0){
-                errorHandler(new NotFoundError,req,res)
-                return
-            }
-            length = eligibleParticipants.length
-            return res.status(200).send({final,length})
+            temp_pt = paginate(answer,12,page)
         }
-   
+        if(!temp_pt || temp_pt.length==0){
+            return errorHandler(new NotFoundError,req,res)
+            
+        }
+        let final = []
+        for await (pt of temp_pt){
+            let skills = await Skill.find({participant_id:pt._id})
+            final.push({pt,skills})
+        }
+        length = participants.length
+        return res.status(200).send({final,length})
 } catch (e) {
         res.status(400).send(e)
 }   

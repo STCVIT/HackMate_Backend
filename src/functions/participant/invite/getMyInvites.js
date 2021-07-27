@@ -15,12 +15,6 @@ const myInvites = async(req,res)=>{
             errorHandler(new NotFoundError,req,res)
             return
         }
-        // if((!sent || sent.length==0)&&(received.length>0)){
-        //     return res.status(200).send({received})
-        // }
-        // if((!received || received.length==0)&&(sent.length>0)){
-        //     return res.status(200).send({sent})
-        // }
         res.status(200).send({received,sent})
     } catch (e) {
         errorHandler(new BadRequestError,req,res)

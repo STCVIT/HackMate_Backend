@@ -6,7 +6,9 @@ const getAllSkills = require('../functions/participant/participant/getAllSkills'
 
 const getById = require('../functions/participant/participant/getById')
 const { checkUser, checkClaimParticipant } = require('../middleware/auth')
+const errorHandler = require('../middleware/errorHandler')
 const { getParticipant } = require('../middleware/getUser')
+const { BadRequestError } = require('../utils/error')
 
 const router = express.Router()
 
@@ -20,12 +22,19 @@ const router = express.Router()
 
 //GET-ALL-PARTICIPANTS
 router.get('/all/:hack_id',checkUser,checkClaimParticipant,getParticipant,(req,res)=>{
-    if(req.params.hack_id != 'null'){
-       getAllParticipants(req,res)
+    try {
+        if(req.params.hack_id != 'null'){
+            console.log('hi')
+           getAllParticipants(req,res)
+        }
+        else{
+            console.log('hiull')
+            getAllNull(req,res)
+        }  
+    } catch (e) {
+        errorHandler(new BadRequestError,req,res)
     }
-    else{
-        getAllNull(req,res)
-    }
+    
 })
 
 //GET-BY-SKILLS

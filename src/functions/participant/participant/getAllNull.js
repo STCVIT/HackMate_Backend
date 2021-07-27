@@ -2,6 +2,7 @@ const paginate = require('../../../middleware/paginate')
 const Participant = require('../../../models/Participant')
 const errorHandler = require('../../../middleware/errorHandler')
 const {NotFoundError,BadRequestError} = require('../../../utils/error')
+const Skill = require('../../../models/Skill')
 
 const getAllNull = async(req,res)=>{
    try {
@@ -11,10 +12,15 @@ const getAllNull = async(req,res)=>{
         return errorHandler(new NotFoundError,req,res)
     }
     const page = Number(req.query.page)
-    const final = paginate(participants,12,page)
-    if(final.length==0){
+    const temp = paginate(participants,12,page)
+    if(temp.length==0){
         return errorHandler(new NotFoundError,req,res)
         
+    }
+    let final = []
+    for await (pt of temp){
+        let skills = await Skill.find({participant_id:pt._id})
+        final.push({pt,skills})
     }
     length = participants.length
     return res.status(200).send({final,length})
