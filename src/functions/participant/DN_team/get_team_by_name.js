@@ -38,10 +38,24 @@ const get_team_by_name = async(req,res)=>{
             console.log('hi')
             const teams = await DN_Team.find({hack_id:null,name:req.query.name}).collation({locale:'en', strength:2})
             if(!teams || teams.length==0){
-                errorHandler(new NotFoundError,req,res)
-                return
+                return errorHandler(new NotFoundError,req,res)
             }
-            return res.status(200).send(teams)
+            teams.forEach(async(team)=>{
+                const skills = await SkillVacancy.find({team_id:team._id})
+                const members = team.members.map((member)=>member.uid)
+                const participants = await Participant.find({_id:{$in:members}})
+                const temp = {
+                    team,
+                    participants,
+                    skills
+                }
+                final.push(temp)
+                i++
+                if(teams.length==i){
+                    return res.status(200).send(final)
+                }
+            })
+            
         }
         
     } catch (e) {
