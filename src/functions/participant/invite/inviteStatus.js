@@ -18,16 +18,6 @@ const inviteStatus = async(req,res) =>{
         if(req.params.status=='accepted'){
             team.members.push({uid:req.participant._id})
             await team.save()
-            // let check = team.check()
-            // console.log(check)
-            // if(check==0){
-            //     await team.save()
-            //     await invite.remove()
-            //     res.status(201).send('added to team')
-            // }else{
-            //     errorHandler(check,req,res)
-            // }
-            
         }
         else if(req.params.status=='rejected'){
             await invite.remove()
