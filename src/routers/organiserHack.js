@@ -25,7 +25,7 @@ router.get('/hacks',checkUser,checkClaimOrganiser,getOrganiser,getHacks)
 router.patch('/updateHack/:hack_id',checkUser,checkClaimOrganiser,updateHack)
 
 //DELETE-HACK
-router.delete('/deleteHack/:id',checkUser,checkClaimOrganiser,getOrganiser,deleteHack)
+router.delete('/deleteHack/:hack_id',checkUser,checkClaimOrganiser,getOrganiser,deleteHack)
 
 //GET-INTERESTED-TEAMS
 router.get('/getTeams/:hack_id',checkUser,checkClaimOrganiser,getOrganiser,getInterestedTeams)
