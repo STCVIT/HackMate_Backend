@@ -13,9 +13,9 @@ const myInvites = async(req,res)=>{
         let sent = []
         let received = []
         for await (inv of received_temp){
-            let participant = await participantModel.findById(inv.participant_id)
             let team = await DN_Team.findById(inv.team_id)
-            received.push({inv,participant,team})
+            let leader = await participantModel.findById(team.admin_id)
+            received.push({inv,leader,team})
         }
         for await (inv of sent_temp){
             let participant = await participantModel.findById(inv.participant_id)
