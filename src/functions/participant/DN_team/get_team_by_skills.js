@@ -7,7 +7,13 @@ const Participant = require('../../../models/Participant')
 
 const get_team_by_skills = async(req,res)=>{
     try {
-        const hackTeams = await DN_Team.find({hack_id:req.params.hack_id,'members.uid':{$ne:req.participant._id}})
+        let hackTeams = []
+        if(req.params.hack_id!='null'){
+           hackTeams = await DN_Team.find({hack_id:req.params.hack_id,'members.uid':{$ne:req.participant._id}})
+        }
+        else{
+            hackTeams = await DN_Team.find({hack_id:null,'members.uid':{$ne:req.participant._id}})
+        }
         if(!hackTeams||hackTeams.length==0){
             return errorHandler(new NotFoundError,req,res)
             
