@@ -10,7 +10,7 @@ const myRequests = async(req,res)=>{
         const teams = await DN_Team.find({admin_id:req.participant._id})
         const team_ids = teams.map((team)=>team._id)
         const received_temp = await Request.find({team_id:{$in:team_ids}})
-        const sent = await Request.find({participant_id:req.participant._id})
+        const sent_temp = await Request.find({participant_id:req.participant._id})
         let received = []
         let sent = []
         for await (req of received_temp){
