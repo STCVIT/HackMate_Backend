@@ -5,6 +5,7 @@ const getAllNull = require('../functions/participant/participant/getAllNull')
 const getAllSkills = require('../functions/participant/participant/getAllSkills')
 
 const getById = require('../functions/participant/participant/getById')
+const getByUsername = require('../functions/participant/participant/getByUsername')
 const { checkUser, checkClaimParticipant } = require('../middleware/auth')
 const errorHandler = require('../middleware/errorHandler')
 const { getParticipant } = require('../middleware/getUser')
@@ -13,12 +14,6 @@ const { BadRequestError } = require('../utils/error')
 const router = express.Router()
 
 //ask for teammates
-
-// //GET-ALL-PARTICIPANTS
-// router.get('/all/:hack_id',checkUser,checkClaimParticipant,getParticipant,getAllParticipants)
-
-// //GET-BY-SKILLS
-// router.get('/skill/:hack_id',checkUser,checkClaimParticipant,getParticipant,getParticipantBySkills)
 
 //GET-ALL-PARTICIPANTS
 router.get('/all/:hack_id',checkUser,checkClaimParticipant,getParticipant,(req,res)=>{
@@ -50,13 +45,22 @@ router.get('/skill/:hack_id',checkUser,checkClaimParticipant,getParticipant,(req
     
 })
 
+//GET-BY-USERNAME
+router.get('/userName',checkUser,checkClaimParticipant,getByUsername)
+
+//GET-BY-ID
+router.get('/:participant_id',checkUser,checkClaimParticipant,getParticipant,getById)
+
+module.exports = router
+
 // //GET-ALL-FOR-NULL-HACK
 // router.get('/allNull',checkUser,checkClaimParticipant,getParticipant,getAllNull)
 
 // //GET-ALL-SKILLED-FOR-NULL-HACK
 // router.get('/skillNull',checkUser,checkClaimParticipant,getParticipant,getAllSkills)
 
-//GET-BY-ID
-router.get('/:participant_id',checkUser,checkClaimParticipant,getParticipant,getById)
+// //GET-ALL-PARTICIPANTS
+// router.get('/all/:hack_id',checkUser,checkClaimParticipant,getParticipant,getAllParticipants)
 
-module.exports = router
+// //GET-BY-SKILLS
+// router.get('/skill/:hack_id',checkUser,checkClaimParticipant,getParticipant,getParticipantBySkills)
