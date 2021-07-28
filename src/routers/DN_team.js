@@ -23,6 +23,9 @@ const getAllTeams = require('../functions/participant/DN_team/getAllTeams')
 const getById = require('../functions/participant/DN_team/getById')
 
 
+//GET-MY-TEAMS
+router.get('/myTeams',checkUser,checkClaimParticipant,getParticipant,myTeams)
+
 //CHECK-TEAM-NAME
 router.post('/checkName',checkUser,checkClaimParticipant,checkTeamName)
 
@@ -52,9 +55,6 @@ router.post('/addSkills/:team_id',checkUser,checkClaimParticipant,getParticipant
 
 //GET-SKILLS-REQUIRED
 router.get('/getSkills/:team_id',checkUser,checkClaimParticipant,getParticipant,getSkills)
-
-//GET-MY-TEAMS
-router.get('/myTeams',checkUser,checkClaimParticipant,getParticipant,myTeams)
 
 //GET-TEAMS-ADMIN(ME)(add from existing)
 router.get('/admin/:hack_id',checkUser,checkClaimParticipant,getParticipant,myAdminTeams)

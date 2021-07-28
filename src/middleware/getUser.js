@@ -14,7 +14,7 @@ const getParticipant = async (req,res,next)=>{
     next()
     } catch (e) {
         console.log(e)
-         errorHandler(new BadRequestError,req,res)
+        errorHandler(new BadRequestError,req,res)
     }
     
 }
