@@ -1,15 +1,23 @@
 const participantModel = require('../models/Participant')
 const Organiser = require('../models/Organiser')
+const errorHandler = require('./errorHandler')
+const { NotFoundError, BadRequestError } = require('../utils/error')
 
-const getParticipant = (async (req,res,next)=>{
-    const participant = await participantModel.findOne({uid:req.userId})
-    
-    if(!participant){
-        return res.status(404).send('no profile found!')
-    }
+const getParticipant = async (req,res,next)=>{
+    try {
+        console.log('hi from GP')
+        const participant = await participantModel.findOne({uid:req.userId})
+        if(!participant){
+            return errorHandler(new NotFoundError,req,res)
+        }
     req.participant = participant
     next()
-})
+    } catch (e) {
+        console.log(e)
+         errorHandler(new BadRequestError,req,res)
+    }
+    
+}
 
 const getOrganiser = (async (req,res,next)=>{
     const organiser = await Organiser.findOne({uid:req.userId})

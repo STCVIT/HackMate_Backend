@@ -32,9 +32,9 @@ const checkUser=((req,res,next)=>{
   if(!req.header('Authorization')||(req.header('Authorization')==undefined)){
     return res.status(401).send('oof')
   }
-const idToken=req.header('Authorization').replace('Bearer ', '')
+  const idToken=req.header('Authorization').replace('Bearer ', '')
 
-admin
+  admin
   .auth()
   .verifyIdToken(idToken)
   .then((user) => {
@@ -50,6 +50,7 @@ admin
        }
   })
   .catch((error) => {
+    console.log(error)
     res.status(400).send(error)
   });
 })
@@ -83,7 +84,8 @@ const checkClaimParticipant = ((req,res,next)=>{
   .verifyIdToken(idToken)
   .then((claims) => {
     if (claims.participant === true) {
-      next()
+      console.log('hi from claim')
+      return next()
     }
     else{
       return res.send('ni bhai ye scheme tere liye ni hai')

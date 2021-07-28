@@ -22,6 +22,7 @@ const updateTeam = require('../functions/participant/DN_team/updateTeam')
 const getAllTeams = require('../functions/participant/DN_team/getAllTeams')
 const getById = require('../functions/participant/DN_team/getById')
 
+
 //CHECK-TEAM-NAME
 router.post('/checkName',checkUser,checkClaimParticipant,checkTeamName)
 
@@ -69,5 +70,7 @@ router.patch('/removeMember/:team_id/:member_id',checkUser,checkClaimParticipant
 
 //UPDATE-TEAM(add from existing + projects)
 router.patch('/update/:team_id',checkUser,checkClaimParticipant,getParticipant,checkAdmin,updateTeam)
+
+
 
 module.exports = router

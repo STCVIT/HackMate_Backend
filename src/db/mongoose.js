@@ -3,9 +3,6 @@ const models = require('../models/Models')
 const path = require('path');
 require("dotenv").config({ path: path.resolve(__dirname, "../../.env") });
 
-const DN_Team = require('../models/Dn-Team')
-const Hack = require('../models/Hack')
-
 mongoose.connect(process.env.MONGO_DB, {
     useNewUrlParser: true, 
     useUnifiedTopology: true,
@@ -28,3 +25,5 @@ mongoose.connect(process.env.MONGO_DB, {
 // }
 
 // abc()
+
+
