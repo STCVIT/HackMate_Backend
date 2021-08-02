@@ -5,8 +5,8 @@ require("dotenv").config({ path: path.resolve(__dirname, "../../.env") });
 
 const errorHandler = require('../middleware/errorHandler')
 const successHandler = require('../middleware/successHandler')
-const {BadRequestError} = require('../utils/error')
-const {ResourceDeletedSuccess} = require('../utils/success')
+const {BadRequestError, AuthenticationError, EmailUnauthorizedError} = require('../utils/error')
+const {ResourceDeletedSuccess, ResourceCreatedSuccess} = require('../utils/success')
 
 const env=process.env
 
@@ -30,6 +30,7 @@ admin.initializeApp({
 
 const checkUser=((req,res,next)=>{
   if(!req.header('Authorization')||(req.header('Authorization')==undefined)){
+    // errorHandler(new AuthenticationError,req,res)
     return res.status(401).send('oof')
   }
   const idToken=req.header('Authorization').replace('Bearer ', '')
@@ -40,6 +41,7 @@ const checkUser=((req,res,next)=>{
   .then((user) => {
     const uid = user.uid;
         if (!user.email_verified){
+          // errorHandler(new EmailUnauthorizedError,req,res)
           return res.status(400).send('Please Verify Your Email Address!')
         }
         else{
@@ -50,7 +52,8 @@ const checkUser=((req,res,next)=>{
        }
   })
   .catch((error) => {
-    console.log(error)
+    // console.log(error)
+    // errorHandler(new BadRequestError,req,res)
     res.status(400).send(error)
   });
 })
@@ -69,10 +72,12 @@ admin
     .auth()
     .setCustomUserClaims(Uid, { participant : true })
     .then(()=>{
+      // successHandler(new ResourceCreatedSuccess,req,res)
       res.status(201).send('hi')
     })
   })
   .catch((e)=>{
+    // errorHandler(new BadRequestError,req,res)
    res.status(400).send('no')
   })
 })
@@ -84,10 +89,10 @@ const checkClaimParticipant = ((req,res,next)=>{
   .verifyIdToken(idToken)
   .then((claims) => {
     if (claims.participant === true) {
-      console.log('hi from claim')
       return next()
     }
     else{
+      // errorHandler(new AuthenticationError,req,res)
       return res.send('ni bhai ye scheme tere liye ni hai')
     }
   })
@@ -107,10 +112,12 @@ admin
     .auth()
     .setCustomUserClaims(Uid, { organiser : true })
     .then(()=>{
+      // successHandler(new ResourceCreatedSuccess,req,res)
       res.status(201).send('hi')
     })
   })
   .catch((e)=>{
+    // errorHandler(new BadRequestError,req,res)
    res.status(400).send('no')
   })
 })
@@ -125,6 +132,7 @@ admin
       next()
     }
     else{
+    //  errorHandler(new AuthenticationError,req,res)
       return res.send('ni bhai ye scheme tere liye ni hai')
     }
   })
@@ -136,6 +144,7 @@ const deleteUser = (req,res)=>{
   .auth()
   .deleteUser(uid)
   .then(() => {
+    // successHandler(new ResourceDeletedSuccess,req,res)
     res.send('kardiya delete bhai')
   })
   .catch((error) => {

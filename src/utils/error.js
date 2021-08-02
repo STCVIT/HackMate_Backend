@@ -36,11 +36,18 @@ class DuplicateTeamEntryError extends Error{
         this.message = 'Duplicate Entry in Team is not allowed'
     }
 }
-
+class EmailUnauthorizedError extends Error{
+    constructor(){
+        super()
+        this.statusCode = 401
+        this.message = 'Please Verify Your Email Address'
+    }
+}
 module.exports = {
     NotFoundError,
     AuthenticationError,
     BadRequestError,
     TeamFullError,
-    DuplicateTeamEntryError
+    DuplicateTeamEntryError,
+    EmailUnauthorizedError
 }

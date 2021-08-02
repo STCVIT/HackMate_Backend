@@ -1,5 +1,6 @@
 const errorHandler = require("../../../middleware/errorHandler")
 const paginate = require("../../../middleware/paginate")
+const DN_Team = require("../../../models/Dn-Team")
 const participantModel = require("../../../models/Participant")
 const Skill = require("../../../models/Skill")
 const { NotFoundError, BadRequestError } = require("../../../utils/error")
@@ -10,7 +11,14 @@ const getByUsername = async(req,res)=>{
         if(!req.query.name || userName==''){
             return errorHandler(new NotFoundError,req,res)
         }
-        const participants = await participantModel.find({username:{$regex:userName,$options:'i'}})
+        let na_participant = []
+        if(req.params.hack_id!='null'){
+            let teams = await DN_Team.find({hack_id:req.params.hack_id})
+            teams.forEach((team)=>{
+                team.members.forEach((member)=>{na_participant.push(member.uid)})
+            })
+        }
+        const participants = await participantModel.find({username:{$regex:userName,$options:'i',$nin:na_participant}})
         if(!participants || participants.length==0){
             return errorHandler(new NotFoundError,req,res)
         }
