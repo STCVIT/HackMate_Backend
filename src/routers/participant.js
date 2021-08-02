@@ -46,7 +46,7 @@ router.get('/skill/:hack_id',checkUser,checkClaimParticipant,getParticipant,(req
 })
 
 //GET-BY-USERNAME
-router.get('/userName',checkUser,checkClaimParticipant,getByUsername)
+router.get('/userName/:hack_id',checkUser,checkClaimParticipant,getByUsername)
 
 //GET-BY-ID
 router.get('/:participant_id',checkUser,checkClaimParticipant,getParticipant,getById)
