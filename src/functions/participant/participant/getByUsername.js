@@ -18,7 +18,7 @@ const getByUsername = async(req,res)=>{
                 team.members.forEach((member)=>{na_participant.push(member.uid)})
             })
         }
-        const participants = await participantModel.find({username:{$regex:userName,$options:'i',$nin:na_participant}})
+        const participants = await participantModel.find({username:{$regex:userName,$options:'i',$nin:na_participant,$ne:req.participant.username}})
         if(!participants || participants.length==0){
             return errorHandler(new NotFoundError,req,res)
         }
