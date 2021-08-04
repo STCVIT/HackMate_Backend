@@ -24,6 +24,9 @@ const getByUsername = async(req,res)=>{
         }
         let length = participants.length
         let temp = paginate(participants,12,Number(req.query.page))
+        if(!temp || temp.length == 0){
+            return errorHandler(new NotFoundError,req,res)
+        }
         let final = []
         for await (pt of temp){
             const skills = await Skill.find({participant_id:pt._id})
