@@ -30,7 +30,7 @@ const getByUsername = async(req,res)=>{
         let final = []
         for await (pt of temp){
             const skills = await Skill.find({participant_id:pt._id})
-            final.push({participant:pt,skills})
+            final.push({pt,skills})
         }
         res.status(200).send({final,length})
     } catch (e) {

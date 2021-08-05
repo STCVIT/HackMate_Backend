@@ -52,9 +52,7 @@ const checkUser=((req,res,next)=>{
        }
   })
   .catch((error) => {
-    // console.log(error)
-    // errorHandler(new BadRequestError,req,res)
-    res.status(400).send(error)
+    errorHandler(new AuthenticationError,req,res)
   });
 })
 
