@@ -43,11 +43,21 @@ class EmailUnauthorizedError extends Error{
         this.message = 'Please Verify Your Email Address'
     }
 }
+
+class DuplicateTeamHackError extends Error{
+    constructor(){
+        super()
+        this.statusCode = 403
+        this.message = 'Already Going to the same Hack.'
+    }
+}
+
 module.exports = {
     NotFoundError,
     AuthenticationError,
     BadRequestError,
     TeamFullError,
     DuplicateTeamEntryError,
-    EmailUnauthorizedError
+    EmailUnauthorizedError,
+    DuplicateTeamHackError
 }

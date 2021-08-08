@@ -2,6 +2,7 @@ require('../../../db/mongoose')
 const errorHandler = require('../../../middleware/errorHandler')
 const teamCode = require('../../../middleware/teamCode')
 const DN_Team = require('../../../models/Dn-Team')
+const { DuplicateTeamHackError } = require('../../../utils/error')
 
 const createTeam = async(req,res) =>{
     try { 
@@ -18,7 +19,13 @@ const createTeam = async(req,res) =>{
             await team.save()
             res.status(201).send(team)
         }catch(e){
-            errorHandler(e,req,res)
+            if(e.code===11000){
+                return errorHandler(new DuplicateTeamHackError,req,res)
+            }
+            else{
+                return errorHandler(e,req,res)
+            }
+            
         }
 }
 
