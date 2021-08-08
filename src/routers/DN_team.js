@@ -51,13 +51,13 @@ router.post(
 );
 
 //CREATE TEAM WITH NO HACK
-router.post(
-  "/createNull",
-  checkUser,
-  checkClaimParticipant,
-  getParticipant,
-  createNullHackTeam
-);
+// router.post(
+//   "/createNull",
+//   checkUser,
+//   checkClaimParticipant,
+//   getParticipant,
+//   createNullHackTeam
+// );
 
 //JOIN-BY-TEAM-CODE
 router.post(
