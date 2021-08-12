@@ -19,7 +19,7 @@ const myRequests = async(req,res)=>{
             received.push({req,participant,team})
         }
         for await (req of sent_temp){
-            let team = await participantModel.findById(req.team_id)
+            let team = await DN_Team.findById(req.team_id)
             sent.push({req,team})
         }
         if((!sent || sent.length==0) && (!received || received.length==0)){
