@@ -30,10 +30,14 @@ const myTeams = async(req,res) =>{
             let members = team.members.map((member)=>member.uid)
             let participants = await participantModel.find({_id:{$in:members}})
             let pt_skill = []
-            for await (participant of participants){
+            await Promise.all(participants.map(async(participant)=>{
                 let skills = await Skill.find({participant_id:participant._id})
                 pt_skill.push({participant,skills})
-            }
+            }))
+            // for await (participant of participants){
+            //     let skills = await Skill.find({participant_id:participant._id})
+            //     pt_skill.push({participant,skills})
+            // }
             final.push({team,hackName,pt_skill})
         }))
         // for await (team of temp){
