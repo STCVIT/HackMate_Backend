@@ -37,7 +37,7 @@ const myAdminTeams = async(req,res)=>{
             }
         })
         if(!eligibleTeams){
-            errorHandler(new NotFoundError,req,res)
+           return errorHandler(new NotFoundError,req,res)
         }
         let final = []
         for await (team of eligibleTeams){

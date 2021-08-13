@@ -1,6 +1,6 @@
 const errorHandler = require('../../../middleware/errorHandler')
 const projectModel = require('../../../models/Project')
-const { NotFoundError } = require('../../../utils/error')
+const { NotFoundError, BadRequestError } = require('../../../utils/error')
 
 const getById = async(req,res)=>{
     try {
@@ -11,7 +11,7 @@ const getById = async(req,res)=>{
         }
         res.status(200).send(project)
     } catch (e) {
-        res.status(400).send('error')
+        errorHandler(new BadRequestError,req,res)
     }
     
 }
