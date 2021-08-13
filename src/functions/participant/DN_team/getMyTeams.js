@@ -21,7 +21,7 @@ const myTeams = async(req,res) =>{
             return res.send('Not found')
         }
         let final = []
-        for await (team of temp){
+        await Promise.all(temp.map(async(team)=>{
             let hackName = ''
             if (team.hack_id){
                 let hack = await Hack.findById(team.hack_id)
@@ -35,7 +35,22 @@ const myTeams = async(req,res) =>{
                 pt_skill.push({participant,skills})
             }
             final.push({team,hackName,pt_skill})
-        }
+        }))
+        // for await (team of temp){
+        //     let hackName = ''
+        //     if (team.hack_id){
+        //         let hack = await Hack.findById(team.hack_id)
+        //         hackName = hack.name
+        //     }
+        //     let members = team.members.map((member)=>member.uid)
+        //     let participants = await participantModel.find({_id:{$in:members}})
+        //     let pt_skill = []
+        //     for await (participant of participants){
+        //         let skills = await Skill.find({participant_id:participant._id})
+        //         pt_skill.push({participant,skills})
+        //     }
+        //     final.push({team,hackName,pt_skill})
+        // }
         res.status(200).send({final,length})
     } catch (e) {
         console.log('hi')
