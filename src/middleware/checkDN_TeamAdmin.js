@@ -7,7 +7,7 @@ const checkAdmin = async(req,res,next) =>{
     if(!team){
         return errorHandler(new NotFoundError,req,res)
     }
-    if(team.admin_id!=req.participant._id){
+    if(String(team.admin_id)!=String(req.participant._id)){
         return errorHandler(new AuthenticationError,req,res)
     }
     req.team = team 
