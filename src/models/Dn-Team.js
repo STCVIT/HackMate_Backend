@@ -50,14 +50,29 @@ teamSchema.index({'members.uid':1,hack_id:1},{unique:true , partialFilterExpress
 teamSchema.index({name:1,hack_id:1},{unique:true , partialFilterExpression : { hack_id : { $exists : true }}})
 
 
-teamSchema.post('remove',async function(next){
-    const team = this 
-    const skillVacancies = await SkillVacancy.find({team_id:team._id})
-    await Promise.all(skillVacancies.map((sv)=>sv.remove()))
-    const invites = await Invite.find({team_id:team._id})
-    await Promise.all(invites.map((invite)=>invite.remove()))
-    const requests = await Request.find({team_id:team._id})
-    await Promise.all(requests.map((request)=>request.remove()))
+const SkillVacancy = require('../models/SkillVacancy')
+const Invite = require('../models/Invite')
+const Request = require('../models/Request')
+
+teamSchema.post('remove',async function(doc,next){
+    const team = this
+    console.log(doc)
+    try {
+        console.log(team)
+        const skillVacancies = await SkillVacancy.find({team_id:team._id})
+        await Promise.all(skillVacancies.map((sv)=>sv.remove()))
+        console.log('1')
+        const invites = await Invite.find({team_id:team._id})
+        await Promise.all(invites.map((invite)=>invite.remove()))
+        console.log('2')
+        const requests = await Request.find({team_id:team._id})
+        await Promise.all(requests.map((request)=>request.remove()))
+        console.log('3')
+        next()
+        console.log('his')
+    } catch (e) {
+        next(e)        
+    } 
 })
 
 teamSchema.pre('save',async function(next){
