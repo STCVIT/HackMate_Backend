@@ -21,6 +21,9 @@ const myInvites = async(req,res)=>{
         // }
         await Promise.all(received_temp.map(async(inv)=>{
             let team = await DN_Team.findById(inv.team_id)
+            if(team==null){
+                console.log(inv.team_id)
+            }
             let leader = await participantModel.findById(team.admin_id)
             received.push({team,leader,inv})
         }))

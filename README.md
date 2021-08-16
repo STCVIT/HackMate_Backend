@@ -54,3 +54,8 @@
 <p align="center">
 	Made with :heart: by <a href="https://stcvit.in/">STC-VIT</a>
 </p>
+
+| Syntax    | Description |
+| --------- | ----------- |
+| Header    | Title       |
+| Paragraph | Text        |
