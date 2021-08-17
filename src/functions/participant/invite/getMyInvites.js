@@ -12,27 +12,32 @@ const myInvites = async(req,res)=>{
         const received_temp = await Invite.find({participant_id:req.participant._id})
         let sent = []
         let received = []
-        
-        
-        await Promise.all(received_temp.map(async(inv)=>{
-            let team = await DN_Team.findById(inv.team_id)
-            let leader = await participantModel.findById(team.admin_id)
-            let temp = {
-                name:leader.name,
-                photo:leader.photo
-            }
-            received.push({team:team.name,leader:temp,inv:inv._id})
-        }))
-        await Promise.all(sent_temp.map(async(inv)=>{
-            let participant = await participantModel.findById(inv.participant_id)
-            let team = await DN_Team.findById(inv.team_id)
-            let temp = {
-                name:participant.name,
-                photo:participant.photo
-            }
-            sent.push({inv:inv._id,participant:temp,team:team.name})
-        }))
-        
+
+        if(!received_temp && !sent_temp){
+            return errorHandler(new NotFoundError,req,res)
+        }
+        if(received_temp){
+            await Promise.all(received_temp.map(async(inv)=>{
+                let team = await DN_Team.findById(inv.team_id)
+                let leader = await participantModel.findById(team.admin_id)
+                let temp = {
+                    name:leader.name,
+                    photo:leader.photo
+                }
+                received.push({team:team.name,leader:temp,inv:inv._id})
+            }))
+        }
+        if(sent_temp){
+            await Promise.all(sent_temp.map(async(inv)=>{
+                let participant = await participantModel.findById(inv.participant_id)
+                let team = await DN_Team.findById(inv.team_id)
+                let temp = {
+                    name:participant.name,
+                    photo:participant.photo
+                }
+                sent.push({inv:inv._id,participant:temp,team:team.name})
+            }))
+        }
         if((!sent || sent.length==0) && (!received || received.length==0)){
             return errorHandler(new NotFoundError,req,res)
         }

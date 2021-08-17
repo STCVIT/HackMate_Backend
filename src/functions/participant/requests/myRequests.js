@@ -13,7 +13,10 @@ const myRequests = async(req,res)=>{
         const sent_temp = await Request.find({participant_id:req.participant._id})
         let received = []
         let sent = []
-        
+        if(!received_temp && !sent_temp){
+            return errorHandler(new NotFoundError,req,res)
+        }
+        if(received_temp){
         await Promise.all(received_temp.map(async(req)=>{
             let participant = await participantModel.findById(req.participant_id)
             let team = await DN_Team.findById(req.team_id)
@@ -23,6 +26,8 @@ const myRequests = async(req,res)=>{
             }
             received.push({req:req._id,participant:pt,team:team.name})
         }))
+    }
+    if(sent_temp){
         await Promise.all(sent_temp.map(async(req)=>{
             let team = await DN_Team.findById(req.team_id)
             let leader = await participantModel.findById(team.admin_id)
@@ -32,6 +37,8 @@ const myRequests = async(req,res)=>{
             }
             sent.push({req:req._id,leader:temp,team:team.name})
         }))
+    }
+        
         if((!sent || sent.length==0) && (!received || received.length==0)){
             return errorHandler(new NotFoundError,req,res)    
         }
