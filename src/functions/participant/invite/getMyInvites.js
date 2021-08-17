@@ -21,7 +21,7 @@ const myInvites = async(req,res)=>{
                 name:leader.name,
                 photo:leader.photo
             }
-            received.push({team:team.name,leader:temp,inv})
+            received.push({team:team.name,leader:temp,inv:inv._id})
         }))
         await Promise.all(sent_temp.map(async(inv)=>{
             let participant = await participantModel.findById(inv.participant_id)
@@ -30,7 +30,7 @@ const myInvites = async(req,res)=>{
                 name:participant.name,
                 photo:participant.photo
             }
-            sent.push({inv,participant:temp,team:team.name})
+            sent.push({inv:inv._id,participant:temp,team:team.name})
         }))
         
         if((!sent || sent.length==0) && (!received || received.length==0)){

@@ -21,7 +21,7 @@ const myRequests = async(req,res)=>{
                 name:participant.name,
                 photo:participant.photo
             }
-            received.push({req,participant:pt,team:team.name})
+            received.push({req:req._id,participant:pt,team:team.name})
         }))
         await Promise.all(sent_temp.map(async(req)=>{
             let team = await DN_Team.findById(req.team_id)
@@ -30,7 +30,7 @@ const myRequests = async(req,res)=>{
                 name:leader.name,
                 photo:leader.photo
             }
-            sent.push({req,leader:temp,team:team.name})
+            sent.push({req:req._id,leader:temp,team:team.name})
         }))
         if((!sent || sent.length==0) && (!received || received.length==0)){
             return errorHandler(new NotFoundError,req,res)    
