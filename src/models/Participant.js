@@ -53,26 +53,32 @@ const participantSchema = new mongoose.Schema({
     }
 })
 
-participantSchema.post('remove',async function (){
+participantSchema.post('remove',async function (doc,next){
     const participant = this
+    console.log(doc)
     try {
         const myTeams = await DN_Team.find({'members.uid':participant._id, admin_id:{$ne:participant._id}})
         const myAdminTeams = await DN_Team.find({'members.uid':participant._id, admin_id:participant._id})
         await Promise.all(myAdminTeams.map((team)=>team.remove()))
-        myTeams.forEach(async(team)=>{
-           let members = team.members.filter((member)=>{return member.uid != participant._id})
-           team.members = members
+        // myTeams.forEach(async(team)=>{
+        //    let members = team.members.filter((member)=>{return member.uid != participant._id})
+        //    team.members = members
+        //     await team.save()
+        // })
+    await Promise.all(myTeams.map(async(team)=>{
+        let members = team.members.filter((member)=>{return member.uid != participant._id})
+        team.members = members
         await team.save()
-    })
+    }))
     const skills = await Skill.find({participant_id:participant._id})
     await Promise.all(skills.map((skill)=>skill.remove()))
     const projects = await projectModel.find({participant_id:participant._id})
     await Promise.all(projects.map((project)=>project.remove()))
     const reviews = await reviewModel.find({by_id:participant._id})
     await Promise.all(reviews.map((review)=>review.remove()))
-        
+        next()
     } catch (e) {
-        return e    
+        next(e)    
     }
     
     
