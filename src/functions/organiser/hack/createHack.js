@@ -1,6 +1,6 @@
 const errorHandler = require('../../../middleware/errorHandler')
 const Hack = require('../../../models/Hack')
-const { BadRequestError } = require('../../../utils/error')
+const { BadRequestError, SchemaValidationError } = require('../../../utils/error')
 
 async function createHack(req,res){
     try {
@@ -13,6 +13,9 @@ async function createHack(req,res){
         await hack.save()
         res.status(201).send(hack)
     } catch (e) {
+        if(e._message=='Hack validation failed'){
+            return errorHandler(new SchemaValidationError,req,res)
+        }
         errorHandler(new BadRequestError,req,res)
     }
 }

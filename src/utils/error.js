@@ -52,6 +52,14 @@ class DuplicateTeamHackError extends Error{
     }
 }
 
+class SchemaValidationError extends Error{
+    constructor(){
+        super()
+        this.statusCode = 400
+        this.message = 'Please Specify All required fields'
+    }
+}
+
 module.exports = {
     NotFoundError,
     AuthenticationError,
@@ -59,5 +67,6 @@ module.exports = {
     TeamFullError,
     DuplicateTeamEntryError,
     EmailUnauthorizedError,
-    DuplicateTeamHackError
+    DuplicateTeamHackError,
+    SchemaValidationError
 }
