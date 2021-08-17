@@ -25,7 +25,12 @@ const myRequests = async(req,res)=>{
         }))
         await Promise.all(sent_temp.map(async(req)=>{
             let team = await DN_Team.findById(req.team_id)
-            sent.push({req,team:team.name})
+            let leader = await participantModel.findById(team.admin_id)
+            let temp = {
+                name:leader.name,
+                photo:leader.photo
+            }
+            sent.push({req,leader:temp,team:team.name})
         }))
         if((!sent || sent.length==0) && (!received || received.length==0)){
             return errorHandler(new NotFoundError,req,res)    
