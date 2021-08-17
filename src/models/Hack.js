@@ -55,16 +55,23 @@ const hackSchema = new mongoose.Schema({
     }
 })
 
-hackSchema.post('remove',async function(){
+hackSchema.post('remove',async function(doc,next){
     const hack = this
+    console.log(doc)
     try {
         const teams = await DN_Team.find({hack_id:hack._id})
-        teams.forEach(async(team)=>{
-        team.hack_id = undefined
-        await team.save()
-    })
+    //     teams.forEach(async(team)=>{
+    //     team.hack_id = undefined
+    //     await team.save()
+    // })
+        await Promise.all(teams.map(async(team)=>{
+            team.hack_id = undefined
+            await team.save()
+        }))
+        next()
     } catch (e) {
         console.log(e)
+        next(e)
     }    
 })
 

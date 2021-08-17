@@ -1,4 +1,6 @@
+const errorHandler = require('../../../middleware/errorHandler')
 const Hack = require('../../../models/Hack')
+const { BadRequestError } = require('../../../utils/error')
 
 async function createHack(req,res){
     try {
@@ -11,7 +13,7 @@ async function createHack(req,res){
         await hack.save()
         res.status(201).send(hack)
     } catch (e) {
-        res.status(400).send('Couldnt create hack')
+        errorHandler(new BadRequestError,req,res)
     }
 }
 

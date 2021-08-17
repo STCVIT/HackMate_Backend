@@ -38,6 +38,16 @@ const getInterestedTeams = async(req,res)=>{
                 res.status(200).send({final,length})  
             }
         })
+        // await Promise.all(newTeams.map(async(team=>{
+        //     let members = team.members.map((member)=>member.uid)
+        //     const participants = await participantModel.find({_id:{$in:members}})
+        //     let temp = {
+        //         team,
+        //         participants
+        //     }
+        //     final.push(temp)
+        // })))
+        // res.status(200).send({final,length})
          
     } catch (e) {
         errorHandler(new BadRequestError,req,res)

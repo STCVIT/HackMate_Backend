@@ -1,5 +1,7 @@
 const Hack = require('../../../models/Hack')
 const paginate = require('../../../middleware/paginate')
+const errorHandler = require('../../../middleware/errorHandler')
+const { NotFoundError, BadRequestError } = require('../../../utils/error')
 
 
 async function getHacks(req,res){
@@ -10,12 +12,12 @@ async function getHacks(req,res){
         const newHacks = paginate(hacks,6,page)
         console.log(newHacks)
         if(!newHacks || newHacks.length==0){
-            return res.send('not found')
+            return errorHandler(new NotFoundError,req,res)
         }
         let length = hacks.length
         res.status(200).send({newHacks,length})
     } catch (e) {
-        res.status(400).send('OOF NI MILE')
+        errorHandler(new BadRequestError,req,res)
     }
 }
 

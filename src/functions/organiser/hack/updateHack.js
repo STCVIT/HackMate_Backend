@@ -1,4 +1,6 @@
+const errorHandler = require('../../../middleware/errorHandler')
 const Hack = require('../../../models/Hack')
+const { BadRequestError, NotFoundError } = require('../../../utils/error')
 
 async function updateHack(req,res){
     const updates = Object.keys(req.body)
@@ -8,12 +10,19 @@ async function updateHack(req,res){
        return res.status(400).send('Invalid Updates!')
     }
     try {
-         const hack = await Hack.findOne({_id:req.params.id})
+          let hid = req.params.hack_id
+          if(!hid || hid==( null || undefined)){
+          return res.send('Send a Hack ID')
+          }
+         const hack = await Hack.findOne({_id:hid})
+         if(!hack){
+              return errorHandler(new NotFoundError,req,res)
+         }
          updates.forEach((update)=>hack[update]=req.body[update])
          await hack.save()
-         res.send(hack)
+         res.status(200).send(hack)
     } catch (error) {
-         res.status(400).send(error)
+         errorHandler(new BadRequestError,req,res)
     }
 }
 
