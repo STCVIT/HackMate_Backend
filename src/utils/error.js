@@ -29,6 +29,7 @@ class TeamFullError extends Error{
         this.message = 'Team is Full'
     }
 }
+
 class DuplicateTeamEntryError extends Error{
     constructor(){
         super()
@@ -36,6 +37,7 @@ class DuplicateTeamEntryError extends Error{
         this.message = 'Duplicate Entry in Team is not allowed'
     }
 }
+
 class EmailUnauthorizedError extends Error{
     constructor(){
         super()
@@ -60,6 +62,14 @@ class SchemaValidationError extends Error{
     }
 }
 
+class DuplicateEntryError extends Error{
+    constructor(){
+        super()
+        this.statusCode = 409
+        this.message = 'Indexing error'
+    }
+}
+
 module.exports = {
     NotFoundError,
     AuthenticationError,
@@ -68,5 +78,6 @@ module.exports = {
     DuplicateTeamEntryError,
     EmailUnauthorizedError,
     DuplicateTeamHackError,
-    SchemaValidationError
+    SchemaValidationError,
+    DuplicateEntryError
 }

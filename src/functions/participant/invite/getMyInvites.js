@@ -13,30 +13,18 @@ const myInvites = async(req,res)=>{
         let sent = []
         let received = []
         
-        // for await (inv of received_temp){
-        //     let team = await DN_Team.findOne({_id:inv.team_id})
-        //     console.log(team)
-        //     let leader = await participantModel.findById(team.admin_id)
-        //     received.push({team,leader,inv})
-        // }
+        
         await Promise.all(received_temp.map(async(inv)=>{
             let team = await DN_Team.findById(inv.team_id)
-            if(team==null){
-                console.log(inv.team_id)
-            }
             let leader = await participantModel.findById(team.admin_id)
-            received.push({team,leader,inv})
+            received.push({team:team.name,leader:leader.name,inv})
         }))
         await Promise.all(sent_temp.map(async(inv)=>{
             let participant = await participantModel.findById(inv.participant_id)
             let team = await DN_Team.findById(inv.team_id)
-            sent.push({inv,participant,team})
+            sent.push({inv,participant,team:team.name})
         }))
-        // for (let inv of sent_temp){
-        //     let participant = await participantModel.findById(inv.participant_id)
-        //     let team = await DN_Team.findById(inv.team_id)
-        //     sent.push({inv,participant,team})
-        // }
+        
         if((!sent || sent.length==0) && (!received || received.length==0)){
             return errorHandler(new NotFoundError,req,res)
         }
@@ -48,3 +36,16 @@ const myInvites = async(req,res)=>{
 }
 
 module.exports = myInvites
+
+// for (let inv of sent_temp){
+        //     let participant = await participantModel.findById(inv.participant_id)
+        //     let team = await DN_Team.findById(inv.team_id)
+        //     sent.push({inv,participant,team})
+        // }
+
+        // for await (inv of received_temp){
+        //     let team = await DN_Team.findOne({_id:inv.team_id})
+        //     console.log(team)
+        //     let leader = await participantModel.findById(team.admin_id)
+        //     received.push({team,leader,inv})
+        // }

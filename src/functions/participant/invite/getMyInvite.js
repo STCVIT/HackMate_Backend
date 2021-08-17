@@ -15,7 +15,7 @@ const getMyInvite=async(req,res)=>{
         for await (inv of received_temp){
             let team = await DN_Team.findById(inv.team_id)
             let leader = await Participant.findById(team.admin_id)
-            received.push({inv,team,leader})
+            received.push({inv,team:team.name,leader:leader.name})
         }
         console.log(received)        
     } catch (e) {

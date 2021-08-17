@@ -1,5 +1,7 @@
+const errorHandler = require('../../../middleware/errorHandler')
 const DN_Team = require('../../../models/Dn-Team')
 const Request = require('../../../models/Request')
+const { DuplicateEntryError } = require('../../../utils/error')
 
 const createRequest = async(req,res)=>{
     try {
@@ -15,7 +17,7 @@ const createRequest = async(req,res)=>{
         await request.save()
         res.status(201).send('Request was sent successfully!')    
     } catch (e) {
-        res.status(400).send(e)
+        errorHandler(new DuplicateEntryError,req,res)
     }
 }
 

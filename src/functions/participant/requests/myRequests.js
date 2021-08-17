@@ -13,27 +13,22 @@ const myRequests = async(req,res)=>{
         const sent_temp = await Request.find({participant_id:req.participant._id})
         let received = []
         let sent = []
-        // for await (req of received_temp){
-        //     let participant = await participantModel.findById(req.participant_id)
-        //     let team = await DN_Team.findById(req.team_id)
-        //     received.push({req,participant,team})
-        // }
+        
         await Promise.all(received_temp.map(async(req)=>{
             let participant = await participantModel.findById(req.participant_id)
             let team = await DN_Team.findById(req.team_id)
-            received.push({req,participant,team})
+            let pt = {
+                name:participant.name,
+                photo:participant.photo
+            }
+            received.push({req,participant:pt,team:team.name})
         }))
         await Promise.all(sent_temp.map(async(req)=>{
             let team = await DN_Team.findById(req.team_id)
-            sent.push({req,team})
+            sent.push({req,team:team.name})
         }))
-        // for await (req of sent_temp){
-        //     let team = await DN_Team.findById(req.team_id)
-        //     sent.push({req,team})
-        // }
         if((!sent || sent.length==0) && (!received || received.length==0)){
-            return errorHandler(new NotFoundError,req,res)
-            
+            return errorHandler(new NotFoundError,req,res)    
         }
         res.status(200).send({received,sent})
     } catch (e) {
@@ -42,3 +37,14 @@ const myRequests = async(req,res)=>{
 }
 
 module.exports = myRequests
+
+// for await (req of received_temp){
+    //     let participant = await participantModel.findById(req.participant_id)
+    //     let team = await DN_Team.findById(req.team_id)
+    //     received.push({req,participant,team})
+// }
+
+// for await (req of sent_temp){
+        //     let team = await DN_Team.findById(req.team_id)
+        //     sent.push({req,team})
+// }
