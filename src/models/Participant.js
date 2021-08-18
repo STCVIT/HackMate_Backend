@@ -76,6 +76,10 @@ participantSchema.post('remove',async function (doc,next){
     await Promise.all(projects.map((project)=>project.remove()))
     const reviews = await reviewModel.find({by_id:participant._id})
     await Promise.all(reviews.map((review)=>review.remove()))
+    const invites = await Invite.find({participant_id:participant._id})
+    const requests = await Request.find({participant_id:participant._id})
+    await Promise.all(invites.map((invite)=>invite.remove()))
+    await Promise.all(requests.map((request)=>request.remove()))
         next()
     } catch (e) {
         next(e)    
