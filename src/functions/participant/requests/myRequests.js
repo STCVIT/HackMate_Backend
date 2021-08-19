@@ -39,7 +39,7 @@ const myRequests = async(req,res)=>{
             let temp = {
                 name:leader.name,
                 photo:leader.photo,
-                _id:participant._id
+                _id:leader._id
             }
             let temp_team={
                 name:team.name,
