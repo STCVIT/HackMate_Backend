@@ -3,6 +3,8 @@ const DN_Team =require('../../../models/Dn-Team')
 const Invite = require('../../../models/Invite')
 const {NotFoundError} = require('../../../utils/error')
 
+//change error messages
+
 const deleteInvite = async(req,res)=>{
     try {
         const invite = await Invite.findOne({_id:req.params.inv_id})

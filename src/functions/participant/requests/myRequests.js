@@ -22,9 +22,14 @@ const myRequests = async(req,res)=>{
             let team = await DN_Team.findById(req.team_id)
             let pt = {
                 name:participant.name,
-                photo:participant.photo
+                photo:participant.photo,
+                _id:participant._id
             }
-            received.push({req:req._id,participant:pt,team:team.name})
+            let temp_team={
+                name:team.name,
+                _id:team._id
+            }
+            received.push({req:req._id,participant:pt,team:temp_team})
         }))
     }
     if(sent_temp){
@@ -33,9 +38,14 @@ const myRequests = async(req,res)=>{
             let leader = await participantModel.findById(team.admin_id)
             let temp = {
                 name:leader.name,
-                photo:leader.photo
+                photo:leader.photo,
+                _id:participant._id
             }
-            sent.push({req:req._id,leader:temp,team:team.name})
+            let temp_team={
+                name:team.name,
+                _id:team._id
+            }
+            sent.push({req:req._id,leader:temp,team:temp_team})
         }))
     }
         

@@ -22,20 +22,30 @@ const myInvites = async(req,res)=>{
                 let leader = await participantModel.findById(team.admin_id)
                 let temp = {
                     name:leader.name,
-                    photo:leader.photo
+                    photo:leader.photo,
+                    _id:participant._id
                 }
-                received.push({team:team.name,leader:temp,inv:inv._id})
+                temp_team={
+                    name:team.name,
+                    _id:team._id
+                }
+                received.push({team:temp_team,leader:temp,inv:inv._id})
             }))
         }
         if(sent_temp){
             await Promise.all(sent_temp.map(async(inv)=>{
                 let participant = await participantModel.findById(inv.participant_id)
                 let team = await DN_Team.findById(inv.team_id)
-                let temp = {
+                let temp_pt = {
                     name:participant.name,
-                    photo:participant.photo
+                    photo:participant.photo,
+                    _id:participant._id
                 }
-                sent.push({inv:inv._id,participant:temp,team:team.name})
+                let temp_team = {
+                    name:team.name,
+                    _id:team._id
+                }
+                sent.push({inv:inv._id,participant:temp_pt,team:temp_team})
             }))
         }
         if((!sent || sent.length==0) && (!received || received.length==0)){
