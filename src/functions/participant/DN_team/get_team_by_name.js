@@ -116,15 +116,15 @@ const get_team = async(req,res)=>{
 
 module.exports = get_team_by_name
 
-await Promise.all(teams.map(async(team)=>{
-    const skills = await SkillVacancy.find({team_id:team._id})
-    const members = team.members.map((member)=>member.uid)
-    const participants = await Participant.find({_id:{$in:members}})
-    const temp = {
-        team,
-        participants,
-        skills
-    }
-    final.push(temp)
-}))
-return res.status(200).send(final)
+// await Promise.all(teams.map(async(team)=>{
+//     const skills = await SkillVacancy.find({team_id:team._id})
+//     const members = team.members.map((member)=>member.uid)
+//     const participants = await Participant.find({_id:{$in:members}})
+//     const temp = {
+//         team,
+//         participants,
+//         skills
+//     }
+//     final.push(temp)
+// }))
+// return res.status(200).send(final)
