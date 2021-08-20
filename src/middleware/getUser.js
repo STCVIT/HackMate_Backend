@@ -4,7 +4,6 @@ const errorHandler = require("./errorHandler");
 const { NotFoundError, BadRequestError } = require("../utils/error");
 
 const getParticipant = async (req, res, next) => {
-  console.log("hi from GP");
   try {
     const participant = await participantModel.findOne({ uid: req.userId });
     if (!participant) {

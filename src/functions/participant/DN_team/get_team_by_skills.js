@@ -64,3 +64,7 @@ const get_team_by_skills = async(req,res)=>{
 }
 
 module.exports = get_team_by_skills
+
+// await Promise.all(hackTeams.map(async(team)=>{
+
+// }))
