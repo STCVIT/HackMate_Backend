@@ -13,4 +13,4 @@ const clean = async(team_id) =>{
     console.log('done')
 }
 
-clean("610ecb06dd1c48001568e753")
+//clean("610ecb06dd1c48001568e753")

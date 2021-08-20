@@ -1,3 +1,4 @@
+const e = require("express");
 const admin = require("firebase-admin");
 
 const path = require('path')
@@ -5,7 +6,7 @@ require("dotenv").config({ path: path.resolve(__dirname, "../../.env") });
 
 const errorHandler = require('../middleware/errorHandler')
 const successHandler = require('../middleware/successHandler')
-const {BadRequestError, AuthenticationError, EmailUnauthorizedError} = require('../utils/error')
+const {BadRequestError, AuthenticationError, EmailUnauthorizedError, ClaimError} = require('../utils/error')
 const {ResourceDeletedSuccess, ResourceCreatedSuccess} = require('../utils/success')
 
 const env=process.env
@@ -30,8 +31,8 @@ admin.initializeApp({
 
 const checkUser=((req,res,next)=>{
   if(!req.header('Authorization')||(req.header('Authorization')==undefined)){
-    // errorHandler(new AuthenticationError,req,res)
-    return res.status(401).send('oof')
+    return errorHandler(new AuthenticationError,req,res)
+    //return res.status(401).send('oof')
   }
   const idToken=req.header('Authorization').replace('Bearer ', '')
 
@@ -41,8 +42,8 @@ const checkUser=((req,res,next)=>{
   .then((user) => {
     const uid = user.uid;
         if (!user.email_verified){
-          // errorHandler(new EmailUnauthorizedError,req,res)
-          return res.status(400).send('Please Verify Your Email Address!')
+          return errorHandler(new EmailUnauthorizedError,req,res)
+          //return res.status(400).send('Please Verify Your Email Address!')
         }
         else{
           req.userId=uid
@@ -58,6 +59,10 @@ const checkUser=((req,res,next)=>{
 
 
 const setClaimParticipant = ((req,res) =>{
+  if(!req.header('Authorization')||(req.header('Authorization')==undefined)){
+    return errorHandler(new AuthenticationError,req,res)
+    //return res.status(401).send('oof')
+  }
   const idToken=req.header('Authorization').replace('Bearer ', '')
 let Uid ='';
 admin
@@ -70,13 +75,14 @@ admin
     .auth()
     .setCustomUserClaims(Uid, { participant : true })
     .then(()=>{
-      // successHandler(new ResourceCreatedSuccess,req,res)
-      res.status(201).send('hi')
+      return successHandler(new ResourceCreatedSuccess,req,res)
+      //res.status(201).send('hi')
     })
   })
   .catch((e)=>{
-    // errorHandler(new BadRequestError,req,res)
-   res.status(400).send('no')
+   //return errorHandler(new ClaimError,req,res)
+   return errorHandler(new BadRequestError,req,res)
+   //res.status(400).send('no')
   })
 })
 
@@ -86,17 +92,29 @@ const checkClaimParticipant = ((req,res,next)=>{
   .auth()
   .verifyIdToken(idToken)
   .then((claims) => {
+    // if(claims.organiser === true){
+    //   return res.status(401).send('dont login here')
+    // }
+    // console.log(claims)
+    // if(!claims.organiser && !claims.participant){
+    //   return res.send('hi')
+    // }
     if (claims.participant === true) {
       return next()
     }
     else{
       // errorHandler(new AuthenticationError,req,res)
+      //return errorHandler(new ClaimError,req,res)
       return res.send('ni bhai ye scheme tere liye ni hai')
     }
   })
 })
 
 const setClaimOrganiser = ((req,res) =>{
+  if(!req.header('Authorization')||(req.header('Authorization')==undefined)){
+    return errorHandler(new AuthenticationError,req,res)
+    //return res.status(401).send('oof')
+  }
   const idToken=req.header('Authorization').replace('Bearer ', '')
 let Uid ='';
 admin
@@ -110,8 +128,8 @@ admin
     .auth()
     .setCustomUserClaims(Uid, { organiser : true })
     .then(()=>{
-      // successHandler(new ResourceCreatedSuccess,req,res)
-      res.status(201).send('hi')
+      return successHandler(new ResourceCreatedSuccess,req,res)
+      //res.status(201).send('hi')
     })
   })
   .catch((e)=>{
@@ -142,8 +160,8 @@ const deleteUser = (req,res)=>{
   .auth()
   .deleteUser(uid)
   .then(() => {
-    // successHandler(new ResourceDeletedSuccess,req,res)
-    res.send('kardiya delete bhai')
+    return successHandler(new ResourceDeletedSuccess,req,res)
+    //res.send('kardiya delete bhai')
   })
   .catch((error) => {
     errorHandler(new BadRequestError,req,res)
@@ -158,3 +176,11 @@ module.exports={
     checkClaimOrganiser,
     deleteUser
 }
+
+// checkClaim(){
+//   // let claims =claims.organiser
+//   // let  part = claims.part  
+//   // re
+// }
+
+// if(e.status =401 && e.message=='not set')

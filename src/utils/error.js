@@ -70,6 +70,22 @@ class DuplicateEntryError extends Error{
     }
 }
 
+class ClaimError extends Error{
+    constructor(){
+        super()
+        this.statusCode = 401
+        this.message = 'Claim not Set'
+    }
+}
+
+class InvalidUpdatesError extends Error{
+    constructor(){
+        super()
+        this.statusCode = 400
+        this.message = 'Invalid Updates'
+    }
+}
+
 module.exports = {
     NotFoundError,
     AuthenticationError,
@@ -79,5 +95,7 @@ module.exports = {
     EmailUnauthorizedError,
     DuplicateTeamHackError,
     SchemaValidationError,
-    DuplicateEntryError
+    DuplicateEntryError,
+    ClaimError,
+    InvalidUpdatesError
 }

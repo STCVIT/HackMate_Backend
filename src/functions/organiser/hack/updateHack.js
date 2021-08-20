@@ -1,13 +1,14 @@
 const errorHandler = require('../../../middleware/errorHandler')
 const Hack = require('../../../models/Hack')
-const { BadRequestError, NotFoundError } = require('../../../utils/error')
+const { BadRequestError, NotFoundError, InvalidUpdatesError } = require('../../../utils/error')
 
 async function updateHack(req,res){
     const updates = Object.keys(req.body)
     const allowedUpdates=['name','website','venue','poster','prize_pool','start','end','max-team-size','min-team-size','mode_of_conduct']
     const isValidOperation=updates.every((update)=>allowedUpdates.includes(update))
     if (!isValidOperation){
-       return res.status(400).send('Invalid Updates!')
+       //return res.status(400).send('Invalid Updates!')
+       return errorHandler(new InvalidUpdatesError,req,res)
     }
     try {
           let hid = req.params.hack_id

@@ -22,9 +22,8 @@ const getInterestedTeams = async(req,res)=>{
         if(!newTeams || newTeams.length==0){
             return errorHandler(new NotFoundError,req,res)
         }
-        console.log(newTeams)
-        let i = 0
-        newTeams.forEach(async(team)=>{
+        
+        await Promise.all(newTeams.map(async(team)=>{
             let members = team.members.map((member)=>member.uid)
             const participants = await participantModel.find({_id:{$in:members}})
             let temp = {
@@ -32,22 +31,8 @@ const getInterestedTeams = async(req,res)=>{
                 participants
             }
             final.push(temp)
-            i++
-            if(newTeams.length==i){
-                console.log(final)
-                res.status(200).send({final,length})  
-            }
-        })
-        // await Promise.all(newTeams.map(async(team=>{
-        //     let members = team.members.map((member)=>member.uid)
-        //     const participants = await participantModel.find({_id:{$in:members}})
-        //     let temp = {
-        //         team,
-        //         participants
-        //     }
-        //     final.push(temp)
-        // })))
-        // res.status(200).send({final,length})
+        }))
+        res.status(200).send({final,length})
          
     } catch (e) {
         errorHandler(new BadRequestError,req,res)
@@ -55,3 +40,19 @@ const getInterestedTeams = async(req,res)=>{
 }
 //check this
 module.exports = getInterestedTeams
+
+// let i = 0
+        // newTeams.forEach(async(team)=>{
+        //     let members = team.members.map((member)=>member.uid)
+        //     const participants = await participantModel.find({_id:{$in:members}})
+        //     let temp = {
+        //         team,
+        //         participants
+        //     }
+        //     final.push(temp)
+        //     i++
+        //     if(newTeams.length==i){
+        //         console.log(final)
+        //         res.status(200).send({final,length})  
+        //     }
+        // })
