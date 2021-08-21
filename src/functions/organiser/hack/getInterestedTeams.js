@@ -8,12 +8,16 @@ const participantModel = require('../../../models/Participant')
 const getInterestedTeams = async(req,res)=>{
     let final = []
     try {
+        let hid = req.params.hack_id
+        if(!hid || hid==( null || undefined)){
+            return res.send('Send a Hack ID')
+        }
         const page = Number(req.query.page)
-        const hack = await Hack.find({_id:req.params.hack_id,organiser_id:req.organiser._id})
+        const hack = await Hack.find({_id:hid,organiser_id:req.organiser._id})
         if(!hack){
             return errorHandler(new NotFoundError,req,res)
         }
-        const teams = await DN_Team.find({hack_id:req.params.hack_id})
+        const teams = await DN_Team.find({hack_id:hid})
         if(teams.length===0 || !teams){
             return errorHandler(new NotFoundError,req,res)
         }

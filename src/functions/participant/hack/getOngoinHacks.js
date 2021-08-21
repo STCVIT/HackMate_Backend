@@ -1,5 +1,7 @@
+const errorHandler = require('../../../middleware/errorHandler')
 const paginate = require('../../../middleware/paginate')
 const Hack = require('../../../models/Hack')
+const { NotFoundError, BadRequestError } = require('../../../utils/error')
 
 const getOngoingHacks = async(req,res) => {
     try {
@@ -9,11 +11,11 @@ const getOngoingHacks = async(req,res) => {
        const final = paginate(hacks,6,page)
        let length = hacks.length
        if(final.length==0){
-           return res.status(404).send('not found')
+           return errorHandler(new NotFoundError,req,res)
        }
         res.status(200).send({final,length})
     } catch (e) {
-        res.status(400).send(e)
+        errorHandler(new BadRequestError,req,res)
     }
 }
 

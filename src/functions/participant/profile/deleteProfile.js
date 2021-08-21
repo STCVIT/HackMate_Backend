@@ -1,3 +1,5 @@
+const errorHandler = require("../../../middleware/errorHandler")
+const { BadRequestError } = require("../../../utils/error")
 
 async function deleteProfile(req,res,next){
     try { 
@@ -5,7 +7,8 @@ async function deleteProfile(req,res,next){
         next()
         }
         catch(e) {
-         res.status(500).send(e)
+         errorHandler(new BadRequestError,req,res)
+         //res.status(500).send(e)
      }
 }
 

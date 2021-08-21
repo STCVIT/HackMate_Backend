@@ -13,7 +13,7 @@ const getAll = async(req,res)=>{
         }
         else{
             individualProjects = await projectModel.find({participant_id:req.participant._id})
-        teams = await DN_Team.find({'members.uid':req.participant._id,project_name:{$exists:true},project_description:{$exists:true}})
+            teams = await DN_Team.find({'members.uid':req.participant._id,project_name:{$exists:true},project_description:{$exists:true}})
         }
         if((!teams || teams.length==0) && (!individualProjects || individualProjects.length==0)){
             return errorHandler(new NotFoundError,req,res)

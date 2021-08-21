@@ -1,13 +1,13 @@
 const projectModel = require('../../../models/Project')
 const errorHandler = require('../../../middleware/errorHandler')
-const {NotFoundError} = require('../../../utils/error')
+const {NotFoundError, InvalidUpdatesError, BadRequestError} = require('../../../utils/error')
 
 async function updateProject(req,res){
     const updates = Object.keys(req.body)
     const allowedUpdates=['name','description','code','design','demonstration']
     const isValidOperation=updates.every((update)=>allowedUpdates.includes(update))
     if (!isValidOperation){
-       return res.status(400).send('Invalid Updates!')
+       return errorHandler(new InvalidUpdatesError,req,res)
     }
     try {
         const project = await projectModel.findOne({_id:req.params.project_id,participant_id:req.participant._id})
@@ -18,7 +18,7 @@ async function updateProject(req,res){
         await project.save()
         res.send(project)
     } catch (error) {
-        res.status(400).send(error)
+        errorHandler(new BadRequestError,req,res)
     }
 }
 

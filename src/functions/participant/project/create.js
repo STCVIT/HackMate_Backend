@@ -1,4 +1,6 @@
+const errorHandler = require('../../../middleware/errorHandler')
 const projectModel = require('../../../models/Project')
+const { BadRequestError } = require('../../../utils/error')
 
 const createProject = async(req,res)=>{
     try {
@@ -9,7 +11,8 @@ const createProject = async(req,res)=>{
         await project.save()
         res.status(201).send(project)
     } catch (e) {
-        res.status(400).send('Error')
+        errorHandler(new BadRequestError,req,res)
+        //res.status(400).send('Error')
     } 
 }
 
