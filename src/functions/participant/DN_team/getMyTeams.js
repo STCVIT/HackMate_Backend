@@ -11,14 +11,13 @@ const myTeams = async(req,res) =>{
         const teams = await DN_Team.find({'members.uid':req.participant._id})
         if(!teams || teams.length==0){
             return errorHandler(new NotFoundError,req,res)
-            
         }
         console.log(teams)
         const page = Number(req.query.page)
         const length = teams.length
         const temp = paginate(teams,8,page)
         if(!temp || temp.length==0){
-            return res.send('Not found')
+            return errorHandler(new NotFoundError,req,res)
         }
         let final = []
         await Promise.all(temp.map(async(team)=>{
@@ -34,32 +33,35 @@ const myTeams = async(req,res) =>{
                 let skills = await Skill.find({participant_id:participant._id})
                 pt_skill.push({participant,skills})
             }))
-            // for await (participant of participants){
-            //     let skills = await Skill.find({participant_id:participant._id})
-            //     pt_skill.push({participant,skills})
-            // }
+            
             final.push({team,hackName,pt_skill})
         }))
-        // for await (team of temp){
-        //     let hackName = ''
-        //     if (team.hack_id){
-        //         let hack = await Hack.findById(team.hack_id)
-        //         hackName = hack.name
-        //     }
-        //     let members = team.members.map((member)=>member.uid)
-        //     let participants = await participantModel.find({_id:{$in:members}})
-        //     let pt_skill = []
-        //     for await (participant of participants){
-        //         let skills = await Skill.find({participant_id:participant._id})
-        //         pt_skill.push({participant,skills})
-        //     }
-        //     final.push({team,hackName,pt_skill})
-        // }
+        
         res.status(200).send({final,length})
     } catch (e) {
-        console.log('hi')
         errorHandler(new BadRequestError,req,res)
     }
 }
 
 module.exports = myTeams
+
+// for await (participant of participants){
+//     let skills = await Skill.find({participant_id:participant._id})
+//     pt_skill.push({participant,skills})
+// }
+
+// for await (team of temp){
+//     let hackName = ''
+//     if (team.hack_id){
+//         let hack = await Hack.findById(team.hack_id)
+//         hackName = hack.name
+//     }
+//     let members = team.members.map((member)=>member.uid)
+//     let participants = await participantModel.find({_id:{$in:members}})
+//     let pt_skill = []
+//     for await (participant of participants){
+//         let skills = await Skill.find({participant_id:participant._id})
+//         pt_skill.push({participant,skills})
+//     }
+//     final.push({team,hackName,pt_skill})
+// }

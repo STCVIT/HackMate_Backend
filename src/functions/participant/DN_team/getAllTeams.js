@@ -40,9 +40,22 @@ const getAllTeams = async(req,res)=>{
         })
     } catch (e) {
         errorHandler(new BadRequestError,req,res)
-    }
-    
-    
+    }    
 }
 
 module.exports = getAllTeams
+
+//USE THIS INSTEAD OF FOR-EACH
+
+// await Promise.all(temp.map(async(team)=>{
+//     const members = team.members.map((member)=>member.uid)
+//     const participants = await participantModel.find({_id:{$in:members}})
+//     const skills = await SkillVacancy.find({team_id:team._id})
+//     let temp_team = {
+//         team,
+//         participants,
+//         skills
+//     }
+//     final.push(temp_team)
+// }))
+// res.status(200).send({final,length})

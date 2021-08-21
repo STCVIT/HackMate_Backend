@@ -65,6 +65,35 @@ const get_team_by_skills = async(req,res)=>{
 
 module.exports = get_team_by_skills
 
-// await Promise.all(hackTeams.map(async(team)=>{
+//USE THIS INSTEAD OF FOR-EACH
 
+// await Promise.all(hackTeams.map(async(team)=>{
+//     const checkTeam = await SkillVacancy.findOne({team_id:team._id,skill:{$in:req.query.skill}})
+//     if(checkTeam){
+//         validteams.push(team)
+//     }
+//     if(validteams.length == 0 || !validteams ){
+//         return errorHandler(new NotFoundError,req,res)
+//     }
+//     const page = Number(req.query.page)
+//     const length = validteams.length
+//     const temp = paginate(validteams,8,page)
+//     console.log(temp)
+//     if(!temp || temp.length==0){
+//         return errorHandler(new NotFoundError,req,res)
+//     }
+//     let final = []
+//     await Promise.all(temp.map(async(team)=>{
+//         const skills = await SkillVacancy.find({team_id:team._id})
+//         const members = team.members.map((member)=>member.uid)
+//         const participants = await Participant.find({_id:{$in:members}})
+//         let final_team = {
+//             team,
+//             skills,
+//             participants
+//         }
+//         final.push(final_team)
+//     }))
 // }))
+// res.status(200).send({final,length})
+

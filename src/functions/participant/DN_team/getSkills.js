@@ -5,10 +5,8 @@ const { NotFoundError, BadRequestError, AuthenticationError } = require('../../.
 
 const getSkills = async(req,res)=>{
     try {
-        console.log('hi')
         console.log(req.participant._id)
         const team = await DN_Team.findOne({_id:req.params.team_id})
-        //'members.uid':req.participant._id
         console.log(team)
         if(!team ){
             return errorHandler(new NotFoundError,req,res)
@@ -19,8 +17,7 @@ const getSkills = async(req,res)=>{
         }
         const skills = await SkillVacancy.find({team_id:req.params.team_id})
     if(!skills || skills.length == 0){
-        errorHandler(new NotFoundError,req,res)
-        return
+        return errorHandler(new NotFoundError,req,res) 
     }
     res.status(200).send(skills) 
     } catch (e) {

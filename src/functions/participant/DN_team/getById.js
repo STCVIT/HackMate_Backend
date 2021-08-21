@@ -26,8 +26,16 @@ const getById = async(req,res)=>{
     })
     } catch (e) {
         errorHandler(new BadRequestError,req,res)
-    }
-    
+    }    
 }
 
 module.exports = getById
+
+//USE THIS INSTEAD OF FOR-EACH
+
+// await Promise.all(participants.map(async(participant)=>{
+//     const skills = await Skill.find({participant_id:participant._id})
+//     pt_skills.push({participant,skills})
+// }))
+// let final = {team,pt_skills}
+// res.status(200).send(final)

@@ -38,3 +38,15 @@ const addSkills = async(req,res) =>{
 }
 
 module.exports = addSkills
+
+//USE THIS INSTEAD OF FOR-EACH
+
+// await Promise.all(skills.map(async(skill)=>{
+//     const teamSkill = new SkillVacancy({
+//         skill,
+//         team_id:req.params.team_id
+//     })
+//     await teamSkill.save()
+//     skillRecords.push(teamSkill)
+// }))
+// res.status(201).send(skillRecords)

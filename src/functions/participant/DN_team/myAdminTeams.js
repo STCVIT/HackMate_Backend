@@ -1,6 +1,6 @@
 const DN_Team = require('../../../models/Dn-Team')
 const Hack = require('../../../models/Hack')
-const {NotFoundError}  = require('../../../utils/error')
+const {NotFoundError, BadRequestError}  = require('../../../utils/error')
 const errorHandler = require('../../../middleware/errorHandler')
 const Skill = require('../../../models/Skill')
 const participantModel = require('../../../models/Participant')
@@ -52,9 +52,22 @@ const myAdminTeams = async(req,res)=>{
         }
         res.status(200).send(final)
     } catch (e) {
-        res.status(400).send(e)
+        errorHandler(new BadRequestError,req,res)
     }
-    
 }
 
 module.exports = myAdminTeams
+
+//USE THIS INSTEAD OF FOR-AWAIT-OF
+
+// await Promise.all(eligibleTeams.map(async(team)=>{
+//     let pt_skill = []
+//     let members = team.members.map((member)=>member.uid)
+//     let participants = await participantModel.find({_id:{$in:members}})
+//     await Promise.all(participants.map(async(participant)=>{
+//         let skills = await Skill.find({participant_id:participant._id})
+//         pt_skill.push({participant,skills})
+//     }))
+//     final.push({team,pt_skill})
+// }))
+// res.status(200).send(final)

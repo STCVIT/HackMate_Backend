@@ -8,7 +8,7 @@ const leaveTeam = async(req,res)=>{
         return res.send("You're not in given team")
     }
     if(team.admin_id==req.participant._id){
-        return res.send("admin cant leave team, try deleting it instead")
+        return res.status(403).send("admin cant leave team, try deleting it instead")
     }
     let updated = team.members.filter((member)=>{return String(member.uid) !== String(req.participant._id)})
     console.log(updated)

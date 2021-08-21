@@ -34,11 +34,11 @@ module.exports = join_team_by_code
 
 //checking without hooks
 // let check = await teamCheck(team)
-        // console.log(check)
-        // if (check==true){
-        //     await team.save()
-        //     res.status(201).send(team)    
-        // }
-        // else{
-        //     errorHandler(check,req,res)
-        // }
+// console.log(check)
+// if (check==true){
+//     await team.save()
+//     res.status(201).send(team)    
+// }
+// else{
+//     errorHandler(check,req,res)
+// }

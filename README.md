@@ -1,7 +1,7 @@
 <p align="center">
     <a href="https://stcvit.in/" target="_blank"><img src="https://github.com/STCVIT/STC-README/blob/master/gitbanner.png" title="STC-VIT" alt="STC-VIT"></a>
 </p>
-<h1> HACKMATE</h1>
+<h1>HACKMATE</h1>
 
 > <Subtitle>
 > HackMate Backend NodeJs

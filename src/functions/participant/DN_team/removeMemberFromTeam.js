@@ -3,7 +3,6 @@ const errorHandler = require('../../../middleware/errorHandler')
 
 const removeMemberFromTeam = async(req,res) =>{
     try {
-        
         const team = req.team
         console.log(team)
         let members = team.members.map((member)=>member.uid)
@@ -11,8 +10,7 @@ const removeMemberFromTeam = async(req,res) =>{
         console.log(req.params.member_id)
         console.log(members.includes(req.params.member_id))
         if(!members.includes(req.params.member_id)){
-            errorHandler(new NotFoundError,req,res)
-            return
+            return errorHandler(new NotFoundError,req,res)
         }
         let updatedMembers = team.members.filter((member)=>{return member.uid != req.params.member_id})
         console.log(updatedMembers)
