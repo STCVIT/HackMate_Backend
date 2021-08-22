@@ -70,19 +70,27 @@ class DuplicateEntryError extends Error{
     }
 }
 
-class ClaimError extends Error{
-    constructor(){
-        super()
-        this.statusCode = 401
-        this.message = 'Claim not Set'
-    }
-}
-
 class InvalidUpdatesError extends Error{
     constructor(){
         super()
         this.statusCode = 400
         this.message = 'Invalid Updates'
+    }
+}
+
+class ClaimNotSetError extends Error{
+    constructor(){
+        super()
+        this.statusCode = 418
+        this.message = 'Claim Not Set'
+    }
+}
+
+class LoginNotAllowedError extends Error{
+    constructor(){
+        super()
+        this.statusCode = 401
+        this.message = 'Login Not Allowed'
     }
 }
 
@@ -96,6 +104,7 @@ module.exports = {
     DuplicateTeamHackError,
     SchemaValidationError,
     DuplicateEntryError,
-    ClaimError,
-    InvalidUpdatesError
+    InvalidUpdatesError,
+    LoginNotAllowedError,
+    ClaimNotSetError
 }

@@ -2,8 +2,6 @@ const errorHandler = require('../../../middleware/errorHandler')
 const SkillVacancy = require('../../../models/SkillVacancy')
 const { BadRequestError } = require('../../../utils/error')
 
-//trycatch
-
 const addSkills = async(req,res) =>{
     try {
         const skills = req.body.skills

@@ -6,7 +6,7 @@ require("dotenv").config({ path: path.resolve(__dirname, "../../.env") });
 
 const errorHandler = require('../middleware/errorHandler')
 const successHandler = require('../middleware/successHandler')
-const {BadRequestError, AuthenticationError, EmailUnauthorizedError, ClaimError} = require('../utils/error')
+const {BadRequestError, AuthenticationError, EmailUnauthorizedError, ClaimError, LoginNotAllowedError, ClaimNotSetError} = require('../utils/error')
 const {ResourceDeletedSuccess, ResourceCreatedSuccess} = require('../utils/success')
 
 const env=process.env
@@ -92,13 +92,12 @@ const checkClaimParticipant = ((req,res,next)=>{
   .auth()
   .verifyIdToken(idToken)
   .then((claims) => {
-    // if(claims.organiser === true){
-    //   return res.status(401).send('dont login here')
-    // }
-    // console.log(claims)
-    // if(!claims.organiser && !claims.participant){
-    //   return res.send('hi')
-    // }
+    if(claims.organiser === true){
+      return errorHandler(new LoginNotAllowedError,req,res)
+    }
+    if(!claims.organiser && !claims.participant){
+      return errorHandler(new ClaimNotSetError,req,res)
+    }
     if (claims.participant === true) {
       return next()
     }
@@ -144,6 +143,13 @@ admin
   .auth()
   .verifyIdToken(idToken)
   .then((claims) => {
+    console.log(claims)
+    if(claims.participant === true){
+      return errorHandler(new LoginNotAllowedError,req,res)
+    }
+    if(!claims.organiser && !claims.participant){
+      return errorHandler(new ClaimNotSetError,req,res)
+    }
     if (claims.organiser === true) {
       next()
     }
