@@ -22,8 +22,7 @@ const getAllTeams = async(req,res)=>{
         if(temp.length==0){
             return errorHandler(new NotFoundError,req,res)
         }
-        let i = 0
-        temp.forEach(async(team)=>{
+        await Promise.all(temp.map(async(team)=>{
             const members = team.members.map((member)=>member.uid)
             const participants = await participantModel.find({_id:{$in:members}})
             const skills = await SkillVacancy.find({team_id:team._id})
@@ -33,11 +32,8 @@ const getAllTeams = async(req,res)=>{
                 skills
             }
             final.push(temp_team)
-            i++
-            if(i==temp.length){
-                res.status(200).send({final,length})
-            }
-        })
+        }))
+        res.status(200).send({final,length})
     } catch (e) {
         errorHandler(new BadRequestError,req,res)
     }    
@@ -45,9 +41,10 @@ const getAllTeams = async(req,res)=>{
 
 module.exports = getAllTeams
 
-//USE THIS INSTEAD OF FOR-EACH
+//OLD CODE
 
-// await Promise.all(temp.map(async(team)=>{
+// let i = 0
+// temp.forEach(async(team)=>{
 //     const members = team.members.map((member)=>member.uid)
 //     const participants = await participantModel.find({_id:{$in:members}})
 //     const skills = await SkillVacancy.find({team_id:team._id})
@@ -57,5 +54,8 @@ module.exports = getAllTeams
 //         skills
 //     }
 //     final.push(temp_team)
-// }))
-// res.status(200).send({final,length})
+//     i++
+//     if(i==temp.length){
+//         res.status(200).send({final,length})
+//     }
+// })

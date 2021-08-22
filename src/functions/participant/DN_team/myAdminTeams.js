@@ -40,16 +40,16 @@ const myAdminTeams = async(req,res)=>{
            return errorHandler(new NotFoundError,req,res)
         }
         let final = []
-        for await (team of eligibleTeams){
+        await Promise.all(eligibleTeams.map(async(team)=>{
             let pt_skill = []
             let members = team.members.map((member)=>member.uid)
             let participants = await participantModel.find({_id:{$in:members}})
-            for await (participant of participants){
+            await Promise.all(participants.map(async(participant)=>{
                 let skills = await Skill.find({participant_id:participant._id})
                 pt_skill.push({participant,skills})
-            }
+            }))
             final.push({team,pt_skill})
-        }
+        }))
         res.status(200).send(final)
     } catch (e) {
         errorHandler(new BadRequestError,req,res)
@@ -58,16 +58,16 @@ const myAdminTeams = async(req,res)=>{
 
 module.exports = myAdminTeams
 
-//USE THIS INSTEAD OF FOR-AWAIT-OF
-
-// await Promise.all(eligibleTeams.map(async(team)=>{
+//OLD CODE
+// for await (team of eligibleTeams){
 //     let pt_skill = []
 //     let members = team.members.map((member)=>member.uid)
 //     let participants = await participantModel.find({_id:{$in:members}})
-//     await Promise.all(participants.map(async(participant)=>{
+//     for await (participant of participants){
 //         let skills = await Skill.find({participant_id:participant._id})
 //         pt_skill.push({participant,skills})
-//     }))
+//     }
 //     final.push({team,pt_skill})
-// }))
+// }
 // res.status(200).send(final)
+

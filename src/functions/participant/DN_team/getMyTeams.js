@@ -12,7 +12,6 @@ const myTeams = async(req,res) =>{
         if(!teams || teams.length==0){
             return errorHandler(new NotFoundError,req,res)
         }
-        console.log(teams)
         const page = Number(req.query.page)
         const length = teams.length
         const temp = paginate(teams,8,page)

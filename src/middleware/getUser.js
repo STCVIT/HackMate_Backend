@@ -20,7 +20,7 @@ const getParticipant = async (req, res, next) => {
 const getOrganiser = async (req, res, next) => {
   const organiser = await Organiser.findOne({ uid: req.userId });
   if (!organiser) {
-    return res.status(404).send("no profile found!");
+    return errorHandler(new NotFoundError,req,res);
   }
   req.organiser = organiser;
   next();

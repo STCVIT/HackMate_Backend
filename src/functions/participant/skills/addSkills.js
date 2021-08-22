@@ -24,7 +24,7 @@ const addSkills = async(req,res) => {
         skillRecords.push(newSkill)
         i++
         if(i==skills.length){
-            console.log('hi',skillRecords)
+            //console.log('hi',skillRecords)
             res.status(201).send(skillRecords)
         }
     })

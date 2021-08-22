@@ -14,16 +14,12 @@ const getById = async(req,res)=>{
     let members = team.members.map(member=>member.uid)
     const participants = await participantModel.find({_id:{$in:members}})
     let pt_skills = []
-    let i = 0
-    participants.forEach(async(participant)=>{
+    await Promise.all(participants.map(async(participant)=>{
         const skills = await Skill.find({participant_id:participant._id})
         pt_skills.push({participant,skills})
-        i++
-        if(i==participants.length){
-            let final = {team,pt_skills}
-            res.status(200).send(final)
-        }
-    })
+    }))
+    let final = {team,pt_skills}
+    res.status(200).send(final)
     } catch (e) {
         errorHandler(new BadRequestError,req,res)
     }    
@@ -31,11 +27,14 @@ const getById = async(req,res)=>{
 
 module.exports = getById
 
-//USE THIS INSTEAD OF FOR-EACH
-
-// await Promise.all(participants.map(async(participant)=>{
+//OLD CODE
+//let i = 0
+// participants.forEach(async(participant)=>{
 //     const skills = await Skill.find({participant_id:participant._id})
 //     pt_skills.push({participant,skills})
-// }))
-// let final = {team,pt_skills}
-// res.status(200).send(final)
+//     i++
+//     if(i==participants.length){
+//         let final = {team,pt_skills}
+//         res.status(200).send(final)
+//     }
+// })

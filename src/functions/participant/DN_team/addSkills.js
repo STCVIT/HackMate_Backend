@@ -12,25 +12,20 @@ const addSkills = async(req,res) =>{
     }
     const allowed_skills = ['frontend','backend','ml','ui/ux','appdev','management','blockchain','cybersecurity']
     const isAllowed = skills.every((skill)=>allowed_skills.includes(skill))
-    console.log(isAllowed)
     if(!isAllowed){
         return res.status(403).send('Invalid skills')
     }
     await SkillVacancy.deleteMany({team_id:req.params.team_id})
         let skillRecords = []
-        let i = 0
-        skills.forEach(async(skill) => {
+        await Promise.all(skills.map(async(skill)=>{
             const teamSkill = new SkillVacancy({
                 skill,
                 team_id:req.params.team_id
             })
             await teamSkill.save()
-            i++
             skillRecords.push(teamSkill)
-            if (i==skills.length){
-                res.status(201).send(skillRecords)
-            }
-        })
+        }))
+        res.status(201).send(skillRecords)
     } catch (e) {
         errorHandler(new BadRequestError,req,res)
     }
@@ -39,14 +34,18 @@ const addSkills = async(req,res) =>{
 
 module.exports = addSkills
 
-//USE THIS INSTEAD OF FOR-EACH
+//OLD CODE
 
-// await Promise.all(skills.map(async(skill)=>{
+// let i = 0
+// skills.forEach(async(skill) => {
 //     const teamSkill = new SkillVacancy({
 //         skill,
 //         team_id:req.params.team_id
 //     })
 //     await teamSkill.save()
+//     i++
 //     skillRecords.push(teamSkill)
-// }))
-// res.status(201).send(skillRecords)
+//     if (i==skills.length){
+//         res.status(201).send(skillRecords)
+//     }
+// })
