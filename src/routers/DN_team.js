@@ -13,7 +13,6 @@ const get_team_by_skills = require("../functions/participant/DN_team/get_team_by
 const myTeams = require("../functions/participant/DN_team/getMyTeams");
 const myAdminTeams = require("../functions/participant/DN_team/myAdminTeams");
 const checkTeamName = require("../functions/participant/DN_team/checkTeamName");
-const createNullHackTeam = require("../functions/participant/DN_team/createNullHackTeam");
 const leaveTeam = require("../functions/participant/DN_team/leaveTeam");
 const getSkills = require("../functions/participant/DN_team/getSkills");
 const removeMemberFromTeam = require("../functions/participant/DN_team/removeMemberFromTeam");

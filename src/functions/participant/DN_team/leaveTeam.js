@@ -1,4 +1,7 @@
 const DN_Team = require('../../../models/Dn-Team')
+const errorHandler = require('../../../middleware/errorHandler')
+const { BadRequestError } = require('../../../utils/error')
+
 
 const leaveTeam = async(req,res)=>{
     
@@ -14,9 +17,9 @@ const leaveTeam = async(req,res)=>{
     console.log(updated)
     team.members = updated
     await team.save()
-    res.send(team)
+    res.status(200).send(team)
     } catch (e) {
-        res.send(e)
+        errorHandler(new BadRequestError,req,res)
     }
     
 }

@@ -102,7 +102,7 @@ const checkClaimParticipant = ((req,res,next)=>{
       return next()
     }
     else{
-      // errorHandler(new AuthenticationError,req,res)
+      //errorHandler(new AuthenticationError,req,res)
       //return errorHandler(new ClaimError,req,res)
       return res.send('ni bhai ye scheme tere liye ni hai')
     }
