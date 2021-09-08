@@ -88,32 +88,6 @@ participantSchema.post('remove',async function (doc,next){
     
 })
 
-// participantSchema.methods.toJSON= function(){
-//     const participant = this
-//     const participantObject = participant.toObject()
-
-//     delete participantObject.__v
-//     delete participantObject._id
-//     delete participantObject.uid
-
-//     return participantObject 
-// }
-
-// participantSchema.methods.displayInfo = async function(){
-//     const participant = this
-//     const participantObject = participant.toObject()
-   
-//     delete participantObject.phone
-//     delete participantObject.address
-//     delete participantObject.__v
-//     delete participantObject._id
-//     delete participantObject.uid
-//     delete participantObject.privacy
-    
-//     return participantObject 
-  
-//  }
-
 const participantModel = mongoose.model('Participant',participantSchema)
 
 module.exports = participantModel

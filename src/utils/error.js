@@ -89,7 +89,7 @@ class ClaimNotSetError extends Error{
 class LoginNotAllowedError extends Error{
     constructor(){
         super()
-        this.statusCode = 401
+        this.statusCode = 403
         this.message = 'Login Not Allowed'
     }
 }

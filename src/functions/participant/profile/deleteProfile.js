@@ -7,6 +7,7 @@ async function deleteProfile(req,res,next){
         next()
         }
         catch(e) {
+            console.log(e)
          errorHandler(new BadRequestError,req,res)
          //res.status(500).send(e)
      }
