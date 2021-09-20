@@ -32,7 +32,6 @@ admin.initializeApp({
 const checkUser=((req,res,next)=>{
   if(!req.header('Authorization')||(req.header('Authorization')==undefined)){
     return errorHandler(new AuthenticationError,req,res)
-    //return res.status(401).send('oof')
   }
   const idToken=req.header('Authorization').replace('Bearer ', '')
 
@@ -43,7 +42,6 @@ const checkUser=((req,res,next)=>{
     const uid = user.uid;
         if (!user.email_verified){
           return errorHandler(new EmailUnauthorizedError,req,res)
-          //return res.status(400).send('Please Verify Your Email Address!')
         }
         else{
           req.userId=uid
@@ -61,7 +59,6 @@ const checkUser=((req,res,next)=>{
 const setClaimParticipant = ((req,res) =>{
   if(!req.header('Authorization')||(req.header('Authorization')==undefined)){
     return errorHandler(new AuthenticationError,req,res)
-    //return res.status(401).send('oof')
   }
   const idToken=req.header('Authorization').replace('Bearer ', '')
 let Uid ='';
@@ -76,13 +73,10 @@ admin
     .setCustomUserClaims(Uid, { participant : true })
     .then(()=>{
       return successHandler(new ResourceCreatedSuccess,req,res)
-      //res.status(201).send('hi')
     })
   })
   .catch((e)=>{
-   //return errorHandler(new ClaimError,req,res)
    return errorHandler(new BadRequestError,req,res)
-   //res.status(400).send('no')
   })
 })
 
@@ -101,18 +95,12 @@ const checkClaimParticipant = ((req,res,next)=>{
     if (claims.participant === true) {
       return next()
     }
-    else{
-      //errorHandler(new AuthenticationError,req,res)
-      //return errorHandler(new ClaimError,req,res)
-      return res.send('ni bhai ye scheme tere liye ni hai')
-    }
   })
 })
 
 const setClaimOrganiser = ((req,res) =>{
   if(!req.header('Authorization')||(req.header('Authorization')==undefined)){
     return errorHandler(new AuthenticationError,req,res)
-    //return res.status(401).send('oof')
   }
   const idToken=req.header('Authorization').replace('Bearer ', '')
 let Uid ='';
@@ -128,12 +116,10 @@ admin
     .setCustomUserClaims(Uid, { organiser : true })
     .then(()=>{
       return successHandler(new ResourceCreatedSuccess,req,res)
-      //res.status(201).send('hi')
     })
   })
   .catch((e)=>{
-    // errorHandler(new BadRequestError,req,res)
-   res.status(400).send('no')
+    errorHandler(new BadRequestError,req,res)
   })
 })
 
@@ -153,10 +139,6 @@ admin
     if (claims.organiser === true) {
       next()
     }
-    else{
-    //  errorHandler(new AuthenticationError,req,res)
-      return res.send('ni bhai ye scheme tere liye ni hai')
-    }
   })
 })
 
@@ -165,28 +147,14 @@ const deleteUser = (req,res)=>{
   admin
   .auth()
   .deleteUser(uid)
-  .then(() => {
-    return successHandler(new ResourceDeletedSuccess,req,res)
-    //res.send('kardiya delete bhai')
-  })
-  .catch((error) => {
-    errorHandler(new BadRequestError,req,res)
-  });
+  return successHandler(new ResourceDeletedSuccess,req,res)
 }
 
 module.exports={
-    checkUser,
-    setClaimParticipant,
-    checkClaimParticipant,
-    setClaimOrganiser,
-    checkClaimOrganiser,
-    deleteUser
+  checkUser,
+  setClaimParticipant,
+  checkClaimParticipant,
+  setClaimOrganiser,
+  checkClaimOrganiser,
+  deleteUser
 }
-
-// checkClaim(){
-//   // let claims =claims.organiser
-//   // let  part = claims.part  
-//   // re
-// }
-
-// if(e.status =401 && e.message=='not set')
