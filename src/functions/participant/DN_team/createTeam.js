@@ -9,7 +9,10 @@ const {
 
 const createTeam = async (req, res) => {
   try {
-    if (await DN_Team.findOne({ name: req.body.name })) {
+    if (
+      (await DN_Team.findOne({ name: req.body.name })) &&
+      req.params.hack_id != "null"
+    ) {
       return errorHandler(new DuplicateTeamNameError(), req, res);
     }
     const team_code = teamCode();
