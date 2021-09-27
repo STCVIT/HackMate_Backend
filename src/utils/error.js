@@ -102,6 +102,22 @@ class DuplicateTeamNameError extends Error {
   }
 }
 
+class MinMaxError extends Error {
+  constructor() {
+    super();
+    this.statusCode = 406;
+    this.message = "Min team size cannot be greater than max team size";
+  }
+}
+
+class DateError extends Error {
+  constructor() {
+    super();
+    this.statusCode = 407;
+    this.message = "Start date cannot be after end date";
+  }
+}
+
 module.exports = {
   NotFoundError,
   AuthenticationError,
@@ -116,4 +132,6 @@ module.exports = {
   LoginNotAllowedError,
   ClaimNotSetError,
   DuplicateTeamNameError,
+  MinMaxError,
+  DateError,
 };
