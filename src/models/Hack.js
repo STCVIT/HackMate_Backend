@@ -74,19 +74,19 @@ hackSchema.post("remove", async function (doc, next) {
   }
 });
 
-// hackSchema.pre("save", async function (next) {
-//   try {
-//     if (this.max_team_size <= this.min_team_size) {
-//       next(new MinMaxError());
-//     }
-//     if (this.start >= this.end) {
-//       next(new DateError());
-//     }
-//     next();
-//   } catch (e) {
-//     next(e);
-//   }
-// });
+hackSchema.pre("save", async function (next) {
+  try {
+    if (this.max_team_size <= this.min_team_size) {
+      next(new MinMaxError());
+    }
+    if (this.start >= this.end) {
+      next(new DateError());
+    }
+    next();
+  } catch (e) {
+    next(e);
+  }
+});
 
 const Hack = mongoose.model("Hack", hackSchema);
 module.exports = Hack;
