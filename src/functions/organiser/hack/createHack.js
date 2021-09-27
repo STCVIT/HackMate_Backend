@@ -21,6 +21,7 @@ async function createHack(req, res) {
       return errorHandler(new SchemaValidationError(), req, res);
     }
     if (e.statusCode && e.message) {
+      console.log("hi");
       return errorHandler(e, req, res);
     }
     errorHandler(new BadRequestError(), req, res);
