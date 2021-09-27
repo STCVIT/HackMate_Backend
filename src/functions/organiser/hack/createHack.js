@@ -16,6 +16,7 @@ async function createHack(req, res) {
     await hack.save();
     res.status(201).send(hack);
   } catch (e) {
+    console.log(e);
     if (e._message == "Hack validation failed") {
       return errorHandler(new SchemaValidationError(), req, res);
     }
