@@ -50,7 +50,7 @@ const myAdminTeams = async (req, res) => {
         eligibleTeams.push(team);
       }
     });
-    if (!eligibleTeams) {
+    if (!eligibleTeams || eligibleTeams.length == 0) {
       return errorHandler(new NotFoundError(), req, res);
     }
     let final = [];
