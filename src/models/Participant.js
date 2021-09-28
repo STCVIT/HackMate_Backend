@@ -19,13 +19,37 @@ const participantSchema = new mongoose.Schema({
   github: {
     type: String,
     required: true,
+    validate: {
+      validator: function (github) {
+        return /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/.test(
+          github
+        );
+      },
+      message: `Enter a valid link!`,
+    },
   },
   linkedIn: {
     type: String,
     required: true,
+    validate: {
+      validator: function (linkedIn) {
+        return /((https?:\/\/)?((www|\w\w)\.)?linkedin\.com\/)((([\w]{2,3})?)|([^\/]+\/(([\w|\d-&#?=])+\/?){1,}))$/.test(
+          linkedIn
+        );
+      },
+      message: `Enter a valid link!`,
+    },
   },
   website: {
     type: String,
+    validate: {
+      validator: function (website) {
+        return /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/.test(
+          website
+        );
+      },
+      message: `Enter a valid link!`,
+    },
   },
   photo: {
     type: String,

@@ -1,42 +1,56 @@
-const mongoose = require('mongoose')
-const DN_Team = require('./Dn-Team')
-const Hack = require('./Hack')
+const mongoose = require("mongoose");
+const DN_Team = require("./Dn-Team");
+const Hack = require("./Hack");
 
 const organiserSchema = new mongoose.Schema({
-    name:{
-        type:String,
-        required:true
+  name: {
+    type: String,
+    required: true,
+  },
+  logo: {
+    type: String,
+  },
+  phone: {
+    type: String,
+    required: true,
+    validate: {
+      validator: function (phone) {
+        return /^\d{10}$/.test(phone);
+      },
+      message: `Enter a valid phone number!`,
     },
-    logo:{ 
-        type:String
+  },
+  college: {
+    type: String,
+    required: true,
+  },
+  uid: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  website: {
+    type: String,
+    validate: {
+      validator: function (website) {
+        return /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/.test(
+          website
+        );
+      },
+      message: `Enter a valid link!`,
     },
-    phone:{
-        type:String,
-        required:true
-    },
-    college:{
-        type:String,
-        required:true
-    },
-    uid:{
-        type:String,
-        required:true
-    },
-    email:{
-        type: String,
-        required: true,
-        unique: true,
-    },
-    website:{
-        type:String
-    },
-})
+  },
+});
 
-organiserSchema.virtual('hacks',{
-    ref:'Hack',
-    localField:'_id',
-    foreignField:'organiser_id'
-})
+organiserSchema.virtual("hacks", {
+  ref: "Hack",
+  localField: "_id",
+  foreignField: "organiser_id",
+});
 
 // organiserSchema.methods.toJSON= function(){
 //     const organiser = this
@@ -46,20 +60,20 @@ organiserSchema.virtual('hacks',{
 //     delete organiserObject._id
 //     delete organiserObject.uid
 
-//     return organiserObject 
+//     return organiserObject
 // }
 
-organiserSchema.post('remove',async function(doc,next){
-    const organiser = this
-    console.log(doc)
-    try {
-        const hacks = await Hack.find({organiser_id:organiser._id})
-        await Promise.all(hacks.map((hack) => hack.remove()));
-        next()
-    } catch (e) {
-        next(e)
-    }    
-})
+organiserSchema.post("remove", async function (doc, next) {
+  const organiser = this;
+  console.log(doc);
+  try {
+    const hacks = await Hack.find({ organiser_id: organiser._id });
+    await Promise.all(hacks.map((hack) => hack.remove()));
+    next();
+  } catch (e) {
+    next(e);
+  }
+});
 
-const Organiser = mongoose.model('Organiser',organiserSchema)
-module.exports = Organiser
+const Organiser = mongoose.model("Organiser", organiserSchema);
+module.exports = Organiser;
