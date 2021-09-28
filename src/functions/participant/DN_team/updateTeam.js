@@ -4,6 +4,7 @@ const errorHandler = require("../../../middleware/errorHandler");
 const {
   InvalidUpdatesError,
   BadRequestError,
+  DuplicateTeamNameError,
 } = require("../../../utils/error");
 
 const updateTeam = async (req, res) => {
@@ -29,6 +30,9 @@ const updateTeam = async (req, res) => {
     res.send(team);
   } catch (error) {
     console.log(error);
+    if (error.code == 11000) {
+      return errorHandler(new DuplicateTeamNameError(), req, res);
+    }
     errorHandler(new BadRequestError(), req, res);
   }
 };

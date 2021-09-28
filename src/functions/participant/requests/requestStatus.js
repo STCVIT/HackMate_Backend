@@ -6,7 +6,7 @@ const DN_Team = require("../../../models/Dn-Team");
 const errorHandler = require("../../../middleware/errorHandler");
 const teamCheck = require("../../../middleware/teamCheck");
 const { NotFoundError } = require("../../../utils/error");
-// const {TeamFullError} = require('../../../utils/error')
+const { TeamFullError, BadRequestError } = require("../../../utils/error");
 
 const reqStatus = async (req, res) => {
   try {
