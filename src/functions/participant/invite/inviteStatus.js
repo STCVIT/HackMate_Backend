@@ -3,7 +3,7 @@ const DN_Team = require("../../../models/Dn-Team");
 const Hack = require("../../../models/Hack");
 const errorHandler = require("../../../middleware/errorHandler");
 const {
-  TeamFullError,
+  DuplicateEntryError,
   BadRequestError,
   NotFoundError,
 } = require("../../../utils/error");
@@ -32,6 +32,9 @@ const inviteStatus = async (req, res) => {
     }
   } catch (e) {
     console.log(e);
+    if (e.code == 11000) {
+      return errorHandler(new DuplicateEntryError(), req, res);
+    }
     if (e.message && e.statusCode) {
       return errorHandler(e, req, res);
     } else {

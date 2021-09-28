@@ -5,7 +5,7 @@ const DN_Team = require("../../../models/Dn-Team");
 // const Hack = require('../../../models/Hack')
 const errorHandler = require("../../../middleware/errorHandler");
 const teamCheck = require("../../../middleware/teamCheck");
-const { NotFoundError } = require("../../../utils/error");
+const { NotFoundError, DuplicateEntryError } = require("../../../utils/error");
 const { TeamFullError, BadRequestError } = require("../../../utils/error");
 
 const reqStatus = async (req, res) => {
@@ -33,7 +33,9 @@ const reqStatus = async (req, res) => {
       res.status(201).send("rejected");
     }
   } catch (e) {
-    console.log(e);
+    if (e.code == 11000) {
+      return errorHandler(new DuplicateEntryError(), req, res);
+    }
     if (e.message && e.statusCode) {
       return errorHandler(e, req, res);
     } else {
