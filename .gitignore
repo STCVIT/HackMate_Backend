@@ -1,3 +1,5 @@
 .env
 node_modules/
 ngrok.exe
+tests
+clean.js
