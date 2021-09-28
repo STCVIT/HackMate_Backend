@@ -86,7 +86,7 @@ const setClaimParticipant = (req, res) => {
         .auth()
         .setCustomUserClaims(Uid, { participant: true })
         .then(() => {
-          return successHandler(new ResourceCreatedSuccess(), req, res);
+          return successHandler(new ResourceCreatedSuccess(), res);
         });
     })
     .catch((e) => {
@@ -133,7 +133,7 @@ const setClaimOrganiser = (req, res) => {
         .auth()
         .setCustomUserClaims(Uid, { organiser: true })
         .then(() => {
-          return successHandler(new ResourceCreatedSuccess(), req, res);
+          return successHandler(new ResourceCreatedSuccess(), res);
         });
     })
     .catch((e) => {
