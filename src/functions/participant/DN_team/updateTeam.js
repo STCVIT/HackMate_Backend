@@ -5,6 +5,7 @@ const {
   InvalidUpdatesError,
   BadRequestError,
   DuplicateTeamNameError,
+  SchemaValidationError,
 } = require("../../../utils/error");
 
 const updateTeam = async (req, res) => {
@@ -29,7 +30,9 @@ const updateTeam = async (req, res) => {
     await team.save();
     res.send(team);
   } catch (error) {
-    console.log(error);
+    if (e._message) {
+      errorHandler(new SchemaValidationError(), req, res);
+    }
     if (error.code == 11000) {
       return errorHandler(new DuplicateTeamNameError(), req, res);
     }

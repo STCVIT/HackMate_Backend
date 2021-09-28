@@ -5,6 +5,7 @@ const DN_Team = require("../../../models/Dn-Team");
 const {
   DuplicateTeamHackError,
   DuplicateTeamNameError,
+  SchemaValidationError,
 } = require("../../../utils/error");
 
 const createTeam = async (req, res) => {
@@ -28,6 +29,9 @@ const createTeam = async (req, res) => {
     await team.save();
     res.status(201).send(team);
   } catch (e) {
+    if (e._message) {
+      errorHandler(new SchemaValidationError(), req, res);
+    }
     if (e.code === 11000) {
       return errorHandler(new DuplicateTeamHackError(), req, res);
     } else {
