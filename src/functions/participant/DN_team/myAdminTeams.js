@@ -46,13 +46,7 @@ const myAdminTeams = async (req, res) => {
     }
     let eligibleTeams = [];
     myTeams.forEach((team) => {
-      if (
-        team.members.length <= hack.max_team_size &&
-        !(await DN_Team.findOne({
-          name: team.name,
-          hack_id: req.params.hack_id,
-        }))
-      ) {
+      if (team.members.length <= hack.max_team_size) {
         eligibleTeams.push(team);
       }
     });
