@@ -163,7 +163,7 @@ const checkClaimOrganiser = (req, res, next) => {
 const deleteUser = async (req, res) => {
   const uid = req.userId;
   await admin.auth().deleteUser(uid);
-  return res.status(200).send("Team deleted successfully");
+  return successHandler(new ResourceDeletedSuccess(), res);
 };
 
 module.exports = {
