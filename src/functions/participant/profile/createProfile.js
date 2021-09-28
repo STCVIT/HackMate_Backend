@@ -16,7 +16,7 @@ async function createProfile(req, res) {
     res.status(201).send(participant);
   } catch (e) {
     if (e.code === 11000 || e._message) {
-      errorHandler(new SchemaValidationError(), req, res);
+      return errorHandler(new SchemaValidationError(), req, res);
     }
     errorHandler(new BadRequestError(), req, res);
   }

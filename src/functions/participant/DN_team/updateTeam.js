@@ -30,8 +30,8 @@ const updateTeam = async (req, res) => {
     await team.save();
     res.send(team);
   } catch (error) {
-    if (e._message) {
-      errorHandler(new SchemaValidationError(), req, res);
+    if (error._message) {
+      return errorHandler(new SchemaValidationError(), req, res);
     }
     if (error.code == 11000) {
       return errorHandler(new DuplicateTeamNameError(), req, res);

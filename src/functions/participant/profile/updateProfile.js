@@ -29,9 +29,9 @@ async function updateProfile(req, res) {
     updates.forEach((update) => (req.participant[update] = req.body[update]));
     await req.participant.save();
     res.status(200).send(req.participant);
-  } catch (error) {
+  } catch (e) {
     if (e.code === 11000 || e._message) {
-      errorHandler(new SchemaValidationError(), req, res);
+      return errorHandler(new SchemaValidationError(), req, res);
     }
     errorHandler(new BadRequestError(), req, res);
   }

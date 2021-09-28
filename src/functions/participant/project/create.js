@@ -15,7 +15,7 @@ const createProject = async (req, res) => {
     res.status(201).send(project);
   } catch (e) {
     if (e.code === 11000 || e._message) {
-      errorHandler(new SchemaValidationError(), req, res);
+      return errorHandler(new SchemaValidationError(), req, res);
     }
     errorHandler(new BadRequestError(), req, res);
   }

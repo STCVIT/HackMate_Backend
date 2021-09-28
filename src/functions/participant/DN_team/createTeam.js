@@ -30,7 +30,7 @@ const createTeam = async (req, res) => {
     res.status(201).send(team);
   } catch (e) {
     if (e._message) {
-      errorHandler(new SchemaValidationError(), req, res);
+      return errorHandler(new SchemaValidationError(), req, res);
     }
     if (e.code === 11000) {
       return errorHandler(new DuplicateTeamHackError(), req, res);

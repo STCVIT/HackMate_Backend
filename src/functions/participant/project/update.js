@@ -33,9 +33,9 @@ async function updateProject(req, res) {
     updates.forEach((update) => (project[update] = req.body[update]));
     await project.save();
     res.send(project);
-  } catch (error) {
+  } catch (e) {
     if (e.code === 11000 || e._message) {
-      errorHandler(new SchemaValidationError(), req, res);
+      return errorHandler(new SchemaValidationError(), req, res);
     }
     errorHandler(new BadRequestError(), req, res);
   }
