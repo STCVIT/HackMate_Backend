@@ -2,6 +2,7 @@ const errorHandler = require("../../../middleware/errorHandler");
 const {
   InvalidUpdatesError,
   BadRequestError,
+  SchemaValidationError,
 } = require("../../../utils/error");
 
 async function updateProfile(req, res) {

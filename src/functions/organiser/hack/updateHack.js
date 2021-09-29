@@ -9,28 +9,10 @@ const {
 
 async function updateHack(req, res) {
   const updates = Object.keys(req.body);
-  const allowedUpdates = [
-    "name",
-    "website",
-    "venue",
-    "poster",
-    "prize_pool",
-    "start",
-    "end",
-    "max-team-size",
-    "min-team-size",
-    "mode_of_conduct",
-  ];
-  const isValidOperation = updates.every((update) =>
-    allowedUpdates.includes(update)
-  );
-  if (!isValidOperation) {
-    return errorHandler(new InvalidUpdatesError(), req, res);
-  }
   try {
     let hid = req.params.hack_id;
-    if (!hid || hid == (null || undefined)) {
-      return res.send("Send a Hack ID");
+    if (!hid || hid == null || hid == undefined) {
+      return res.status(418).send("Send a Hack ID");
     }
     const hack = await Hack.findOne({ _id: hid });
     if (!hack) {
@@ -42,6 +24,9 @@ async function updateHack(req, res) {
   } catch (e) {
     if (e._message) {
       return errorHandler(new SchemaValidationError(), req, res);
+    }
+    if (e.message && e.statusCode) {
+      return errorHandler(e, req, res);
     }
     errorHandler(new BadRequestError(), req, res);
   }

@@ -57,7 +57,7 @@ class DuplicateTeamHackError extends Error {
 class SchemaValidationError extends Error {
   constructor() {
     super();
-    this.statusCode = 400;
+    this.statusCode = 417;
     this.message = "Please Specify All required fields";
   }
 }
@@ -73,7 +73,7 @@ class DuplicateEntryError extends Error {
 class InvalidUpdatesError extends Error {
   constructor() {
     super();
-    this.statusCode = 400;
+    this.statusCode = 403;
     this.message = "Invalid Updates";
   }
 }
