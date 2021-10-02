@@ -6,6 +6,7 @@ const {
   DuplicateTeamHackError,
   DuplicateTeamNameError,
   SchemaValidationError,
+  BadRequestError,
 } = require("../../../utils/error");
 
 const createTeam = async (req, res) => {
@@ -35,7 +36,7 @@ const createTeam = async (req, res) => {
     if (e.code === 11000) {
       return errorHandler(new DuplicateTeamHackError(), req, res);
     } else {
-      return errorHandler(e, req, res);
+      return errorHandler(new BadRequestError(), req, res);
     }
   }
 };

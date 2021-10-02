@@ -56,7 +56,7 @@ const hackSchema = new mongoose.Schema({
   },
   prize_pool: {
     required: true,
-    type: String,
+    type: Number,
   },
   description: {
     required: true,
@@ -84,11 +84,14 @@ hackSchema.post("remove", async function (doc, next) {
 
 hackSchema.pre("save", async function (next) {
   try {
-    if (this.max_team_size <= this.min_team_size) {
+    if (this.max_team_size < this.min_team_size) {
       next(new MinMaxError());
+      return;
     }
-    if (this.start >= this.end) {
+    let date = new Date(Date.now());
+    if (this.start >= this.end || this.end <= date) {
       next(new DateError());
+      return;
     }
     next();
   } catch (e) {

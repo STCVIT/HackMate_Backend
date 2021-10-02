@@ -1,4 +1,6 @@
+const errorHandler = require("../../../middleware/errorHandler");
 const Skill = require("../../../models/Skill");
+const { BadRequestError } = require("../../../utils/error");
 
 const addSkills = async (req, res) => {
   try {
@@ -33,12 +35,11 @@ const addSkills = async (req, res) => {
       skillRecords.push(newSkill);
       i++;
       if (i == skills.length) {
-        //console.log('hi',skillRecords)
         res.status(201).send(skillRecords);
       }
     });
   } catch (e) {
-    res.status(400).send(e);
+    errorHandler(new BadRequestError(), req, res);
   }
 };
 

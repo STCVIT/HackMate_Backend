@@ -18,12 +18,17 @@ const getParticipant = async (req, res, next) => {
 };
 
 const getOrganiser = async (req, res, next) => {
-  const organiser = await Organiser.findOne({ uid: req.userId });
-  if (!organiser) {
-    return errorHandler(new NotFoundError,req,res);
+  try {
+    const organiser = await Organiser.findOne({ uid: req.userId });
+    if (!organiser) {
+      return errorHandler(new NotFoundError(), req, res);
+    }
+    req.organiser = organiser;
+    next();
+  } catch (e) {
+    console.log(e);
+    errorHandler(new BadRequestError(), req, res);
   }
-  req.organiser = organiser;
-  next();
 };
 
 module.exports = { getParticipant, getOrganiser };

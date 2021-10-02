@@ -23,7 +23,6 @@ async function updateProfile(req, res) {
   );
   if (!isValidOperation) {
     return errorHandler(new InvalidUpdatesError(), req, res);
-    //return res.status(400).send('Invalid Updates!')
   }
   try {
     updates.forEach((update) => (req.participant[update] = req.body[update]));
