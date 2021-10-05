@@ -7,7 +7,6 @@ const {
 
 async function createHack(req, res) {
   try {
-    console.log("hi");
     req.body.start = new Date(req.body.start);
     req.body.end = new Date(req.body.end);
     const hack = new Hack({

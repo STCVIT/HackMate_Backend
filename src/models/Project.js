@@ -11,6 +11,15 @@ const projectSchema = new mongoose.Schema({
   },
   code: {
     type: String,
+    validate: {
+      validator: function (github) {
+        let www = /https:\/\/www.github.com\//gm.test(github);
+        let onlyHttps = /https:\/\/github.com\//gm.test(github);
+        let nullV = github === "";
+        return www || onlyHttps || nullV;
+      },
+      message: `Enter a valid link!`,
+    },
   },
   design: {
     type: String,

@@ -21,9 +21,9 @@ const participantSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: function (github) {
-        return /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/.test(
-          github
-        );
+        let www = /https:\/\/www.github.com\//gm.test(github);
+        let onlyHttps = /https:\/\/github.com\//gm.test(github);
+        return www || onlyHttps;
       },
       message: `Enter a valid link!`,
     },
