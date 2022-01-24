@@ -7,6 +7,7 @@ const {
 
 async function createProfile(req, res) {
   try {
+    console.log(req.body)
     const participant = new participantModel({
       ...req.body,
       uid: req.userId,

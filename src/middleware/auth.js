@@ -46,7 +46,6 @@ const checkUser = (req, res, next) => {
     return errorHandler(new AuthenticationError(), req, res);
   }
   const idToken = req.header("Authorization").replace("Bearer ", "");
-
   admin
     .auth()
     .verifyIdToken(idToken)
@@ -62,6 +61,7 @@ const checkUser = (req, res, next) => {
       }
     })
     .catch((error) => {
+      console.log(error)
       errorHandler(new AuthenticationError(), req, res);
     });
 };
@@ -73,6 +73,7 @@ const setClaimParticipant = (req, res) => {
   ) {
     return errorHandler(new AuthenticationError(), req, res);
   }
+  
   const idToken = req.header("Authorization").replace("Bearer ", "");
   let Uid = "";
   admin
@@ -100,6 +101,7 @@ const checkClaimParticipant = (req, res, next) => {
     .auth()
     .verifyIdToken(idToken)
     .then((claims) => {
+      console.log(claims)
       if (claims.organiser === true) {
         return errorHandler(new LoginNotAllowedError(), req, res);
       }
@@ -119,6 +121,7 @@ const setClaimOrganiser = (req, res) => {
   ) {
     return errorHandler(new AuthenticationError(), req, res);
   }
+  
   const idToken = req.header("Authorization").replace("Bearer ", "");
   let Uid = "";
   admin
